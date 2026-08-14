@@ -276,33 +276,50 @@ h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; line-height: 1.1
 
 /* ---------- Hero ---------- */
 .hero { position: relative; background: var(--deep); overflow: hidden; }
-.hero-media { position: relative; height: clamp(560px, 84vh, 880px); }
+
+/* Media is a background layer behind BOTH the copy and the roles strip, so the
+   copy can bottom-align in normal flow instead of dodging absolute siblings. */
+.hero-media { position: absolute; inset: 0; z-index: 0; }
 .hero-video {
   width: 100%; height: 100%; object-fit: cover; object-position: center;
   display: block; background: var(--deep);
 }
-/* Scrim: keeps the headline legible over a moving image, weighted to the left
-   where the copy sits and where this footage happens to be emptiest. */
 .hero-media::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: linear-gradient(100deg, rgba(16,12,10,.82) 0%, rgba(16,12,10,.5) 44%, rgba(16,12,10,.1) 100%);
+  background:
+    linear-gradient(to top, rgba(14,10,9,.86) 0%, rgba(14,10,9,.34) 42%, rgba(14,10,9,0) 70%),
+    linear-gradient(100deg, rgba(14,10,9,.72) 0%, rgba(14,10,9,.3) 46%, rgba(14,10,9,0) 82%);
 }
-.hero-body { position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; pointer-events: none; }
-.hero-body .wrap { width: 100%; }
-.hero-copy { max-width: 680px; color: #fff; pointer-events: auto; }
-.hero-copy .eyebrow { color: var(--gold); }
-.hero-copy h1 { color: #fff; margin: 22px 0 22px; font-size: clamp(34px, 4.3vw, 60px); line-height: 1.08; letter-spacing: -.02em; }
-.hero-copy p { font-size: var(--fs-md); color: rgba(255,255,255,.82); max-width: 42ch; line-height: 1.85; font-weight: 300; }
-.hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px; }
+
+/* Bottom-left: the copy settles on the floor of the frame rather than floating
+   in the middle of it — the standard fashion-house hero composition. */
+.hero-body {
+  position: relative; z-index: 2;
+  min-height: clamp(560px, 84vh, 880px);
+  display: flex; align-items: flex-end;
+  padding-bottom: clamp(52px, 7vh, 92px);
+}
+.hero-body .wrap { width: 100%; position: relative; }
+.hero-copy { max-width: 540px; color: #fff; }
+
+.hero-rule { display: block; width: 54px; height: 1px; background: var(--gold); margin-bottom: 26px; opacity: .9; }
+.hero-copy .eyebrow { color: var(--gold); font-size: 9.5px; letter-spacing: .4em; }
+.hero-copy h1 {
+  color: #fff; margin: 20px 0 20px;
+  font-size: clamp(29px, 3.1vw, 46px); line-height: 1.14; letter-spacing: -.012em; font-weight: 400;
+}
+.hero-copy p { font-size: 14.5px; color: rgba(255,255,255,.74); max-width: 40ch; line-height: 1.85; font-weight: 300; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+
 .hero-scroll {
-  position: absolute; right: var(--gut); bottom: 110px; z-index: 3; color: rgba(255,255,255,.6);
-  font-size: 9.5px; letter-spacing: .26em; text-transform: uppercase;
+  position: absolute; right: 0; bottom: 6px; color: rgba(255,255,255,.5);
+  font-size: 9px; letter-spacing: .3em; text-transform: uppercase;
   display: flex; align-items: center; gap: 12px;
 }
-.hero-scroll::after { content: ""; width: 52px; height: 1px; background: currentColor; }
+.hero-scroll::after { content: ""; width: 46px; height: 1px; background: currentColor; }
 
 /* Role-based entry strip, layered on the hero foot */
-.roles { position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(255,255,255,.16); }
+.roles { position: relative; z-index: 3; display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(255,255,255,.16); }
 .role {
   padding: 22px 28px; color: #fff; display: flex; align-items: center; justify-content: space-between; gap: 14px;
   background: rgba(16,12,10,.34); backdrop-filter: blur(8px); transition: background .5s var(--ease);
@@ -1084,7 +1101,7 @@ select.sel:hover { border-color: var(--ink); }
   .svc-grid, .rev-grid, .store-grid { grid-template-columns: 1fr 1fr; }
   .rev-grid > :nth-child(3) { display: none; }
   .roles { grid-template-columns: 1fr 1fr; }
-  .role:nth-child(3) { display: none; }
+  .role:nth-child(3) { grid-column: 1 / -1; border-left: none; border-top: 1px solid rgba(255,255,255,.16); }
   .events { grid-template-columns: repeat(2, 1fr); }
   .closet-stats { grid-template-columns: repeat(2, 1fr); }
   .appt-modes { grid-template-columns: 1fr; }
@@ -1112,11 +1129,12 @@ select.sel:hover { border-color: var(--ink); }
   .rev-grid > :nth-child(3) { display: block; }
   .ugc { grid-template-columns: repeat(3, 1fr); }
   .section-head { flex-direction: column; align-items: flex-start; gap: 18px; margin-bottom: 32px; }
-  .hero-media { height: 78vh; min-height: 540px; }
+  .hero-body { min-height: 72vh; }
   .hero-scroll { display: none; }
   .roles { grid-template-columns: 1fr; }
   .role { padding: 15px 18px; }
-  .role:nth-child(3) { display: flex; }
+  .role + .role { border-left: none; border-top: 1px solid rgba(255,255,255,.16); }
+  .role:nth-child(3) { grid-column: auto; }
   .rv-summary { grid-template-columns: 1fr; gap: 30px; padding: 28px; text-align: center; }
   .footer-top { grid-template-columns: 1fr 1fr; gap: 34px; padding-block: 52px 38px; }
   .footer-brand { grid-column: 1 / -1; }

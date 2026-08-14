@@ -132,6 +132,24 @@ console.log('\n── index.html ──');
   ok('hero video is under 4 MB',
     fs.statSync(path.join(ROOT, 'assets/video/hero-bridal.mp4')).size < 4 * 1024 * 1024,
     Math.round(fs.statSync(path.join(ROOT, 'assets/video/hero-bridal.mp4')).size / 1024) + ' KB');
+
+  // Hero composition: copy settles bottom-left, roles sit in flow beneath it.
+  ok('hero copy is bottom-aligned',
+    w.getComputedStyle(d.querySelector('.hero-body')).alignItems === 'flex-end',
+    w.getComputedStyle(d.querySelector('.hero-body')).alignItems);
+  ok('roles strip is in normal flow, not overlapping the copy',
+    w.getComputedStyle(d.querySelector('.roles')).position !== 'absolute',
+    w.getComputedStyle(d.querySelector('.roles')).position);
+  ok('hero media is the background layer',
+    w.getComputedStyle(d.querySelector('.hero-media')).position === 'absolute');
+  ok('hero headline is smaller than the page display scale', (() => {
+    const cssText = fs.readFileSync(path.join(ROOT, 'assets/css/style.css'), 'utf8');
+    const h1 = /\.hero-copy h1 \{[^}]*font-size: clamp\([^,]+,[^,]+,\s*(\d+)px\)/.exec(cssText);
+    const d1 = /\.d1 \{ font-size: clamp\([^,]+,[^,]+,\s*(\d+)px\)/.exec(cssText);
+    return h1 && d1 && +h1[1] < +d1[1];
+  })());
+  ok('hero has an editorial rule above the eyebrow', !!d.querySelector('.hero-copy .hero-rule'));
+  ok('scroll cue lives inside the hero body', !!d.querySelector('.hero-body .hero-scroll'));
   ok('USP strip = 5 items', d.querySelectorAll('.usp-item').length === 5, d.querySelectorAll('.usp-item').length);
   ok('trust strip leads with Empowering Weavers', /empowering weavers/i.test(d.querySelector('.usp-item').textContent));
   ok('no static heritage chip in the utility bar', !/est\. 1994/i.test(d.querySelector('.announce').textContent),

@@ -68,7 +68,7 @@ compare-at/MRP prices, and stock states. Stock was deliberately rebalanced — t
 
 ## Tests
 
-219 assertions driving the real pages in a headless DOM — rendering, cart maths, filter
+225 assertions driving the real pages in a headless DOM — rendering, cart maths, filter
 intersection, sort ordering, URL sync, gallery, pincode, sold-out state, persistence, plus
 computed-style guards that catch sized boxes collapsing to `display:inline` and icons
 falling back to opaque black at unbounded size.
@@ -87,7 +87,7 @@ assets/css/style.css      design tokens + all components
 assets/video/             hero-bridal.mp4 (H.264 1080p, 2.5 MB) + poster jpg
 assets/js/data.js         75-product catalogue
 assets/js/app.js          site chrome, cart, wishlist, search, quick view
-test/smoke.js             219 assertions (offline)
+test/smoke.js             225 assertions (offline)
 test/links.js             image URL checker (network)
 ```
 
