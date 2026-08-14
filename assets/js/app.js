@@ -235,20 +235,49 @@
     return `
     <div class="scrim" id="scrim"></div>
 
-    <!-- Mobile menu -->
+    <!-- Mobile menu. Carries everything the small-screen header and utility bar
+         drop, so nothing becomes unreachable below 1024px. -->
     <aside class="drawer drawer--left" id="menuDrawer" aria-label="Menu" aria-hidden="true">
-      <div class="drawer-head"><h3>Menu</h3><button class="close-x" data-close aria-label="Close">${ico('x')}</button></div>
+      <div class="drawer-head">
+        <a class="logo logo--drawer" href="index.html"><img src="assets/images/kaylogo.png" alt="Kay the Fashion Bay" width="240" height="129"></a>
+        <button class="close-x" data-close aria-label="Close menu">${ico('x')}</button>
+      </div>
       <div class="drawer-body">
-        <ul class="stack" style="--s:0">
+        <nav class="mnav" aria-label="Mobile">
           ${['Sarees', 'Lehengas', 'Festive Wear'].map(k => `
-            <li><details class="fgroup"><summary>${k} ${ico('down')}</summary><div class="fgroup-body">
-              ${MEGA[k].cols[0][1].map(i => `<a href="collection.html?q=${encodeURIComponent(i)}" style="color:var(--muted);font-size:14px">${esc(i)}</a>`).join('')}
-            </div></details></li>`).join('')}
-          ${[['Bridal', 'collection.html?c=Bridal', ''], ['Appointments', 'appointments.html', ''],
-             ['Wedding Closet', 'closet.html', ''], ['Sale', 'collection.html?sale=1', 'color:var(--wine)'],
-             ['Our Stores', 'index.html#stores', '']].map(([t, u, st]) =>
-            `<li class="fgroup"><a href="${u}" style="display:block;font-size:11px;letter-spacing:.18em;text-transform:uppercase;${st}">${t}</a></li>`).join('')}
-        </ul>
+            <details class="mnav-group">
+              <summary>${esc(k)} ${ico('down')}</summary>
+              <div class="mnav-sub">
+                ${MEGA[k].cols[0][1].map(i =>
+                  `<a href="collection.html?q=${encodeURIComponent(i)}">${esc(i)}</a>`).join('')}
+                <a href="${MEGA[k].card.href}" class="mnav-all">View all ${esc(k.toLowerCase())} ${ico('right')}</a>
+              </div>
+            </details>`).join('')}
+
+          <a class="mnav-link" href="collection.html?c=Bridal">Bridal ${ico('right')}</a>
+          <a class="mnav-link mnav-link--sale" href="collection.html?sale=1">Sale ${ico('right')}</a>
+
+          <div class="mnav-sec">
+            <h5>Concierge</h5>
+            <a href="appointments.html">Book an appointment</a>
+            <a href="appointments.html?mode=video">Video call styling</a>
+            <a href="closet.html">My Wedding Closet</a>
+            <a href="index.html#stores">Our stores</a>
+            <a href="index.html#story">Our story</a>
+            <a href="#track">Track my order</a>
+          </div>
+
+          <div class="mnav-contact">
+            <a href="tel:+914442155740">${ico('phone')}+91 44 4215 5740</a>
+            <a href="mailto:info@kayfashions.in">${ico('mail')}info@kayfashions.in</a>
+            <div class="mnav-social">
+              <a href="https://instagram.com/kay_annanagar" aria-label="Instagram">${ico('ig')}</a>
+              <a href="https://facebook.com/kayfashions" aria-label="Facebook">${ico('fb')}</a>
+              <a href="#youtube" aria-label="YouTube">${ico('yt')}</a>
+              <a href="#pinterest" aria-label="Pinterest">${ico('pin2')}</a>
+            </div>
+          </div>
+        </nav>
       </div>
       <div class="drawer-foot">
         <a class="btn btn--block" href="https://wa.me/919884261611">${ico('wa')} Chat with a stylist</a>

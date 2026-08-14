@@ -1042,6 +1042,68 @@ select.sel:hover { border-color: var(--ink); }
 .ev-opt svg { width: 15px; height: 15px; stroke: var(--wine); opacity: 0; transition: opacity .3s; }
 .ev-opt.on svg { opacity: 1; }
 
+/* ==========================================================================
+   Mobile navigation drawer
+   Everything the small-screen header and utility bar drop lives here, at
+   thumb-sized tap targets (56px rows, 44px minimum on sub-links).
+   ========================================================================== */
+.logo--drawer { justify-self: start; }
+.logo--drawer img { width: 108px; }
+
+.mnav { display: flex; flex-direction: column; }
+
+.mnav-group { border-bottom: 1px solid var(--line); }
+.mnav-group > summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  min-height: 58px; padding: 8px 0; cursor: pointer; list-style: none;
+  font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink);
+}
+.mnav-group > summary::-webkit-details-marker { display: none; }
+.mnav-group > summary svg { width: 12px; height: 12px; stroke: var(--muted); transition: transform .4s var(--ease); }
+.mnav-group[open] > summary svg { transform: rotate(180deg); }
+.mnav-group[open] > summary { color: var(--wine); }
+
+.mnav-sub { display: flex; flex-direction: column; padding: 2px 0 18px; }
+.mnav-sub a {
+  padding: 12px 0 12px 16px; min-height: 44px; display: flex; align-items: center;
+  font-size: 14.5px; font-weight: 300; color: var(--muted);
+  border-left: 1px solid var(--line); transition: color .3s, border-color .3s;
+}
+.mnav-sub a:hover, .mnav-sub a:active { color: var(--wine); border-left-color: var(--wine); }
+.mnav-all { gap: 8px; color: var(--ink) !important; letter-spacing: .06em; }
+.mnav-all svg { width: 12px; height: 12px; }
+
+.mnav-link {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  min-height: 58px; padding: 8px 0; border-bottom: 1px solid var(--line);
+  font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink);
+}
+.mnav-link svg { width: 12px; height: 12px; stroke: var(--faint); }
+.mnav-link:hover { color: var(--wine); }
+.mnav-link--sale { color: var(--wine); }
+
+.mnav-sec { padding-top: 28px; }
+.mnav-sec h5 { font-family: var(--sans); font-size: 9.5px; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: var(--faint); margin-bottom: 10px; }
+.mnav-sec a {
+  display: flex; align-items: center; min-height: 46px; padding: 8px 0;
+  font-size: 14.5px; font-weight: 300; color: var(--ink-2); transition: color .3s;
+}
+.mnav-sec a:hover { color: var(--wine); }
+
+.mnav-contact { margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--line); }
+.mnav-contact a {
+  display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 6px 0;
+  font-size: 13.5px; font-weight: 300; color: var(--ink-2);
+}
+.mnav-contact svg { width: 15px; height: 15px; stroke: var(--gold); }
+.mnav-social { display: flex; gap: 10px; margin-top: 18px; }
+.mnav-social a {
+  width: 44px; height: 44px; border: 1px solid var(--line);
+  display: grid; place-items: center; transition: all .35s;
+}
+.mnav-social a:hover { background: var(--ink); border-color: var(--ink); color: #fff; }
+.mnav-social svg { width: 16px; height: 16px; }
+
 /* ---------- Mobile bottom nav ---------- */
 .mobnav { display: none; }
 
@@ -1077,7 +1139,10 @@ select.sel:hover { border-color: var(--ink); }
 @media (max-width: 1024px) {
   .nav, .header-actions .desk-only { display: none; }
   .burger { display: grid; place-items: center; }
-  .header-inner { grid-template-columns: auto 1fr auto; }
+  /* Keep the symmetrical grid so the logo stays optically centred once
+     the nav is swapped for a burger. */
+  .header-inner { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); }
+  .logo img { width: 118px; }
   .coll-layout { grid-template-columns: 1fr; gap: 0; }
   .filters { display: none; }
   .filter-fab {
@@ -1110,10 +1175,15 @@ select.sel:hover { border-color: var(--ink); }
 @media (max-width: 760px) {
   :root { --header-h: 62px; --gut: 16px; --section: 60px; --bar-h: 36px; }
   body { padding-bottom: 62px; }
-  .logo b { font-size: 25px; }
-  .logo span { font-size: 7px; letter-spacing: .38em; text-indent: .38em; }
-  .announce .wrap { gap: 10px; }
-  .announce-side { display: none; }
+  /* Utility links and socials move into the menu drawer; the bar keeps
+     only the rotating message so it reads at 36px tall. */
+  .announce .wrap { grid-template-columns: 1fr; gap: 0; }
+  .announce-links, .announce-social { display: none; }
+  .announce-item { font-size: 9.5px; letter-spacing: .14em; }
+  /* Search and wishlist live in the bottom tab bar on phones, so the
+     header carries only burger | logo | bag and stays balanced. */
+  .header-actions #openSearch, .header-actions #openWish { display: none; }
+  .logo img { width: 104px; }
   .pgrid, .pgrid--3 { grid-template-columns: repeat(2, 1fr); gap: 34px 12px; }
   .cat-grid, .cat-grid--6 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   /* categories become an edge-to-edge swipe rail — no ragged final row */

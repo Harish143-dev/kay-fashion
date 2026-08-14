@@ -221,6 +221,48 @@ console.log('\n── index.html ──');
   ok('stores = 3', d.querySelectorAll('#storeGrid .store').length === 3);
   ok('footer rendered', !!d.querySelector('.footer-bottom .pay'));
   ok('mobile bottom nav', d.querySelectorAll('.mobnav a').length === 5);
+
+  // ── Mobile navigation ──────────────────────────────────────────────
+  // Below 1024px the desktop nav is replaced by a burger, and below 760px the
+  // utility bar hides its links and socials. Everything they drop must still be
+  // reachable from the drawer, or those destinations become orphaned on phones.
+  const drawer = d.querySelector('#menuDrawer');
+  ok('menu drawer exists with a close control',
+    !!drawer && !!drawer.querySelector('[data-close]'));
+  ok('drawer carries the 3 expandable categories',
+    drawer.querySelectorAll('.mnav-group').length === 3);
+  ok('each category expands to real sub-links plus a "view all"',
+    [...drawer.querySelectorAll('.mnav-group')].every(g =>
+      g.querySelectorAll('.mnav-sub a').length >= 4 && !!g.querySelector('.mnav-all')));
+  ok('drawer has Bridal and Sale as direct links',
+    !!drawer.querySelector('a[href="collection.html?c=Bridal"]') &&
+    !!drawer.querySelector('.mnav-link--sale'));
+
+  // The real risk: a destination that exists only in the desktop utility bar.
+  const utilHrefs = [...d.querySelectorAll('.announce-links a')].map(a => a.getAttribute('href'));
+  const drawerHrefs = [...drawer.querySelectorAll('a')].map(a => a.getAttribute('href'));
+  const orphaned = utilHrefs.filter(h => !drawerHrefs.includes(h));
+  ok('every utility-bar destination is reachable from the drawer',
+    orphaned.length === 0, 'orphaned on mobile: ' + orphaned.join(', '));
+  ok('socials hidden from the mobile bar are in the drawer',
+    drawer.querySelectorAll('.mnav-social a').length === 4);
+  ok('drawer surfaces phone and email', !!drawer.querySelector('a[href^="tel:"]') && !!drawer.querySelector('a[href^="mailto:"]'));
+
+  // Tap targets: 44px is the accessibility floor for touch.
+  const smallTargets = [...drawer.querySelectorAll('.mnav-group > summary, .mnav-link, .mnav-sub a, .mnav-sec a, .mnav-social a')]
+    .filter(el => {
+      const mh = parseFloat(w.getComputedStyle(el).minHeight);
+      return !Number.isFinite(mh) || mh < 44;
+    });
+  ok('every drawer tap target is at least 44px tall',
+    smallTargets.length === 0,
+    smallTargets.slice(0, 3).map(e => e.getAttribute('class') || e.tagName).join(', '));
+
+  ok('drawer no longer borrows the filter-panel styling',
+    drawer.querySelectorAll('.fgroup').length === 0);
+  ok('drawer markup carries no inline style attributes',
+    drawer.querySelectorAll('[style]').length === 0,
+    drawer.querySelectorAll('[style]').length + ' found');
   ok('every card carries a readiness label',
     [...d.querySelectorAll('.card')].every(c => c.querySelector('.card-ready')) &&
     d.querySelectorAll('.card-ready').length > 0);
