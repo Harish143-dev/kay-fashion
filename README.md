@@ -63,7 +63,7 @@ compare-at/MRP prices, and stock states. Stock was deliberately rebalanced — t
 
 ## Tests
 
-205 assertions driving the real pages in a headless DOM — rendering, cart maths, filter
+211 assertions driving the real pages in a headless DOM — rendering, cart maths, filter
 intersection, sort ordering, URL sync, gallery, pincode, sold-out state, persistence, plus
 computed-style guards that catch sized boxes collapsing to `display:inline` and icons
 falling back to opaque black at unbounded size.
@@ -81,7 +81,7 @@ index.html  collection.html  product.html  appointments.html  closet.html
 assets/css/style.css      design tokens + all components
 assets/js/data.js         75-product catalogue
 assets/js/app.js          site chrome, cart, wishlist, search, quick view
-test/smoke.js             205 assertions (offline)
+test/smoke.js             211 assertions (offline)
 test/links.js             image URL checker (network)
 ```
 

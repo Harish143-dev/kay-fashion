@@ -70,6 +70,35 @@ const click = (w, el) => el && el.dispatchEvent(new w.MouseEvent('click', { bubb
 const change = (w, el) => el && el.dispatchEvent(new w.Event('change', { bubbles: true }));
 const input = (w, el) => el && el.dispatchEvent(new w.Event('input', { bubbles: true }));
 
+/* ═══════════════ CATALOGUE INTEGRITY ═══════════════ */
+console.log('\n── data.js ──');
+{
+  const w0 = {};
+  new Function('window', fs.readFileSync(path.join(ROOT, 'assets/js/data.js'), 'utf8'))(w0);
+  const P0 = w0.PRODUCTS;
+  ok('catalogue loads', Array.isArray(P0) && P0.length === 75, P0 && P0.length);
+
+  // Mojibake guard. Their Shopify data stores &nbsp; already mis-decoded as
+  // 'Â'+NBSP, and reading it with Windows' default cp1252 stacked a second layer
+  // ('Ã' '‚' 'Â' NBSP). Both are repaired; this fails if either creeps back.
+  const MOJI = /[ÃÂ][-¿–—‘’‚“”€]|â€|Ã‚|�/;
+  const dirty = [];
+  P0.forEach(p => Object.entries(p).forEach(([k, v]) => {
+    if (typeof v === 'string' && MOJI.test(v)) dirty.push(`${p.handle}.${k}`);
+  }));
+  ok('no mojibake anywhere in the catalogue', dirty.length === 0, dirty.slice(0, 4).join(', '));
+
+  const stray = [];
+  P0.forEach(p => Object.entries(p).forEach(([k, v]) => {
+    if (typeof v === 'string' && /[ ÂÃ]/.test(v)) stray.push(`${p.handle}.${k}`);
+  }));
+  ok('no stray NBSP / Â / Ã survivors', stray.length === 0, stray.slice(0, 4).join(', '));
+
+  ok('descriptions read as clean prose',
+    P0.filter(p => p.desc).every(p => !/\s:|\.[A-Z]/.test(p.desc)),
+    P0.filter(p => p.desc && /\s:|\.[A-Z]/.test(p.desc)).slice(0, 2).map(p => p.handle).join(', '));
+}
+
 /* ═══════════════ HOMEPAGE ═══════════════ */
 console.log('\n── index.html ──');
 {

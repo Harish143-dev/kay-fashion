@@ -26,7 +26,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/UntitledSession1038.jpg?v=1601549411&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/UntitledSession1040.jpg?v=1601549411&width=900"
 ],
-"desc": "Product DetailÃ‚Â : Pale pinkÃ‚Â with thread and pearlsÃ‚Â work all over.NeckÃ‚Â : High neck embellished with stone work.SleevesÃ‚Â : It comes with full sleeves.Ã‚Â FabricÃ‚Â : It is net fabric.",
+"desc": "Product Detail: Pale pink with thread and pearls work all over. Neck: High neck embellished with stone work. Sleeves: It comes with full sleeves. Fabric: It is net fabric.",
 "available": true,
 "rating": 4.6,
 "reviews": 66,
@@ -260,7 +260,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/UntitledSession12138.jpg?v=1596779702&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/UntitledSession12140.jpg?v=1596779702&width=900"
 ],
-"desc": "CholiÃ‚Â :Ã‚Â Navy blue choli with checked pattern in bead and zari work all over.\nLehengaÃ‚Â : With the same embellishment in floral pattern on each kali pattern and intricate work on the border.\nWith a zipper and tie-knot type.\nDupattaÃ‚Â : Netted dupatta with zari work on the borders.\nNeckÃ‚Â : V neckline on the front and a deep curved V neck with the back open.",
+"desc": "Choli: Navy blue choli with checked pattern in bead and zari work all over.\nLehenga: With the same embellishment in floral pattern on each kali pattern and intricate work on the border.\nWith a zipper and tie-knot type.\nDupatta: Netted dupatta with zari work on the borders.\nNeck: V neckline on the front and a deep curved V neck with the back open.",
 "available": true,
 "rating": 4.4,
 "reviews": 76,
@@ -294,7 +294,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/UntitledSession2101_1.jpg?v=1601641299&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/UntitledSession2103_1.jpg?v=1601641299&width=900"
 ],
-"desc": "Product Detail: Organza lehenga with beads and feathers motifs.DupattaÃ‚Â : Net dupatta with beads work on border.Ã‚Â NeckÃ‚Â : High neck with beads and pearl work.",
+"desc": "Product Detail: Organza lehenga with beads and feathers motifs. Dupatta: Net dupatta with beads work on border. Neck: High neck with beads and pearl work.",
 "available": true,
 "rating": 4.8,
 "reviews": 24,
@@ -634,7 +634,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/KSY391356_2.jpg?v=1634101450&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/KSY391356_3.jpg?v=1634101450&width=900"
 ],
-"desc": "Border :Ã‚Â Red and golden thread weave border.\nPallu :Ã‚Â Ikkath print pallu with golden thread weavesÃ‚Â Fabric :Ã‚Â Patola SilkBlouse :Ã‚Â Unstitched red blouse with thread weaves.Other DetailsÃ‚Â Saree Length :Ã‚Â 6.3 meters (With Blouse)Saree Width :Ã‚Â 44 inchesÃ‚Â Ã‚",
+"desc": "Border: Red and golden thread weave border.\nPallu: Ikkath print pallu with golden thread weaves Fabric: Patola SilkBlouse: Unstitched red blouse with thread weaves. Other Details Saree Length: 6.3 meters (With Blouse)Saree Width: 44 inches",
 "available": true,
 "rating": 4.2,
 "reviews": 49,
@@ -832,7 +832,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/KSY404718_2.jpg?v=1634105059&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/KSY404718_3.jpg?v=1634105059&width=900"
 ],
-"desc": "Border :Ã‚Â Banarasi goldÃ‚Â geometricÃ‚Â borderPallu :Ã‚Â Self pallu with gold and red thread weavesFabric :Ã‚Â Soft silkÃ‚Â Blouse :Ã‚Â Unstitched red self blouse with thread weaves.Other DetailsÃ‚Â Saree Length :Ã‚Â 6.3 meters (With Blouse)Saree Width :Ã‚Â 44 inches",
+"desc": "Border: Banarasi gold geometric borderPallu: Self pallu with gold and red thread weavesFabric: Soft silk Blouse: Unstitched red self blouse with thread weaves. Other Details Saree Length: 6.3 meters (With Blouse)Saree Width: 44 inches",
 "available": true,
 "rating": 4.5,
 "reviews": 67,
@@ -1037,7 +1037,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1921.jpg?v=1672207878&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1924.jpg?v=1672207879&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor length Georgette Gown with sideÃ‚Â slitÃ‚Â Embroidery and sequence work with palazzo pant\nNeckÃ‚Â :Ã‚Â RoundÃ‚Â neck\nSleeveÃ‚Â :Ã‚Â ElbowÃ‚Â sleeves\nDupattaÃ‚Â : Georgette fabric",
+"desc": "Top: Floor length Georgette Gown with side slit Embroidery and sequence work with palazzo pant\nNeck: Round neck\nSleeve: Elbow sleeves\nDupatta: Georgette fabric",
 "available": true,
 "rating": 5.0,
 "reviews": 54,
@@ -1072,7 +1072,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1254.jpg?v=1672207746&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1259.jpg?v=1672207746&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor length Georgette Gown with sequence Embroidery work\nNeckÃ‚Â : Round neck\nSleeveÃ‚Â :Ã‚Â Full Sleeves\nDupattaÃ‚Â : With Over coat (Indowestern)",
+"desc": "Top: Floor length Georgette Gown with sequence Embroidery work\nNeck: Round neck\nSleeve: Full Sleeves\nDupatta: With Over coat (Indowestern)",
 "available": true,
 "rating": 4.2,
 "reviews": 28,
@@ -1107,7 +1107,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A0998-Copy.jpg?v=1672208719&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A0999-Copy.jpg?v=1672208718&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor length Georgette Gown with sideÃ‚Â slitÃ‚Â Embroidery and sequence work with palazzo pant\nNeckÃ‚Â :Ã‚Â RoundÃ‚Â neck\nSleeveÃ‚Â :Ã‚Â ElbowÃ‚Â sleeves\nDupattaÃ‚Â : Georgette fabric",
+"desc": "Top: Floor length Georgette Gown with side slit Embroidery and sequence work with palazzo pant\nNeck: Round neck\nSleeve: Elbow sleeves\nDupatta: Georgette fabric",
 "available": true,
 "rating": 4.4,
 "reviews": 84,
@@ -1140,7 +1140,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/4_fb85e45b-7723-44da-931c-fad75c30fe80.jpg?v=1609237237&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/4_3_ccba1b18-2414-42bd-a508-1e61b186120f.jpg?v=1609237240&width=900"
 ],
-"desc": "Motifs :Ã‚Â Zig-Zac Leheriya printsÃ‚Â all over the saree.Border :Ã‚Â Self border with antique zari weaves.Pallu :Ã‚Â Self pallu with leheriya printsFabric :Ã‚Â Organza fabric.Blouse :Ã‚Â It is unstitched self blouse with zari border.Other DetailsÃ‚Â Saree Length :Ã‚Â 6.3 meters (With Blouse)Saree Width :Ã‚Â 44 inches",
+"desc": "Motifs: Zig-Zac Leheriya prints all over the saree. Border: Self border with antique zari weaves. Pallu: Self pallu with leheriya printsFabric: Organza fabric. Blouse: It is unstitched self blouse with zari border. Other Details Saree Length: 6.3 meters (With Blouse)Saree Width: 44 inches",
 "available": true,
 "rating": 4.3,
 "reviews": 48,
@@ -1176,7 +1176,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1128.jpg?v=1672208223&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1143.jpg?v=1672208223&width=900"
 ],
-"desc": "TopÃ‚Â : lehenga choliÃ‚Â withÃ‚Â embroidery and sequence work\nNeckÃ‚Â : U neck\nSleeveÃ‚Â : Elbow sleeves\nDupattaÃ‚Â :Ã‚Â Overcoat (NO dupatta)",
+"desc": "Top: lehenga choli with embroidery and sequence work\nNeck: U neck\nSleeve: Elbow sleeves\nDupatta: Overcoat (NO dupatta)",
 "available": true,
 "rating": 4.5,
 "reviews": 41,
@@ -1246,7 +1246,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/2_ac9f5276-7478-4bee-89fb-06608fdc2b1c.jpg?v=1595575759&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/3_1387f44e-eaa0-46a4-8f8a-16274ef91892.jpg?v=1595575759&width=900"
 ],
-"desc": "MotifsÃ‚Â : Pastel peach saree with floral thread embroidery all over.\nBorderÃ‚Â : With the broad intricate design on the zari border.\nPalluÃ‚Â : With the same floral design on the pallu.\nFabricÃ‚Â : It's organza fabric.\nBlouseÃ‚Â : It is unstitched and in the same color with zari border all over.\nOther DetailsÃ‚Â \nSaree LengthÃ‚Â : 6.3 meters (With Blouse)\nSaree WidthÃ‚Â : 44 inches",
+"desc": "Motifs: Pastel peach saree with floral thread embroidery all over.\nBorder: With the broad intricate design on the zari border.\nPallu: With the same floral design on the pallu.\nFabric: It's organza fabric.\nBlouse: It is unstitched and in the same color with zari border all over.\nOther Details \nSaree Length: 6.3 meters (With Blouse)\nSaree Width: 44 inches",
 "available": true,
 "rating": 4.9,
 "reviews": 61,
@@ -1280,7 +1280,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1822.jpg?v=1672205350&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1823.jpg?v=1672205350&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor length Georgette Gown withÃ‚Â Ã‚Â Embroidery with plastic mirror work\nNeckÃ‚Â :Ã‚Â High neck\nSleeveÃ‚Â : Full sleeve gown\nDupattaÃ‚Â : Georgette fabric",
+"desc": "Top: Floor length Georgette Gown with Embroidery with plastic mirror work\nNeck: High neck\nSleeve: Full sleeve gown\nDupatta: Georgette fabric",
 "available": true,
 "rating": 5.0,
 "reviews": 83,
@@ -1315,7 +1315,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/KSY391650_2.jpg?v=1633073682&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/KSY391650_3.jpg?v=1633073682&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor length georgette anarkali with embroidery on the yoke.Ã‚Â \nNeckÃ‚Â : V-neck withÃ‚Â thread work & mirror work floral motifs\nSleeveÃ‚Â : Full slevees with embroideryÃ‚Â \nBottomÃ‚Â : Same solid color bottom\nDupattaÃ‚Â :Ã‚Â Net dupatta with borer and stones all over",
+"desc": "Top: Floor length georgette anarkali with embroidery on the yoke. \nNeck: V-neck with thread work & mirror work floral motifs\nSleeve: Full slevees with embroidery \nBottom: Same solid color bottom\nDupatta: Net dupatta with borer and stones all over",
 "available": true,
 "rating": 4.9,
 "reviews": 39,
@@ -1351,7 +1351,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1784.jpg?v=1672210335&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1801.jpg?v=1672210335&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor length Georgette Gown withÃ‚Â  Plastic mirrorÃ‚Â work\nNeckÃ‚Â : U neck\nSleeveÃ‚Â : short sleeve gown\nDupattaÃ‚Â :Ã‚Â Net fabricÃ‚",
+"desc": "Top: Floor length Georgette Gown with Plastic mirror work\nNeck: U neck\nSleeve: short sleeve gown\nDupatta: Net fabric",
 "available": true,
 "rating": 4.5,
 "reviews": 14,
@@ -1386,7 +1386,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1752.jpg?v=1672208588&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1754.jpg?v=1672208588&width=900"
 ],
-"desc": "TopÃ‚Â : lehenga choliÃ‚Â withÃ‚Â Plastic mirror work\nNeckÃ‚Â : U neck\nSleeveÃ‚Â : short sleeveÃ‚Â \nDupattaÃ‚Â :Ã‚Â GeorgetteÃ‚Â fabric",
+"desc": "Top: lehenga choli with Plastic mirror work\nNeck: U neck\nSleeve: short sleeve \nDupatta: Georgette fabric",
 "available": true,
 "rating": 4.3,
 "reviews": 42,
@@ -1421,7 +1421,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/KSY393223_2.jpg?v=1633076497&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/KSY393223_3.jpg?v=1633076497&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor length georgette anarkali with embroidery on the yoke.Ã‚Â \nNeckÃ‚Â : Sweetheart neck withÃ‚Â sequins, thread work & mirror workÃ‚Â \nSleeveÃ‚Â :Ã‚Â Sleeveless gown\nBottomÃ‚Â : Same solid color bottom\nDupattaÃ‚Â :Ã‚Â Net dupatta with borer and stones all over",
+"desc": "Top: Floor length georgette anarkali with embroidery on the yoke. \nNeck: Sweetheart neck with sequins, thread work & mirror work \nSleeve: Sleeveless gown\nBottom: Same solid color bottom\nDupatta: Net dupatta with borer and stones all over",
 "available": true,
 "rating": 4.8,
 "reviews": 44,
@@ -1455,7 +1455,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/KSY385277_2.jpg?v=1632307423&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/KSY385277_3.jpg?v=1632307423&width=900"
 ],
-"desc": "TopÃ‚Â : Pre-draped gown with rose gold stone work\nNeckÃ‚Â :Ã‚Â Boat neck with embellished stone workÃ‚Â \nBottomÃ‚Â : Same solid color bottom\nDupattaÃ‚Â : Attached predrape pallu wothe stone work on border",
+"desc": "Top: Pre-draped gown with rose gold stone work\nNeck: Boat neck with embellished stone work \nBottom: Same solid color bottom\nDupatta: Attached predrape pallu wothe stone work on border",
 "available": true,
 "rating": 4.6,
 "reviews": 70,
@@ -1490,7 +1490,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1856.jpg?v=1672210595&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1860.jpg?v=1672210595&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor length Georgette Gown withÃ‚Â Ã‚Â embroidery and sequence work\nNeckÃ‚Â :Ã‚Â V neck\nSleeveÃ‚Â : short sleeve gown\nDupattaÃ‚Â :Ã‚Â Net fabricÃ‚",
+"desc": "Top: Floor length Georgette Gown with embroidery and sequence work\nNeck: V neck\nSleeve: short sleeve gown\nDupatta: Net fabric",
 "available": true,
 "rating": 4.6,
 "reviews": 80,
@@ -1527,7 +1527,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1422.jpg?v=1672207567&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1433.jpg?v=1672207567&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor length Georgette Gown withÃ‚Â Ã‚Â embroidery and sequence work\nNeckÃ‚Â :Ã‚Â Round neck\nSleeveÃ‚Â :Ã‚Â Full sleeves\nDupattaÃ‚Â :Ã‚Â Net fabricÃ‚",
+"desc": "Top: Floor length Georgette Gown with embroidery and sequence work\nNeck: Round neck\nSleeve: Full sleeves\nDupatta: Net fabric",
 "available": true,
 "rating": 4.1,
 "reviews": 81,
@@ -1598,7 +1598,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1448.jpg?v=1672206613&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1466.jpg?v=1672206613&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor length georgette gown with embroidery and sequence workÃ‚Â \nNeckÃ‚Â : round neck\nSleeveÃ‚Â : short sleeveÃ‚Â Gown\nDupattaÃ‚Â :Ã‚Â Net fabric",
+"desc": "Top: Floor length georgette gown with embroidery and sequence work \nNeck: round neck\nSleeve: short sleeve Gown\nDupatta: Net fabric",
 "available": true,
 "rating": 4.9,
 "reviews": 77,
@@ -1635,7 +1635,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1398.jpg?v=1672207146&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1400.jpg?v=1672207146&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor lengthÃ‚Â Gown withÃ‚Â  sequence with embroideryÃ‚Â \nNeckÃ‚Â : DeepÃ‚Â neck\nSleeveÃ‚Â : short sleeveÃ‚Â Gown\nDupattaÃ‚Â :Ã‚Â Net fabric",
+"desc": "Top: Floor length Gown with sequence with embroidery \nNeck: Deep neck\nSleeve: short sleeve Gown\nDupatta: Net fabric",
 "available": true,
 "rating": 4.6,
 "reviews": 46,
@@ -1707,7 +1707,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1653.jpg?v=1672205888&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1662.jpg?v=1672205887&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor length Georgette Gown withÃ‚Â Ã‚Â Embroidery with plastic mirror work\nNeckÃ‚Â : RoundÃ‚Â neck\nSleeveÃ‚Â : short sleeve gown\nDupattaÃ‚Â : Georgette fabric",
+"desc": "Top: Floor length Georgette Gown with Embroidery with plastic mirror work\nNeck: Round neck\nSleeve: short sleeve gown\nDupatta: Georgette fabric",
 "available": true,
 "rating": 4.2,
 "reviews": 78,
@@ -1774,7 +1774,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/44_d8b76e6c-cc35-4ebc-9f93-1f9bbc595972.jpg?v=1609312322&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/44_3_455d5d22-5dfb-4638-804f-b3be8bc2e77d.jpg?v=1609312322&width=900"
 ],
-"desc": "MotifsÃ‚Â :Ã‚Â Embellished with threadÃ‚Â embroideryÃ‚Â motifs all over.BorderÃ‚Â : SilkÃ‚Â border.FabricÃ‚Â : Linen Silk fabric.\nBlouseÃ‚Â : It is unstitched self blouse withÃ‚Â embroidery workÃ‚Â and silkÃ‚Â border.\nOther DetailsÃ‚Â Saree LengthÃ‚Â : 6.3 meters (With Blouse)Saree WidthÃ‚Â : 44 inches.",
+"desc": "Motifs: Embellished with thread embroidery motifs all over. Border: Silk border. Fabric: Linen Silk fabric.\nBlouse: It is unstitched self blouse with embroidery work and silk border.\nOther Details Saree Length: 6.3 meters (With Blouse)Saree Width: 44 inches.",
 "available": true,
 "rating": 4.2,
 "reviews": 21,
@@ -1843,7 +1843,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1179.jpg?v=1672206201&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1186.jpg?v=1672206202&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor length Georgette Gown withÃ‚Â Ã‚Â Embroidery with sequence work\nNeckÃ‚Â :Ã‚Â Round neck\nSleeveÃ‚Â : short sleeve gown\nDupattaÃ‚Â :Ã‚Â NetÃ‚Â fabric",
+"desc": "Top: Floor length Georgette Gown with Embroidery with sequence work\nNeck: Round neck\nSleeve: short sleeve gown\nDupatta: Net fabric",
 "available": true,
 "rating": 4.2,
 "reviews": 14,
@@ -1945,7 +1945,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/42_e6342fb5-9a4c-4eed-a625-b542349bfd00.jpg?v=1609311831&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/42_3_79469e8a-2042-4e6a-b39a-e8612184ab33.jpg?v=1609311831&width=900"
 ],
-"desc": "MotifsÃ‚Â :Ã‚Â Embellished with threadÃ‚Â embroideryÃ‚Â motifs all over.BorderÃ‚Â : SilkÃ‚Â border.FabricÃ‚Â : Linen Silk fabric.\nBlouseÃ‚Â : It is unstitched self blouse withÃ‚Â embroidery workÃ‚Â and silkÃ‚Â border.\nOther DetailsÃ‚Â Saree LengthÃ‚Â : 6.3 meters (With Blouse)Saree WidthÃ‚Â : 44 inches.",
+"desc": "Motifs: Embellished with thread embroidery motifs all over. Border: Silk border. Fabric: Linen Silk fabric.\nBlouse: It is unstitched self blouse with embroidery work and silk border.\nOther Details Saree Length: 6.3 meters (With Blouse)Saree Width: 44 inches.",
 "available": true,
 "rating": 4.8,
 "reviews": 31,
@@ -2015,7 +2015,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1330_b337bd41-de78-40f0-ab27-7f5514a495f5.jpg?v=1672208890&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1338_7c17223b-23cb-471b-91ae-2023895fd9a5.jpg?v=1672208889&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â lehenga withÃ‚Â  KalamkariÃ‚Â Ã‚Â printÃ‚Â \nNeckÃ‚Â : round neck\nSleeveÃ‚Â : short sleeves\nDupattaÃ‚Â :Ã‚Â Net fabricÃ‚",
+"desc": "Top: lehenga with Kalamkari print \nNeck: round neck\nSleeve: short sleeves\nDupatta: Net fabric",
 "available": true,
 "rating": 4.9,
 "reviews": 50,
@@ -2051,7 +2051,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1099.jpg?v=1672210485&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1103.jpg?v=1672210485&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor length Georgette Gown with sideÃ‚Â slitÃ‚Â Embroidery and Plastic mirror work with palazzo pant\nNeckÃ‚Â :Ã‚Â Round neck\nSleeveÃ‚Â :Ã‚Â short sleeve\nDupattaÃ‚Â : Georgette fabric",
+"desc": "Top: Floor length Georgette Gown with side slit Embroidery and Plastic mirror work with palazzo pant\nNeck: Round neck\nSleeve: short sleeve\nDupatta: Georgette fabric",
 "available": true,
 "rating": 4.2,
 "reviews": 17,
@@ -2088,7 +2088,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1330.jpg?v=1672207325&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1338.jpg?v=1672207296&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor length chanderi silk anarkali with Kalamkari printÃ‚Â \nNeckÃ‚Â : round neck\nSleeveÃ‚Â : short sleeve Anarkali\nDupattaÃ‚Â :Ã‚Â Net fabric",
+"desc": "Top: Floor length chanderi silk anarkali with Kalamkari print \nNeck: round neck\nSleeve: short sleeve Anarkali\nDupatta: Net fabric",
 "available": true,
 "rating": 4.1,
 "reviews": 59,
@@ -2126,7 +2126,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1363.jpg?v=1672206978&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1366.jpg?v=1672206978&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor length chanderi silk anarkali withÃ‚Â  KalamkariÃ‚Â printÃ‚Â \nNeckÃ‚Â : round neck\nSleeveÃ‚Â : short sleeve Anarkali\nDupattaÃ‚Â :Ã‚Â Net fabricÃ‚",
+"desc": "Top: Floor length chanderi silk anarkali with Kalamkari print \nNeck: round neck\nSleeve: short sleeve Anarkali\nDupatta: Net fabric",
 "available": true,
 "rating": 4.7,
 "reviews": 71,
@@ -2163,7 +2163,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1296.jpg?v=1672205670&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1305.jpg?v=1672205671&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor length chanderi silk anarkali withÃ‚Â  KalamkariÃ‚Â printÃ‚Â \nNeckÃ‚Â : round neck\nSleeveÃ‚Â : short sleeve Anarkali\nDupattaÃ‚Â :Ã‚Â Net fabricÃ‚",
+"desc": "Top: Floor length chanderi silk anarkali with Kalamkari print \nNeck: round neck\nSleeve: short sleeve Anarkali\nDupatta: Net fabric",
 "available": true,
 "rating": 5.0,
 "reviews": 84,
@@ -2199,7 +2199,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/KSY254347_2.jpg?v=1590820331&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/KSY254347_4.jpg?v=1590820329&width=900"
 ],
-"desc": "TopÃ‚Â : Straight line sky blue kurti with placement of foil mirror work all over on the front.\nSleeveÃ‚Â : It has a 3/4th sleeve with the tuck pleat on the border.\nNeckÃ‚Â : It has a wide U neck embellished with .\nFabricÃ‚Â : It is linen satin fabric.Ã‚Â \nNote : The bottom shown in the image is for styling purpose.\nIT IS ONLY KURTI NO BOTTOM AVAILABLE",
+"desc": "Top: Straight line sky blue kurti with placement of foil mirror work all over on the front.\nSleeve: It has a 3/4th sleeve with the tuck pleat on the border.\nNeck: It has a wide U neck embellished with.\nFabric: It is linen satin fabric. \nNote: The bottom shown in the image is for styling purpose.\nIT IS ONLY KURTI NO BOTTOM AVAILABLE",
 "available": true,
 "rating": 4.3,
 "reviews": 33,
@@ -2269,7 +2269,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/KSY191781_1.jpg?v=1590753364&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/KSY191781_3.jpg?v=1590753362&width=900"
 ],
-"desc": "TopÃ‚Â : Straight line light peach kurti with placement of floral motif on the front bodice.\nInner kurti has a placement of line abstract in zari work.\nSleeveÃ‚Â : It has a 3/4th sleeve highlighted with brocade border.Ã‚Â \nNeckÃ‚Â : It has a boat neck highlighted with zari piping.\nFabricÃ‚Â : It is linen satin fabric.Ã‚Â \nNote : The bottom shown in the image is for styling purpose.\nIT IS ONLY KURTI NO BOTTOM AVAILABLE",
+"desc": "Top: Straight line light peach kurti with placement of floral motif on the front bodice.\nInner kurti has a placement of line abstract in zari work.\nSleeve: It has a 3/4th sleeve highlighted with brocade border. \nNeck: It has a boat neck highlighted with zari piping.\nFabric: It is linen satin fabric. \nNote: The bottom shown in the image is for styling purpose.\nIT IS ONLY KURTI NO BOTTOM AVAILABLE",
 "available": true,
 "rating": 4.4,
 "reviews": 36,
@@ -2302,7 +2302,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/14_21bd6fc5-918c-4d2f-83ef-a4b525f32f0b.jpg?v=1609240758&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/14_3_8b347e55-3bc4-45f8-b980-e5e106ee5bab.jpg?v=1609240765&width=900"
 ],
-"desc": "Motifs :Ã‚Â Embellished with silver zari and thread weaving all over.Border :Ã‚Â Self border with silver zari weaves.Fabric :Ã‚Â Banaras-Fancy-Crepe.Blouse :Ã‚Â It is unstitched self brouquet blouse.Other DetailsÃ‚Â Saree Length :Ã‚Â 6.3 meters (With Blouse)Saree Width :Ã‚Â 44 inches",
+"desc": "Motifs: Embellished with silver zari and thread weaving all over. Border: Self border with silver zari weaves. Fabric: Banaras-Fancy-Crepe. Blouse: It is unstitched self brouquet blouse. Other Details Saree Length: 6.3 meters (With Blouse)Saree Width: 44 inches",
 "available": true,
 "rating": 4.5,
 "reviews": 16,
@@ -2335,7 +2335,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/94.jpg?v=1608898943&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/94_3.jpg?v=1608898943&width=900"
 ],
-"desc": "MotifsÃ‚Â :Ã‚Â DecorativeÃ‚Â printsÃ‚Â all over.BorderÃ‚Â : Highlighted with prints and antique zari.FabricÃ‚Â : Chanderi Cotton.\nBlouseÃ‚Â : It is unstitchedÃ‚Â brouquetÃ‚Â blouse.\nÃ‚Â \nOther DetailsÃ‚Â \nSaree LengthÃ‚Â : 6.3 meters (With Blouse)Saree WidthÃ‚Â : 44 inches",
+"desc": "Motifs: Decorative prints all over. Border: Highlighted with prints and antique zari. Fabric: Chanderi Cotton.\nBlouse: It is unstitched brouquet blouse.\n \nOther Details \nSaree Length: 6.3 meters (With Blouse)Saree Width: 44 inches",
 "available": true,
 "rating": 4.3,
 "reviews": 22,
@@ -2435,7 +2435,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/2_da119200-766c-4824-9533-04207e0ad552.jpg?v=1595576142&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/3_0189f425-a60a-4004-97da-cef3e14a2667.jpg?v=1595576142&width=900"
 ],
-"desc": "MotifsÃ‚Â : Emerald green saree with the placement of floral motif and stripes in micro-stone along the side of the border.\nBorderÃ‚Â : With the selvedge and micro-stone on the border.\nPalluÃ‚Â : With the same micro-stone on the pallu.\nFabricÃ‚Â : It's crepe fabric.\nBlouseÃ‚Â : It is unstitched and in the same solid color with micro-stone on the border.\nOther DetailsÃ‚Â \nSaree LengthÃ‚Â : 6.3 meters (With Blouse)\nSaree WidthÃ‚Â : 44 inches",
+"desc": "Motifs: Emerald green saree with the placement of floral motif and stripes in micro-stone along the side of the border.\nBorder: With the selvedge and micro-stone on the border.\nPallu: With the same micro-stone on the pallu.\nFabric: It's crepe fabric.\nBlouse: It is unstitched and in the same solid color with micro-stone on the border.\nOther Details \nSaree Length: 6.3 meters (With Blouse)\nSaree Width: 44 inches",
 "available": false,
 "rating": 4.1,
 "reviews": 19,
@@ -2505,7 +2505,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/KSY395169_2.jpg?v=1633086780&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/KSY395169_3.jpg?v=1633086779&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor length georgette anarkali with embroidery on the yoke.Ã‚Â \nNeckÃ‚Â : Round neck withÃ‚Â thread work & mirror workÃ‚Â \nSleeveÃ‚Â : 3/4 sleeve gown\nDupattaÃ‚Â : Wine dupattaÃ‚",
+"desc": "Top: Floor length georgette anarkali with embroidery on the yoke. \nNeck: Round neck with thread work & mirror work \nSleeve: 3/4 sleeve gown\nDupatta: Wine dupatta",
 "available": false,
 "rating": 4.3,
 "reviews": 73,
@@ -2540,7 +2540,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1620.jpg?v=1672208368&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1617.jpg?v=1672208362&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor length Georgette Gown withÃ‚Â  sequence workÃ‚Â \nNeckÃ‚Â : Round neck\nSleeveÃ‚Â :Ã‚Â full sleeves\nDupattaÃ‚Â :Ã‚Â Fancy dupatta",
+"desc": "Top: Floor length Georgette Gown with sequence work \nNeck: Round neck\nSleeve: full sleeves\nDupatta: Fancy dupatta",
 "available": false,
 "rating": 4.5,
 "reviews": 69,
@@ -2576,7 +2576,7 @@ window.PRODUCTS = [
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1501.jpg?v=1672206377&width=900",
 "https://cdn.shopify.com/s/files/1/0809/2177/products/I99A1510.jpg?v=1672206377&width=900"
 ],
-"desc": "TopÃ‚Â :Ã‚Â Floor length Georgette Gown with Embroidery and sequence work\nNeckÃ‚Â : Round neck\nSleeveÃ‚Â : short sleeve gown\nDupattaÃ‚Â :Ã‚Â Net fabricÃ‚",
+"desc": "Top: Floor length Georgette Gown with Embroidery and sequence work\nNeck: Round neck\nSleeve: short sleeve gown\nDupatta: Net fabric",
 "available": false,
 "rating": 4.5,
 "reviews": 67,
