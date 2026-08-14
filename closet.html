@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Wedding Closet — Plan Your Trousseau by Event | Kay the Fashion Bay</title>
+<meta name="description" content="Plan a whole trousseau in one place. Save looks against the engagement, mehendi, sangeet, muhurtham and reception, track your total, and share the closet with your family before you commit.">
+<link rel="canonical" href="https://kayfashions.in/wedding-closet">
+<meta property="og:type" content="website">
+<meta property="og:title" content="My Wedding Closet | Kay the Fashion Bay">
+<meta property="og:description" content="Five events, one trousseau. Save looks per function and track the total.">
+<meta name="theme-color" content="#14100E">
+
+<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Jost:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div id="site-header"></div>
+
+<main id="main">
+
+  <section class="section-tight" style="background:var(--sand)">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+        <span aria-current="page">Wedding Closet</span>
+      </nav>
+      <div class="between" style="align-items:flex-end;flex-wrap:wrap;gap:28px">
+        <div>
+          <span class="eyebrow">Kay Concierge</span>
+          <h1 class="d1" style="margin:18px 0 18px">My Wedding<br>Closet</h1>
+          <p class="lede">A wedding is five outfits, not one purchase. Save looks against each function, watch the total as it builds, and send the whole thing to your mother before anyone commits to anything.</p>
+        </div>
+        <div class="row" style="gap:12px;flex-wrap:wrap">
+          <button class="btn btn--ghost btn--sm" id="shareBtn">Share closet</button>
+          <a class="btn btn--sm" href="appointments.html?mode=store">Book a fitting</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="wrap">
+      <div class="closet-stats rv" id="stats"></div>
+    </div>
+  </section>
+
+  <section class="section-tight" style="padding-top:0">
+    <div class="wrap">
+      <div class="events rv" id="events"></div>
+    </div>
+  </section>
+
+  <!-- Empty-state helper: what to put in it -->
+  <section class="section-tight" id="suggestWrap" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head rv">
+        <div><span class="eyebrow">To get you started</span><h2 class="d2" id="suggestTitle">Pieces brides are saving</h2>
+          <p>Tap the hanger icon on any piece to file it under an event.</p></div>
+        <a class="link-u" href="collection.html?c=Bridal">Shop the bridal edit</a>
+      </div>
+      <div class="pgrid rv" id="suggest"></div>
+    </div>
+  </section>
+
+  <section class="section-tight" style="background:var(--deep);color:#F2EDE6">
+    <div class="wrap wrap-n center">
+      <span class="eyebrow">Bring it in</span>
+      <h2 class="d2" style="color:#fff;margin:16px 0 16px">We'll pull every piece before you arrive.</h2>
+      <p style="color:rgba(242,237,230,.68);max-width:52ch;margin:0 auto 32px">Share your closet with us and the racks will be waiting, in your sizes, when you walk into the Anna Nagar bridal suite.</p>
+      <div class="row" style="justify-content:center;gap:12px;flex-wrap:wrap">
+        <a class="btn btn--light" href="appointments.html?mode=store">Book a store visit</a>
+        <a class="btn btn--outline-light" href="appointments.html?mode=video">Or a video call</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<div id="site-chrome"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var P = window.PRODUCTS, K = window.Kay, ico = window.KayIcon;
+  var EVENTS = K.EVENTS;
+  var $ = function (s) { return document.querySelector(s); };
+  var esc = K.esc, money = K.money;
+
+  function render() {
+    var closet = K.closet();
+    var all = K.closetAll();
+    var total = K.closetTotal();
+    var filled = EVENTS.filter(function (e) { return (closet[e.k] || []).length; }).length;
+
+    /* ---- Stats ---- */
+    $('#stats').innerHTML = [
+      [all.length, all.length === 1 ? 'Look saved' : 'Looks saved'],
+      [filled + ' / ' + EVENTS.length, 'Events covered'],
+      [money(total), 'Closet total'],
+      [all.length ? money(total / all.length) : '—', 'Average per look']
+    ].map(function (s) {
+      return '<div class="cstat"><b class="tnum">' + s[0] + '</b><span>' + s[1] + '</span></div>';
+    }).join('');
+
+    /* ---- Event columns ---- */
+    $('#events').innerHTML = EVENTS.map(function (e) {
+      var list = (closet[e.k] || []).map(function (h) { return P.find(function (p) { return p.handle === h; }); })
+                                    .filter(Boolean);
+      var sum = list.reduce(function (s, p) { return s + p.price; }, 0);
+
+      var body = list.length
+        ? list.map(function (p) {
+            return '<div class="clook">' +
+              '<a href="product.html?h=' + p.handle + '"><img src="' + p.images[0] + '" alt="" loading="lazy"></a>' +
+              '<div><a href="product.html?h=' + p.handle + '"><h5>' + esc(p.title) + '</h5></a>' +
+              '<p class="small">' + esc(p.readiness) + ' · <span class="tnum">' + money(p.price) + '</span></p></div>' +
+              '<button class="clook-x" data-closet-rm="' + p.handle + '" data-ev2="' + e.k + '" ' +
+              'aria-label="Remove ' + esc(p.title) + ' from ' + esc(e.t) + '">' + ico('x') + '</button>' +
+              '</div>';
+          }).join('')
+        : '<div class="event-empty">Nothing saved for the ' + esc(e.t.toLowerCase()) + ' yet.<br>Tap the hanger on any piece.</div>';
+
+      return '<section class="event">' +
+        '<header class="event-head"><b>' + esc(e.t) + '</b><span>' + esc(e.s) + '</span></header>' +
+        '<div class="event-body">' + body + '</div>' +
+        '<footer class="event-foot"><span>' + list.length + (list.length === 1 ? ' look' : ' looks') + '</span>' +
+        '<b class="tnum">' + (sum ? money(sum) : '—') + '</b></footer>' +
+        '</section>';
+    }).join('');
+
+    /* ---- Suggestions: hide once the closet is full enough to stand alone ---- */
+    var wrap = $('#suggestWrap');
+    if (all.length >= 5) { wrap.hidden = true; }
+    else {
+      wrap.hidden = false;
+      $('#suggestTitle').textContent = all.length ? 'Fill the gaps' : 'Pieces brides are saving';
+      var savedHandles = all.map(function (l) { return l.handle; });
+      // Prefer the events still empty, then anything bridal-adjacent.
+      var emptyEvents = EVENTS.filter(function (e) { return !(closet[e.k] || []).length; }).map(function (e) { return e.t; });
+      var pool = P.filter(function (p) { return p.available && savedHandles.indexOf(p.handle) < 0; });
+      var picks = pool.filter(function (p) { return p.price >= 9000; }).slice(0, 4);
+      if (picks.length < 4) picks = picks.concat(pool.slice(0, 4 - picks.length));
+      $('#suggest').innerHTML = picks.map(function (p) { return K.card(p); }).join('');
+      void emptyEvents;
+    }
+
+    K.paintCounts();
+  }
+
+  document.addEventListener('kay:closet', render);
+
+  $('#shareBtn').addEventListener('click', function () {
+    var all = K.closetAll();
+    if (!all.length) { K.toast('Save a look first, then share the closet', 'hanger'); return; }
+    var text = 'My Kay wedding closet — ' + all.length + ' looks, ' + money(K.closetTotal());
+    if (navigator.share) {
+      navigator.share({ title: 'My Kay Wedding Closet', text: text, url: location.href }).catch(function () {});
+    } else if (navigator.clipboard) {
+      navigator.clipboard.writeText(text + ' · ' + location.href)
+        .then(function () { K.toast('Closet link copied to clipboard', 'check'); })
+        .catch(function () { K.toast('Sharing is not available in this browser', 'x'); });
+    } else {
+      K.toast('Sharing is not available in this browser', 'x');
+    }
+  });
+
+  render();
+  window.KayReveal();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book an Appointment — Store Visit or Video Styling Call | Kay the Fashion Bay</title>
+<meta name="description" content="Book a private bridal appointment at our Anna Nagar suite, or a free 30-minute video styling call with a Kay stylist who drapes the saree live on camera. Chennai, since 1994.">
+<link rel="canonical" href="https://kayfashions.in/appointments">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Book an Appointment | Kay the Fashion Bay">
+<meta property="og:description" content="A private bridal suite in Anna Nagar, or a stylist on video who walks the floor for you. Both free.">
+<meta name="theme-color" content="#14100E">
+
+<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Jost:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div id="site-header"></div>
+
+<main id="main">
+
+  <section class="appt-hero section-tight">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Breadcrumb" style="color:rgba(255,255,255,.6)">
+        <a href="index.html">Home</a>
+        <svg viewBox="0 0 24 24" style="stroke:rgba(255,255,255,.45)"><path d="M9 5l7 7-7 7"/></svg>
+        <span aria-current="page" style="color:#fff">Appointments</span>
+      </nav>
+      <span class="eyebrow">Kay Concierge · Since 1994</span>
+      <h1 class="d1">Come in.<br>Or let us come to you.</h1>
+      <p>Ethnic wear is a fitting-room purchase. Sit with a consultant in our Anna Nagar bridal suite, or take a stylist on a video call who walks the floor and drapes each piece live on camera. Both are free, and neither obliges you to buy.</p>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="wrap">
+      <div class="appt-modes rv" id="modes" role="tablist" aria-label="Appointment type"></div>
+    </div>
+  </section>
+
+  <section class="section-tight" style="padding-top:0">
+    <div class="wrap">
+      <div class="appt-layout">
+
+        <div>
+          <div id="formWrap">
+            <h2 class="d3" id="formTitle" style="margin-bottom:8px"></h2>
+            <p class="small" id="formSub" style="margin-bottom:40px"></p>
+
+            <form class="appt-form" id="apptForm" novalidate>
+              <div class="fld" id="f-name">
+                <label for="a-name">Your name</label>
+                <input id="a-name" name="name" type="text" placeholder="Full name" autocomplete="name">
+                <span class="err">Please tell us your name.</span>
+              </div>
+              <div class="fld" id="f-phone">
+                <label for="a-phone">Mobile / WhatsApp</label>
+                <input id="a-phone" name="phone" type="tel" placeholder="+91 98765 43210" autocomplete="tel">
+                <span class="err">Enter a valid 10-digit mobile number.</span>
+              </div>
+              <div class="fld full" id="f-email">
+                <label for="a-email">Email</label>
+                <input id="a-email" name="email" type="email" placeholder="your@email.com" autocomplete="email">
+                <span class="err">Enter a valid email address.</span>
+              </div>
+
+              <div class="fld" id="f-place">
+                <label id="placeLabel" for="a-place">Store</label>
+                <select id="a-place" name="place"></select>
+                <span class="err">Please choose one.</span>
+              </div>
+              <div class="fld" id="f-occasion">
+                <label for="a-occasion">What is it for?</label>
+                <select id="a-occasion" name="occasion">
+                  <option value="">Select an occasion</option>
+                  <option>Bridal trousseau</option>
+                  <option>Muhurtham / wedding day</option>
+                  <option>Reception</option>
+                  <option>Sangeet</option>
+                  <option>Mehendi &amp; haldi</option>
+                  <option>Engagement</option>
+                  <option>Wedding guest</option>
+                  <option>Festive / everyday</option>
+                </select>
+                <span class="err">Please choose one.</span>
+              </div>
+
+              <div class="fld" id="f-date">
+                <label for="a-date">Preferred date</label>
+                <input id="a-date" name="date" type="date">
+                <span class="err">Pick a date from today onwards.</span>
+              </div>
+              <div class="fld" id="f-party">
+                <label for="a-party" id="partyLabel">How many joining?</label>
+                <select id="a-party" name="party">
+                  <option>Just me</option><option>2 people</option><option>3–4 people</option>
+                  <option>5–6 people</option><option>7 or more</option>
+                </select>
+              </div>
+
+              <div class="fld full" id="f-slot">
+                <label>Preferred time</label>
+                <div class="slot-grid" id="slots"></div>
+                <span class="err">Please pick a time slot.</span>
+              </div>
+
+              <div class="fld full">
+                <label for="a-notes">Anything we should know? <span style="letter-spacing:0;text-transform:none">(optional)</span></label>
+                <textarea id="a-notes" name="notes" placeholder="Budget range, colours you love or want to avoid, a mood board link, wedding date…"></textarea>
+              </div>
+
+              <div class="full">
+                <button class="btn btn--wine" type="submit" id="submitBtn">Request appointment</button>
+                <p class="small" style="margin-top:16px;font-size:11.5px">We confirm every booking on WhatsApp within one working hour. No payment, no obligation.</p>
+              </div>
+            </form>
+          </div>
+
+          <div class="appt-done" id="done" hidden>
+            <span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></span>
+            <p class="eyebrow">Request received</p>
+            <h2 class="d3" style="margin:12px 0 14px" id="doneTitle">Thank you</h2>
+            <p class="small" id="doneBody" style="max-width:46ch;margin:0 auto 30px"></p>
+            <div class="row" style="justify-content:center;gap:12px;flex-wrap:wrap">
+              <a class="btn btn--ghost" href="collection.html">Keep browsing</a>
+              <button class="btn" id="againBtn">Book another</button>
+            </div>
+          </div>
+        </div>
+
+        <aside class="appt-aside rv" id="aside"></aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight" style="background:var(--sand)">
+    <div class="wrap">
+      <div class="section-head rv">
+        <div><span class="eyebrow">Visit us</span><h2 class="d2">Three stores in Chennai</h2>
+          <p>Anything bought online can be exchanged at any counter.</p></div>
+      </div>
+      <div class="store-grid rv" id="storeGrid"></div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<div id="site-chrome"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var P = window.PRODUCTS, K = window.Kay, ico = window.KayIcon;
+  var $ = function (s) { return document.querySelector(s); };
+  var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+
+  var STORES = [
+    ['Anna Nagar', 'Flagship &amp; Bridal Suite', 'W-104, 2nd Avenue, Anna Nagar<br>Chennai 600040', '10:30 am – 8:30 pm', '+91 44 4215 5740', 'lehenga-cream-net-ksy578632'],
+    ['Triplicane', 'Sarees &amp; Handloom', '112, Triplicane High Road<br>Chennai 600005', '10:30 am – 8:30 pm', '+91 44 4215 5741', 'saree-weave-pure-orange-soft-silk-ksy391356'],
+    ['Purasawalkam', 'Festive &amp; Pret', '48, Purasawalkam High Road<br>Chennai 600007', '10:30 am – 8:30 pm', '+91 44 4215 5742', 'palazzo-set-pink-georgette-ksy574771']
+  ];
+
+  var MODES = {
+    store: {
+      ico: 'store', label: 'Store Visit',
+      blurb: 'A private slot with a dedicated consultant. Bring your family — the bridal suite seats six.',
+      title: 'Reserve your slot in store',
+      sub: 'Three hours in the Anna Nagar bridal suite, or a shorter consultation at Triplicane and Purasawalkam.',
+      placeLabel: 'Which store?',
+      places: ['Anna Nagar — Flagship & Bridal Suite', 'Triplicane — Sarees & Handloom', 'Purasawalkam — Festive & Pret'],
+      partyLabel: 'How many joining you?',
+      slots: ['11:00 am', '12:30 pm', '2:00 pm', '3:30 pm', '5:00 pm', '6:30 pm'],
+      perks: [
+        'A consultant reserved for you — no shared floor time',
+        'The bridal suite seats six, so bring the family',
+        'Measurements taken and recorded on the day',
+        'Anything you love is held for 48 hours, free',
+        'Chai, coffee and an unhurried afternoon'
+      ],
+      done: 'We\'ll confirm your slot on WhatsApp within the hour. If you can, send a mood board beforehand — our consultant will have the racks pulled before you arrive.'
+    },
+    video: {
+      ico: 'video', label: 'Video Call Styling',
+      blurb: 'Thirty minutes with a stylist who walks the floor for you and drapes each piece on camera.',
+      title: 'Book a video styling call',
+      sub: 'Free, thirty minutes, no obligation. We\'ll call you on WhatsApp or Google Meet — whichever you prefer.',
+      placeLabel: 'Call you on',
+      places: ['WhatsApp video', 'Google Meet', 'FaceTime', 'Zoom'],
+      partyLabel: 'Anyone joining the call?',
+      slots: ['9:00 am', '11:00 am', '1:00 pm', '3:00 pm', '5:00 pm', '7:00 pm', '8:30 pm', '10:00 pm'],
+      perks: [
+        'A stylist walks the shop floor live, on camera',
+        'Sarees draped on a model so you see the fall',
+        'True colour checked under daylight and tungsten',
+        'Evening and late slots for the US, UK and Gulf',
+        'Anything you love is shipped worldwide, free above ₹20,000'
+      ],
+      done: 'We\'ll send a WhatsApp confirmation with the call link within the hour. Late-evening IST slots are held for our overseas customers — mention your city and we\'ll match your timezone.'
+    }
+  };
+
+  var mode = new URLSearchParams(location.search).get('mode');
+  if (!MODES[mode]) mode = 'store';
+  var slot = null;
+
+  /* ---- Mode switcher ---- */
+  function paintModes() {
+    $('#modes').innerHTML = Object.keys(MODES).map(function (k) {
+      var m = MODES[k];
+      return '<button class="appt-mode' + (k === mode ? ' on' : '') + '" data-mode="' + k + '" role="tab"' +
+        ' aria-selected="' + (k === mode) + '">' + ico(m.ico) +
+        '<span><b>' + m.label + '</b><span>' + m.blurb + '</span></span></button>';
+    }).join('');
+  }
+
+  function paintMode() {
+    var m = MODES[mode];
+    document.title = m.label + ' — Book an Appointment | Kay the Fashion Bay';
+    $('#formTitle').textContent = m.title;
+    $('#formSub').textContent = m.sub;
+    $('#placeLabel').textContent = m.placeLabel;
+    $('#partyLabel').textContent = m.partyLabel;
+    $('#a-place').innerHTML = '<option value="">Select</option>' +
+      m.places.map(function (p) { return '<option>' + p + '</option>'; }).join('');
+    slot = null;
+    $('#slots').innerHTML = m.slots.map(function (s) {
+      return '<button type="button" class="slot" data-slot="' + s + '">' + s + '</button>';
+    }).join('');
+    $('#aside').innerHTML =
+      '<span class="eyebrow">What you get</span>' +
+      '<h4 style="margin:12px 0 22px">' + m.label + '</h4>' +
+      '<ul class="appt-list stack" style="--s:16px">' +
+        m.perks.map(function (p) { return '<li>' + ico('check') + '<span>' + p + '</span></li>'; }).join('') +
+      '</ul>' +
+      '<hr class="rule" style="margin:28px 0">' +
+      '<p class="small" style="font-size:12.5px;line-height:1.8">Prefer to just talk? Call <a href="tel:+914442155740" style="color:var(--wine)">+91 44 4215 5740</a> or ' +
+      '<a href="https://wa.me/919884261611" style="color:var(--wine)">WhatsApp us</a> — 10:30 am to 8:30 pm, every day.</p>';
+    paintModes();
+  }
+
+  /* ---- Date floor: today ---- */
+  var today = new Date();
+  var iso = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0') + '-' + String(today.getDate()).padStart(2, '0');
+  $('#a-date').min = iso;
+
+  /* ---- Validation ---- */
+  function setErr(id, bad) { $(id).classList.toggle('invalid', bad); return !bad; }
+
+  function validate() {
+    var okAll = true;
+    okAll &= setErr('#f-name', $('#a-name').value.trim().length < 2);
+    var digits = $('#a-phone').value.replace(/\D/g, '');
+    okAll &= setErr('#f-phone', digits.length < 10);
+    okAll &= setErr('#f-email', !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test($('#a-email').value.trim()));
+    okAll &= setErr('#f-place', !$('#a-place').value);
+    okAll &= setErr('#f-occasion', !$('#a-occasion').value);
+    okAll &= setErr('#f-date', !$('#a-date').value || $('#a-date').value < iso);
+    okAll &= setErr('#f-slot', !slot);
+    return !!okAll;
+  }
+
+  /* ---- Events ---- */
+  document.addEventListener('click', function (e) {
+    var mb = e.target.closest('[data-mode]');
+    if (mb) { mode = mb.dataset.mode; paintMode(); history.replaceState(null, '', '?mode=' + mode); return; }
+
+    var sb = e.target.closest('[data-slot]');
+    if (sb) {
+      slot = sb.dataset.slot;
+      $$('#slots .slot').forEach(function (b) { b.classList.toggle('on', b === sb); });
+      $('#f-slot').classList.remove('invalid');
+      return;
+    }
+    if (e.target.closest('#againBtn')) {
+      $('#done').hidden = true; $('#formWrap').hidden = false;
+      $('#apptForm').reset(); paintMode();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+  });
+
+  $('#apptForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!validate()) {
+      K.toast('Please complete the highlighted fields', 'x');
+      var bad = $('.fld.invalid');
+      if (bad) bad.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      return;
+    }
+    var m = MODES[mode];
+    var when = new Date($('#a-date').value + 'T00:00:00');
+    var pretty = when.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long' });
+    $('#formWrap').hidden = true;
+    $('#done').hidden = false;
+    $('#doneTitle').textContent = m.label + ' requested';
+    $('#doneBody').textContent = 'We have you down for ' + pretty + ' at ' + slot + '. ' + m.done;
+    K.toast('Appointment requested — we\'ll confirm on WhatsApp', 'check');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ---- Stores ---- */
+  $('#storeGrid').innerHTML = STORES.map(function (s) {
+    var p = P.find(function (x) { return x.handle === s[5]; }) || P[0];
+    return '<article class="store">' +
+      '<div class="store-img"><img src="' + p.images[0] + '" alt="" loading="lazy" width="600" height="450"></div>' +
+      '<div class="store-body"><span class="eyebrow">' + s[1] + '</span><h3>' + s[0] + '</h3>' +
+      '<address>' + s[2] + '</address>' +
+      '<div class="store-meta"><span>' + ico('clock') + s[3] + '</span><span>' + ico('phone') + s[4] + '</span></div>' +
+      '<div class="store-links"><a class="btn btn--sm btn--ghost" href="#map">Get directions</a></div></div></article>';
+  }).join('');
+
+  paintMode();
+  K.paintCounts();
+  window.KayReveal();
+});
+</script>
+</body>
+</html>

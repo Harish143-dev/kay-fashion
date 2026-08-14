@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Product | Kay the Fashion Bay</title>
+<meta name="description" content="Shop this piece at Kay the Fashion Bay — Chennai's ethnic wear house since 1994. Free shipping across India, 15-day returns, free fall &amp; pico.">
+<meta property="og:type" content="product">
+<meta name="theme-color" content="#14100E">
+
+<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Jost:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div id="site-header"></div>
+
+<main id="main">
+  <div class="wrap"><nav class="crumbs" aria-label="Breadcrumb" id="crumbs"></nav></div>
+
+  <!-- ═══ Buy block: image stack + sticky panel ═══ -->
+  <section class="wrap" style="padding-bottom:clamp(56px,7vw,104px)">
+    <div class="pdp">
+      <div class="pdp-gallery">
+        <div class="pdp-grid" id="media"></div>
+        <div class="pdp-dots" id="dots" aria-hidden="true"></div>
+        <div class="pdp-float" id="float"></div>
+        <aside class="pdp-highlights" id="highlights"></aside>
+      </div>
+      <div class="pdp-panel" id="panel"></div>
+    </div>
+  </section>
+
+  <!-- ═══ Editorial detail ═══ -->
+  <section class="section-tight">
+    <div class="wrap">
+      <div class="section-head rv">
+        <div><span class="sec-no">01</span><span class="eyebrow">In the detail</span>
+          <h2 class="d2" id="detailTitle">Look closer</h2></div>
+      </div>
+      <div class="detail-grid rv" id="detail"></div>
+    </div>
+  </section>
+
+  <!-- ═══ Concierge ═══ -->
+  <section class="section-tight" style="background:var(--deep);color:#F2EDE6">
+    <div class="wrap wrap-n center">
+      <span class="eyebrow">Not sure how it will drape?</span>
+      <h2 class="d2" style="color:#fff;margin:16px 0 16px">Let a stylist show you, live.</h2>
+      <p style="color:rgba(242,237,230,.68);max-width:50ch;margin:0 auto 32px">Thirty minutes on video. We drape this piece on camera, check the colour under daylight, and answer every question you can't ask a photograph.</p>
+      <div class="row" style="justify-content:center;gap:12px;flex-wrap:wrap">
+        <a class="btn btn--light" href="appointments.html?mode=video">Book a video call</a>
+        <a class="btn btn--outline-light" href="appointments.html?mode=store">Visit a store</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Reviews ═══ -->
+  <section class="section-tight" id="reviewsSection">
+    <div class="wrap wrap-n">
+      <div class="section-head rv">
+        <div><span class="sec-no">02</span><span class="eyebrow">Verified reviews</span>
+          <h2 class="d2">What buyers say</h2></div>
+        <button class="btn btn--sm btn--ghost" id="writeReview">Write a review</button>
+      </div>
+      <div class="rv-summary rv" id="rvSummary"></div>
+      <div class="rev-grid rv" id="rvList" style="margin-top:28px"></div>
+    </div>
+  </section>
+
+  <!-- ═══ Cross-sell ═══ -->
+  <section class="section-tight" style="background:var(--sand)">
+    <div class="wrap">
+      <div class="section-head rv">
+        <div><span class="sec-no">03</span><span class="eyebrow">Styled together</span>
+          <h2 class="d2">Complete the look</h2></div>
+      </div>
+      <div class="pgrid rv" id="ctl"></div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="wrap">
+      <div class="section-head rv">
+        <div><span class="sec-no">04</span><span class="eyebrow">You may also like</span>
+          <h2 class="d2">More in this edit</h2></div>
+        <a class="link-u" id="moreLink" href="collection.html">Shop the category</a>
+      </div>
+      <div class="rail-wrap rv"><div class="rail" id="similar"></div></div>
+    </div>
+  </section>
+</main>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Product image">
+  <span class="lb-count" id="lbCount"></span>
+  <button class="close-x lb-close" data-lb-close aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <img id="lbImg" src="" alt="">
+  <div class="lb-nav">
+    <button data-lb="-1" aria-label="Previous image"><svg viewBox="0 0 24 24"><path d="M14 5l-7 7 7 7"/></svg></button>
+    <button data-lb="1" aria-label="Next image"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+  </div>
+</div>
+
+<div class="sticky-atc" id="stickyAtc"></div>
+<div id="site-footer"></div>
+<div id="site-chrome"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var P = window.PRODUCTS, K = window.Kay, ico = window.KayIcon, stars = window.KayStars;
+  var $ = function (s) { return document.querySelector(s); };
+  var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+  var esc = K.esc, money = K.money;
+
+  var handle = new URLSearchParams(location.search).get('h');
+  var p = P.find(function (x) { return x.handle === handle; }) || P[0];
+  var size = p.sizes[0];
+  var qty = 1;
+  var lbIndex = 0;
+
+  document.title = p.title + ' — ' + p.fabric + ' ' + p.category + ' | Kay the Fashion Bay';
+
+  /* ---- Structured data ---- */
+  (function () {
+    var s = document.createElement('script');
+    s.type = 'application/ld+json';
+    s.textContent = JSON.stringify({
+      '@context': 'https://schema.org', '@type': 'Product',
+      name: p.title, image: p.images, sku: p.sku,
+      description: (p.desc || (p.fabric + ' ' + p.type + ' by Kay the Fashion Bay')).slice(0, 300),
+      brand: { '@type': 'Brand', name: 'Kay the Fashion Bay' },
+      aggregateRating: { '@type': 'AggregateRating', ratingValue: p.rating, reviewCount: p.reviews },
+      offers: {
+        '@type': 'Offer', priceCurrency: 'INR', price: p.price,
+        availability: 'https://schema.org/' + (p.available ? 'InStock' : 'OutOfStock')
+      }
+    });
+    document.head.appendChild(s);
+  })();
+
+  /* ---- Breadcrumb ---- */
+  var sep = '<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>';
+  $('#crumbs').innerHTML = '<a href="index.html">Home</a>' + sep +
+    '<a href="collection.html">Shop</a>' + sep +
+    '<a href="collection.html?c=' + encodeURIComponent(p.category) + '">' + esc(p.category) + '</a>' + sep +
+    '<span aria-current="page">' + esc(p.title) + '</span>';
+
+  /* ---- Garment readiness ---- */
+  var READY = {
+    'Ready to Wear':  { ico: 'hanger',   note: 'Fully stitched and finished. Arrives ready to wear in the size you pick — no tailor needed.' },
+    'Ready to Drape': { ico: 'loom',     note: 'Fall and pico stitched free before dispatch, blouse piece attached. Unstitched blouse included.' },
+    'Semi-Stitched':  { ico: 'scissors', note: 'Blouse and waist come semi-stitched with margin to let out. Send measurements and we finish it in 5–7 days, free.' },
+    'Made to Order':  { ico: 'sparkle',  note: 'Cut and embroidered for you in our Anna Nagar atelier. Three fittings, 10–12 weeks. Final sale.' }
+  };
+  var ready = READY[p.readiness] || READY['Ready to Wear'];
+
+  var off = p.compareAt ? Math.round((1 - p.price / p.compareAt) * 100) : 0;
+  var siblings = P.filter(function (x) { return x.type === p.type && x.handle !== p.handle; }).slice(0, 5);
+
+  /* ---- Image stack ---- */
+  var tags = [];
+  if (!p.available) tags.push('<span class="tag tag--sold">Sold Out</span>');
+  else if (off) tags.push('<span class="tag tag--sale">' + off + '% Off</span>');
+  if (p.available && p.readyToShip) tags.push('<span class="tag tag--rts">Ready to Ship</span>');
+
+  $('#media').innerHTML = p.images.map(function (src, i) {
+    return '<button class="pdp-shot' + (p.available ? '' : ' sold') + '" data-shot="' + i + '" aria-label="Enlarge image ' + (i + 1) + '">' +
+      '<img src="' + src + '" alt="' + esc(p.title) + ' — view ' + (i + 1) + '"' +
+      (i === 0 ? ' fetchpriority="high"' : ' loading="lazy"') + ' width="900" height="1200">' +
+      (i === 0 ? '<span class="pdp-shot-tags">' + tags.join('') + '</span>' : '') +
+      '</button>';
+  }).join('');
+
+  /* Floating actions over the first frame */
+  $('#float').innerHTML =
+    '<button data-wish="' + p.handle + '" aria-label="Save to wishlist" title="Save to wishlist">' + ico('heart') + '</button>' +
+    '<button data-closet="' + p.handle + '" aria-label="Save to Wedding Closet" title="Save to Wedding Closet">' + ico('hanger') + '</button>' +
+    '<button id="shareBtn" aria-label="Share this piece" title="Share">' + ico('share') + '</button>';
+
+  /* Product Highlights, laid over the imagery */
+  $('#highlights').innerHTML =
+    '<h3>Product Highlights</h3><dl>' +
+    [['Colour', p.color], ['Material', p.fabric], ['Work', p.type],
+     ['Items Included', p.category === 'Sarees' ? 'Saree, unstitched blouse fabric' : p.type + ', inner / lining as shown'],
+     ['Occasion', p.occasions.join(', ')], ['Wash Care', 'Dry Clean Only']]
+      .map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd></div>'; }).join('') +
+    '</dl>';
+
+  $('#dots').innerHTML = p.images.map(function (_, i) {
+    return '<i class="' + (i ? '' : 'on') + '"></i>';
+  }).join('');
+
+  /* ---- Buy panel ---- */
+  function row(k, v) { return '<dt>' + k + '</dt><dd>' + esc(v) + '</dd>'; }
+  function acc(t, body, open) {
+    return '<details' + (open ? ' open' : '') + '><summary>' + t +
+      '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></summary>' + body + '</details>';
+  }
+  function autoDesc() {
+    return 'A ' + esc(p.color.toLowerCase()) + ' ' + esc(p.type.toLowerCase()) + ' in ' + esc(p.fabric.toLowerCase()) +
+      ', cut for ' + esc(p.occasions.join(' and ').toLowerCase()) + ' wear.\n\n' +
+      'Finished in our Chennai atelier with a lined bodice and a concealed side zip. The drape has been weighted at the hem so it falls cleanly through a full evening — no re-pinning between the photographs and the dinner.\n\n' +
+      'Styled here with minimal gold. Blouse or inner included as shown.';
+  }
+  function sizeTable() {
+    var rows = [['XS', 32, 26, 35, 44], ['S', 34, 28, 37, 44], ['M', 36, 30, 39, 45],
+                ['L', 38, 32, 41, 45], ['XL', 40, 34, 43, 46], ['2XL', 42, 36, 45, 46]];
+    return '<table class="tbl"><thead><tr><th>Size</th><th>Bust</th><th>Waist</th><th>Hip</th><th>Length</th></tr></thead><tbody>' +
+      rows.map(function (r) {
+        return '<tr' + (r[0] === size ? ' style="background:var(--gold-tint)"' : '') + '><td><b>' + r[0] + '</b></td>' +
+          '<td>' + r[1] + '"</td><td>' + r[2] + '"</td><td>' + r[3] + '"</td><td>' + r[4] + '"</td></tr>';
+      }).join('') + '</tbody></table>';
+  }
+
+  $('#panel').innerHTML =
+    '<span class="pdp-cat">' + esc(p.category) + ' \u00b7 ' + esc(p.fabric) + '</span>' +
+    '<h1>' + esc(p.title) + '</h1>' +
+    '<div class="pdp-rate">' + stars(p.rating) + '<span>' + p.rating + '</span>' +
+      '<a href="#reviewsSection">' + p.reviews + ' reviews</a></div>' +
+
+    '<div class="pdp-price"><span class="price tnum">' + money(p.price) + '</span>' +
+      (p.compareAt ? '<span class="price-was tnum">' + money(p.compareAt) + '</span><span class="price-off">' + off + '% off</span>' : '') +
+      '<span class="pdp-mrp">MRP (inclusive of all taxes)</span>' +
+    '</div>' +
+    '<p class="pdp-sku">SKU ID \u2014 ' + esc(p.sku) + '</p>' +
+
+    '<span class="pdp-ready">' + ico(ready.ico) + p.readiness + '</span>' +
+    '<p class="pdp-ready-note">' + ready.note + '</p>' +
+
+    '<div class="opt-block"><div class="opt-head">' +
+      '<span class="opt-label">Colour variants <span>\u00b7 ' + esc(p.color) + '</span></span>' +
+    '</div><div class="color-row">' +
+      '<span class="color-dot on" style="background:' + p.hex + '" title="' + esc(p.color) + '"></span>' +
+      siblings.map(function (s) {
+        return '<a class="color-dot" href="product.html?h=' + s.handle + '" style="background:' + s.hex + '" title="' + esc(s.color) + ' ' + esc(s.type) + '" aria-label="' + esc(s.color) + '"></a>';
+      }).join('') +
+    '</div></div>' +
+
+    '<div class="opt-block"><div class="opt-head">' +
+      '<span class="opt-label">Select size <span id="sizeName">· ' + esc(size) + '</span></span>' +
+      '<button class="size-chart-link" data-size-guide>' + ico('info') + 'Size Chart</button>' +
+    '</div>' +
+      '<div class="size-grid size-grid--pdp" id="pdpSizes">' + p.sizes.map(function (s) {
+        return '<button class="size-pill' + (s === size ? ' on' : '') + '" data-ps="' + esc(s) + '">' + esc(s) + '</button>';
+      }).join('') + '</div>' +
+      '<p class="opt-note">Model is 5\'7" and wears a size ' + (p.sizes[0] === 'Free Size' ? 'M' : p.sizes[0]) + '. Free 2" let-out included.</p>' +
+    '</div>' +
+
+    '<p class="social-proof"><b>' + (140 + (p.reviews * 7) % 260) + ' people</b> viewed this piece in the last 24 hours</p>' +
+
+    (p.available
+      ? '<div class="cta-qty"><span class="opt-label">Qty</span>' +
+          '<span class="buy-qty"><button data-pq="-1" aria-label="Decrease quantity">' + ico('minus') + '</button>' +
+          '<span id="pqty">1</span>' +
+          '<button data-pq="1" aria-label="Increase quantity">' + ico('plus') + '</button></span></div>' +
+        '<div class="cta-row">' +
+          '<button class="btn btn--tint" id="atc">Add to cart</button>' +
+          '<button class="btn btn--wine" id="buyNow">Buy now</button>' +
+        '</div>'
+      : '<div class="cta-row" style="grid-template-columns:1fr">' +
+          '<button class="btn btn--wine" data-notify="' + p.handle + '">' + ico('mail') + ' Notify me when back</button>' +
+        '</div>') +
+
+    (p.available
+      ? '<p class="stock-line in">' + ico('check') + 'In stock \u00b7 ' +
+          (p.readyToShip ? 'dispatches today if ordered before 2 pm' : 'dispatches in 2\u20133 days') + '</p>'
+      : '<p class="stock-line out">' + ico('clock') + 'Sold out \u2014 we can weave this to order in 3\u20134 weeks.</p>') +
+
+    '<div class="pdp-trust">' +
+      [['truck', 'Free delivery<br>within 2\u20133 days'],
+       ['swap', 'Easy exchange<br>in 15 days'],
+       ['shield', 'Secure<br>payments']]
+        .map(function (t) {
+          return '<div><span class="ring">' + ico(t[0]) + '</span><b>' + t[1] + '</b></div>';
+        }).join('') +
+    '</div>' +
+
+    '<div class="pincode"><b>' + ico('pin') + 'Delivery &amp; dispatch date</b>' +
+      '<div class="pin-row"><input class="pin-input" id="pin" inputmode="numeric" maxlength="6" placeholder="Enter 6-digit pincode">' +
+      '<button class="btn btn--sm" id="pinGo">Check</button></div>' +
+      '<p class="pin-out" id="pinOut"></p>' +
+    '</div>' +
+
+    '<div class="acc">' +
+      acc('Description', '<div class="acc-body">' + (p.desc ? esc(p.desc) : autoDesc()) + '</div>', true) +
+      acc('Fabric, fit &amp; care', '<div class="acc-body"><dl>' +
+        row('Readiness', p.readiness) + row('Fabric', p.fabric) + row('Colour', p.color) +
+        row('Category', p.category) + row('Occasion', p.occasions.join(', ')) +
+        row('Sizes', p.sizes.join(' \u00b7 ')) +
+        row('Care', 'Dry clean only. Store folded in muslin, away from direct light.') +
+        row('Note', 'Handloom weaves carry slight irregularities \u2014 a mark of the loom, not a defect.') +
+      '</dl></div>') +
+      acc('Shipping &amp; returns', '<div class="acc-body"><dl>' +
+        row('India', 'Free \u00b7 2\u20135 business days \u00b7 same-day dispatch before 2 pm') +
+        row('International', 'Free above \u20b920,000 \u00b7 5\u20139 business days via DHL') +
+        row('Returns', '15 days from delivery, unworn with tags. Free pickup in India.') +
+        row('Exchange', 'At any of our three Chennai stores, no questions asked.') +
+        row('Custom orders', 'Tailored and made-to-order pieces are final sale.') +
+      '</dl></div>') +
+      acc('Size chart', '<div class="acc-body"><div class="table-scroll">' + sizeTable() + '</div></div>') +
+    '</div>';
+
+  /* ---- Editorial detail crops ---- */
+  var DETAIL = [
+    ['The fabric', esc(p.fabric) + ' chosen for how it falls, not how it photographs. Weighted at the hem so the drape holds through a full evening.'],
+    ['The finish', 'Lined bodice, concealed side zip and hand-finished seams from our Anna Nagar atelier.'],
+    ['The fit', p.readiness + '. ' + ready.note]
+  ];
+  $('#detailTitle').textContent = 'Look closer at the ' + p.type.toLowerCase();
+  $('#detail').innerHTML = DETAIL.map(function (dsc, i) {
+    var src = p.images[Math.min(i + 1, p.images.length - 1)] || p.images[0];
+    return '<figure class="detail-fig"><span class="shot"><img src="' + src + '" alt="" loading="lazy" width="600" height="800"></span>' +
+      '<figcaption><b>' + dsc[0] + '</b><span>' + dsc[1] + '</span></figcaption></figure>';
+  }).join('');
+
+  /* ---- Reviews ---- */
+  var dist = [72, 19, 6, 2, 1];
+  $('#rvSummary').innerHTML =
+    '<div class="rv-score"><b>' + p.rating + '</b>' + stars(p.rating) +
+      '<p class="small">Based on ' + p.reviews + ' verified reviews</p></div>' +
+    '<div class="rv-bars">' + dist.map(function (pc, i) {
+      return '<div class="rv-bar"><span>' + (5 - i) + ' star</span>' +
+        '<span class="rv-track"><span class="rv-fill" style="width:' + pc + '%"></span></span>' +
+        '<span class="tnum">' + pc + '%</span></div>';
+    }).join('') + '</div>';
+
+  var RV = [
+    ['Fit was exactly as the chart said, and the fall was already stitched when it arrived. Wore it straight out of the box to a reception.', 'Meenakshi R.', 'Chennai', 5, 'Size L · True to size'],
+    ['The colour is richer in person than on screen. Slightly heavier than I expected but it holds the drape beautifully all evening.', 'Sowmya K.', 'Hyderabad', 5, 'Size M · True to size'],
+    ['Shipped to London in six days. Packaging was immaculate — muslin wrap, not plastic. Small thing, but it mattered.', 'Priya N.', 'London, UK', 4, 'Size XL · Runs slightly large']
+  ];
+  $('#rvList').innerHTML = RV.map(function (r) {
+    return '<article class="rev">' + stars(r[3]) +
+      '<p class="rev-q">"' + r[0] + '"</p>' +
+      '<p class="small" style="font-size:11.5px;color:var(--faint)">' + r[4] + '</p>' +
+      '<div class="rev-who"><span class="rev-av">' + r[1][0] + '</span>' +
+      '<div><b>' + r[1] + '</b><span>' + r[2] + '</span></div>' +
+      '<span class="verified" style="margin-left:auto">' + ico('check') + 'Verified</span></div></article>';
+  }).join('');
+
+  /* ---- Cross-sell ---- */
+  var ctl = P.filter(function (x) { return x.category !== p.category && x.available; })
+             .sort(function (a, b) { return Math.abs(a.price - p.price) - Math.abs(b.price - p.price); }).slice(0, 4);
+  $('#ctl').innerHTML = ctl.map(function (x) { return K.card(x); }).join('');
+
+  var sim = P.filter(function (x) { return x.category === p.category && x.handle !== p.handle; }).slice(0, 10);
+  if (sim.length < 6) sim = sim.concat(P.filter(function (x) { return x.handle !== p.handle && sim.indexOf(x) < 0; }).slice(0, 10 - sim.length));
+  $('#similar').innerHTML = sim.map(function (x) { return K.card(x); }).join('');
+  $('#moreLink').href = 'collection.html?c=' + encodeURIComponent(p.category);
+
+  /* ---- Sticky ATC ---- */
+  $('#stickyAtc').innerHTML =
+    '<img src="' + p.images[0] + '" alt="">' +
+    '<div class="sa-info"><h4>' + esc(p.title) + '</h4>' +
+    '<p class="small tnum" style="font-size:11.5px">' + money(p.price) + ' · Size ' + esc(size) + '</p></div>' +
+    (p.available
+      ? '<button class="btn btn--wine btn--sm" id="stickyAdd">Add to bag</button>'
+      : '<button class="btn btn--sm" data-notify="' + p.handle + '">Notify me</button>');
+
+  /* ---- Lightbox ---- */
+  function openLb(i) {
+    lbIndex = (i + p.images.length) % p.images.length;
+    $('#lbImg').src = p.images[lbIndex];
+    $('#lbImg').alt = p.title + ' — view ' + (lbIndex + 1);
+    $('#lbCount').textContent = (lbIndex + 1) + ' / ' + p.images.length;
+    $('#lightbox').classList.add('on');
+    document.body.classList.add('no-scroll');
+  }
+  function closeLb() { $('#lightbox').classList.remove('on'); document.body.classList.remove('no-scroll'); }
+
+  /* ---- Events ---- */
+  document.addEventListener('click', function (e) {
+    var shot = e.target.closest('[data-shot]');
+    if (shot) { openLb(+shot.dataset.shot); return; }
+    if (e.target.closest('[data-lb-close]') || e.target.id === 'lightbox') { closeLb(); return; }
+    var nav = e.target.closest('[data-lb]');
+    if (nav) { openLb(lbIndex + +nav.dataset.lb); return; }
+
+    var ps = e.target.closest('[data-ps]');
+    if (ps) {
+      size = ps.dataset.ps;
+      $$('#pdpSizes .size-pill').forEach(function (b) { b.classList.toggle('on', b === ps); });
+      $('#sizeName').textContent = '· ' + size;
+      var sa = $('#stickyAtc .small');
+      if (sa) sa.textContent = money(p.price) + ' · Size ' + size;
+      return;
+    }
+    var pq = e.target.closest('[data-pq]');
+    if (pq) { qty = Math.max(1, qty + +pq.dataset.pq); $('#pqty').textContent = qty; return; }
+
+    if (e.target.closest('#atc') || e.target.closest('#stickyAdd')) { K.addToCart(p.handle, size, qty); return; }
+    if (e.target.closest('#buyNow')) {
+      K.addToCart(p.handle, size, qty, true);
+      K.toast('Taking you to checkout…', 'shield'); K.open('#cartDrawer'); K.paintCounts(); return;
+    }
+    if (e.target.closest('#writeReview')) { K.toast('Review form is out of scope for this prototype', 'sparkle'); return; }
+
+    if (e.target.closest('#shareBtn')) {
+      var payload = { title: p.title, text: p.title + ' — ' + money(p.price) + ' at Kay the Fashion Bay', url: location.href };
+      if (navigator.share) { navigator.share(payload).catch(function () {}); }
+      else if (navigator.clipboard) {
+        navigator.clipboard.writeText(location.href)
+          .then(function () { K.toast('Link copied to clipboard', 'check'); })
+          .catch(function () { K.toast('Sharing is not available in this browser', 'x'); });
+      } else { K.toast('Sharing is not available in this browser', 'x'); }
+      return;
+    }
+
+    if (e.target.closest('#pinGo')) {
+      var v = ($('#pin').value || '').trim();
+      var out = $('#pinOut');
+      out.className = 'pin-out on ' + (/^\d{6}$/.test(v) ? 'ok' : 'no');
+      if (!/^\d{6}$/.test(v)) { out.textContent = 'Please enter a valid 6-digit pincode.'; return; }
+      var days = v.charAt(0) === '6' ? 2 : (v.charAt(0) === '5' || v.charAt(0) === '4' ? 3 : 4);
+      var d = new Date(Date.now() + days * 864e5);
+      out.innerHTML = 'Delivers by <b>' + d.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' }) +
+        '</b> · Free shipping · COD available';
+      return;
+    }
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if ($('#lightbox').classList.contains('on')) {
+      if (e.key === 'Escape') closeLb();
+      if (e.key === 'ArrowLeft') openLb(lbIndex - 1);
+      if (e.key === 'ArrowRight') openLb(lbIndex + 1);
+    }
+  });
+
+  /* Mobile carousel dots follow the scroll position */
+  var media = $('#media');
+  media.addEventListener('scroll', function () {
+    var i = Math.round(media.scrollLeft / media.clientWidth);
+    $$('#dots i').forEach(function (d, n) { d.classList.toggle('on', n === i); });
+  }, { passive: true });
+
+  /* Sticky bar appears once the buy panel has scrolled away */
+  var panel = $('#panel'), sticky = $('#stickyAtc');
+  window.addEventListener('scroll', function () {
+    var past = panel.getBoundingClientRect().bottom < 0;
+    var nearFoot = document.body.scrollHeight - (window.scrollY + window.innerHeight) < 420;
+    sticky.classList.toggle('on', past && !nearFoot);
+  }, { passive: true });
+
+  /* Recently viewed */
+  try {
+    var rv = JSON.parse(localStorage.getItem('kay.recent') || '[]').filter(function (h) { return h !== p.handle; });
+    rv.unshift(p.handle);
+    localStorage.setItem('kay.recent', JSON.stringify(rv.slice(0, 8)));
+  } catch (e) { /* private mode */ }
+
+  K.paintCounts();
+  window.KayReveal();
+});
+</script>
+</body>
+</html>

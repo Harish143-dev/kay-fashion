@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Shop All Ethnic Wear — Sarees, Lehengas &amp; Festive | Kay the Fashion Bay</title>
+<meta name="description" content="Browse Kay's full ethnic wear collection — handloom sarees, bridal lehengas, anarkalis, gowns and festive pret. Filter by fabric, colour, occasion, size and price. Free shipping across India.">
+<link rel="canonical" href="https://kayfashions.in/collections/all">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Shop All Ethnic Wear | Kay the Fashion Bay">
+<meta property="og:description" content="Handloom sarees, bridal lehengas and festive pret — filter by fabric, colour, occasion and price.">
+<meta name="theme-color" content="#1B1614">
+
+<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Jost:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div id="site-header"></div>
+
+<main id="main">
+
+  <!-- Collection hero -->
+  <section class="coll-hero">
+    <img id="chImg" src="" alt="">
+    <div class="wrap"><div class="coll-hero-body">
+      <nav class="crumbs" aria-label="Breadcrumb" style="color:rgba(255,255,255,.7)">
+        <a href="index.html">Home</a>
+        <svg viewBox="0 0 24 24" style="stroke:rgba(255,255,255,.5)"><path d="M9 5l7 7-7 7"/></svg>
+        <span aria-current="page" style="color:#fff" id="chCrumb">Shop All</span>
+      </nav>
+      <span class="eyebrow">The Collection</span>
+      <h1 class="d2" id="chTitle">Shop All</h1>
+      <p id="chDesc">Every piece we carry, in one place — handloom sarees, bridal lehengas and festive pret, all shipped free across India.</p>
+    </div></div>
+  </section>
+
+  <section class="section-tight">
+    <div class="wrap">
+      <div class="coll-layout">
+
+        <!-- ═══ FILTERS ═══ -->
+        <aside class="filters" id="filters" aria-label="Filters">
+          <div class="between" style="margin-bottom:6px">
+            <b style="font-size:13px;letter-spacing:.1em;text-transform:uppercase">Filter</b>
+            <button class="remove" id="clearAll">Clear all</button>
+          </div>
+          <div id="filterBody"></div>
+        </aside>
+
+        <!-- ═══ RESULTS ═══ -->
+        <div>
+          <div class="toolbar">
+            <div class="row" style="gap:14px">
+              <button class="filter-fab" id="openFilters">
+                <svg viewBox="0 0 24 24"><path d="M3 6h18M6 12h12M10 18h4"/></svg> Filter
+              </button>
+              <p class="small tnum" id="count">—</p>
+            </div>
+            <div class="row" style="gap:10px">
+              <div class="gridtoggle" role="group" aria-label="Grid density">
+                <button data-cols="2" aria-label="2 columns"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="7"/><rect x="4" y="13" width="16" height="7"/></svg></button>
+                <button data-cols="3" aria-label="3 columns"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="5.5" height="16"/><rect x="9.5" y="4" width="5.5" height="16"/><rect x="16" y="4" width="5.5" height="16"/></svg></button>
+                <button data-cols="4" class="on" aria-label="4 columns"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/></svg></button>
+              </div>
+              <div class="select-wrap">
+                <select class="sel" id="sort" aria-label="Sort by">
+                  <option value="featured">Featured</option>
+                  <option value="new">Newest first</option>
+                  <option value="popular">Most reviewed</option>
+                  <option value="rating">Top rated</option>
+                  <option value="plh">Price: low to high</option>
+                  <option value="phl">Price: high to low</option>
+                  <option value="az">Alphabetical A–Z</option>
+                </select>
+                <svg viewBox="0 0 24 24"><path d="M4 8l6 6 6-6"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <div class="active-chips" id="chips"></div>
+          <div class="pgrid" id="grid"></div>
+          <div id="more" class="center" style="margin-top:48px"></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Mobile filter drawer -->
+<aside class="drawer drawer--left" id="filterDrawer" aria-label="Filters" aria-hidden="true">
+  <div class="drawer-head"><h3>Filter</h3><button class="close-x" data-close aria-label="Close"><svg viewBox="0 0 24 24" style="stroke:currentColor;fill:none;stroke-width:1.6"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="drawer-body" id="filterBodyMobile"></div>
+  <div class="drawer-foot row" style="gap:10px">
+    <button class="btn btn--ghost" style="flex:1" id="clearAll2">Clear</button>
+    <button class="btn btn--wine" style="flex:1" data-close id="applyBtn">Show results</button>
+  </div>
+</aside>
+
+<div id="site-footer"></div>
+<div id="site-chrome"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var P = window.PRODUCTS, K = window.Kay, ico = window.KayIcon;
+  var $ = function (s) { return document.querySelector(s); };
+  var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+  var esc = K.esc, money = K.money;
+
+  var FESTIVE = ['Gowns', 'Anarkalis', 'Palazzo Sets', 'Croptop Sets', 'Salwar Suits', 'Kurtis', 'Sharara Sets', 'Festive Wear'];
+  var PAGE = 12;
+
+  /* ---------- State from URL ---------- */
+  var url = new URLSearchParams(location.search);
+  var S = {
+    cat:      url.getAll('c'),
+    fabric:   url.getAll('fabric'),
+    colour:   url.getAll('colour'),
+    size:     url.getAll('size'),
+    occasion: url.getAll('occasion'),
+    avail:    url.get('avail') === '1',
+    rts:      url.get('rts') === '1',
+    sale:     url.get('sale') === '1',
+    max:      +(url.get('max') || 0),
+    q:        url.get('q') || '',
+    sort:     url.get('sort') || 'featured',
+    shown:    PAGE
+  };
+
+  /* ---------- Preset collections from ?c= ---------- */
+  var PRESET = {
+    Bridal:  { title: 'Bridal', desc: 'Lehengas, cholis and muhurtham silks — fitted over three appointments in our Anna Nagar bridal suite.', img: 'lehenga-cream-net-ksy578632', match: function (p) { return p.category === 'Lehengas' || p.occasions.indexOf('Bridal') > -1; } },
+    Festive: { title: 'Festive Wear', desc: 'Anarkalis, palazzo sets, gowns and croptop sets — ready to wear, ready to ship.', img: 'anarkali-firozi-georgette-ksy574809', match: function (p) { return FESTIVE.indexOf(p.category) > -1; } }
+  };
+  var preset = S.cat.length === 1 ? PRESET[S.cat[0]] : null;
+
+  /* ---------- Hero copy ---------- */
+  (function heroCopy() {
+    var t = 'Shop All', d = $('#chDesc').textContent, imgHandle = 'lehenga-choli-light-peach-net-ksy451144';
+    if (preset) { t = preset.title; d = preset.desc; imgHandle = preset.img; }
+    else if (S.cat.length === 1) {
+      t = S.cat[0];
+      var n = P.filter(function (p) { return p.category === t; });
+      d = n.length + ' pieces in ' + t.toLowerCase() + ' — filter by fabric, colour and occasion to narrow it down.';
+      if (n.length) imgHandle = n[0].handle;
+    } else if (S.occasion.length === 1) {
+      t = S.occasion[0] + ' Edit'; d = 'Curated for the ' + S.occasion[0].toLowerCase() + ' — chosen for how it moves, photographs and lasts the night.';
+    } else if (S.sale) { t = 'Sale'; d = 'Reduced from our previous seasons. Limited pieces, final sizes — no restocks.'; }
+    else if (S.rts) { t = 'Ready to Ship'; d = 'In stock and dispatched same day on orders placed before 2 pm IST.'; }
+    else if (S.q) { t = '"' + S.q + '"'; d = 'Showing everything that matches your search.'; }
+    $('#chTitle').textContent = t; $('#chCrumb').textContent = t; $('#chDesc').textContent = d;
+    document.title = t + ' | Kay the Fashion Bay';
+    var ip = P.find(function (p) { return p.handle === imgHandle; }) || P[0];
+    $('#chImg').src = ip.images[0].replace('width=900', 'width=1800');
+  })();
+
+  /* ---------- Facets ---------- */
+  function uniq(fn) {
+    var m = {};
+    P.forEach(function (p) { var v = fn(p); (Array.isArray(v) ? v : [v]).forEach(function (x) { if (x) m[x] = (m[x] || 0) + 1; }); });
+    return Object.keys(m).sort().map(function (k) { return [k, m[k]]; });
+  }
+  var F_CAT = uniq(function (p) { return p.category; });
+  var F_FAB = uniq(function (p) { return p.fabric; });
+  var F_OCC = uniq(function (p) { return p.occasions; });
+  var F_SIZE = ['XS', 'S', 'M', 'L', 'XL', '2XL', 'Free Size'];
+  var COLOURS = (function () {
+    var m = {};
+    P.forEach(function (p) { if (!m[p.color]) m[p.color] = p.hex; });
+    return Object.keys(m).sort().map(function (k) { return [k, m[k]]; });
+  })();
+  var MAXP = Math.max.apply(null, P.map(function (p) { return p.price; }));
+
+  function filtersHTML(idPrefix) {
+    var group = function (name, body, open) {
+      return '<details class="fgroup"' + (open ? ' open' : '') + '><summary>' + name +
+        '<svg viewBox="0 0 24 24"><path d="M4 8l6 6 6-6"/></svg></summary><div class="fgroup-body">' + body + '</div></details>';
+    };
+    var checks = function (key, list) {
+      return list.map(function (r) {
+        var on = S[key].indexOf(r[0]) > -1;
+        return '<label class="check"><input type="checkbox" data-f="' + key + '" value="' + esc(r[0]) + '"' + (on ? ' checked' : '') + '>' +
+          esc(r[0]) + '<span class="n">' + r[1] + '</span></label>';
+      }).join('');
+    };
+    return '' +
+      group('Availability', '<label class="check"><input type="checkbox" data-t="avail"' + (S.avail ? ' checked' : '') + '>In stock only</label>' +
+        '<label class="check"><input type="checkbox" data-t="rts"' + (S.rts ? ' checked' : '') + '>Ready to ship</label>' +
+        '<label class="check"><input type="checkbox" data-t="sale"' + (S.sale ? ' checked' : '') + '>On sale</label>', true) +
+      group('Category', checks('cat', F_CAT), true) +
+      group('Occasion', checks('occasion', F_OCC)) +
+      group('Fabric', checks('fabric', F_FAB)) +
+      group('Colour', '<div class="swatch-grid">' + COLOURS.map(function (c) {
+        return '<button class="swatch' + (S.colour.indexOf(c[0]) > -1 ? ' on' : '') + '" data-colour="' + esc(c[0]) +
+          '" style="background:' + c[1] + '" title="' + esc(c[0]) + '" aria-label="' + esc(c[0]) + '"></button>';
+      }).join('') + '</div>', true) +
+      group('Size', '<div class="size-grid">' + F_SIZE.map(function (s) {
+        return '<button class="size-pill' + (S.size.indexOf(s) > -1 ? ' on' : '') + '" data-size="' + s + '">' + s + '</button>';
+      }).join('') + '</div>') +
+      group('Price', '<input class="range" type="range" min="2000" max="' + MAXP + '" step="500" value="' + (S.max || MAXP) + '" data-price>' +
+        '<div class="between small" style="margin-top:8px"><span>₹2,000</span><span id="' + idPrefix + 'PriceOut" class="tnum">' +
+        (S.max ? 'Up to ' + money(S.max) : 'Any price') + '</span></div>', true);
+  }
+
+  function paintFilters() {
+    $('#filterBody').innerHTML = filtersHTML('d');
+    $('#filterBodyMobile').innerHTML = filtersHTML('m');
+  }
+
+  /* ---------- Query ---------- */
+  function results() {
+    var out = P.slice();
+
+    if (preset) out = out.filter(preset.match);
+    else if (S.cat.length) out = out.filter(function (p) { return S.cat.indexOf(p.category) > -1; });
+
+    if (S.fabric.length)   out = out.filter(function (p) { return S.fabric.indexOf(p.fabric) > -1; });
+    if (S.colour.length)   out = out.filter(function (p) { return S.colour.indexOf(p.color) > -1; });
+    if (S.occasion.length) out = out.filter(function (p) { return p.occasions.some(function (o) { return S.occasion.indexOf(o) > -1; }); });
+    if (S.size.length)     out = out.filter(function (p) { return p.sizes.some(function (s) { return S.size.indexOf(s) > -1; }); });
+    if (S.avail) out = out.filter(function (p) { return p.available; });
+    if (S.rts)   out = out.filter(function (p) { return p.readyToShip && p.available; });
+    if (S.sale)  out = out.filter(function (p) { return p.compareAt > 0; });
+    if (S.max)   out = out.filter(function (p) { return p.price <= S.max; });
+
+    if (S.q) {
+      var terms = S.q.toLowerCase().split(/\s+/);
+      var cap = /under\s*₹?\s*([\d,]+)/.exec(S.q.toLowerCase());
+      if (cap) out = out.filter(function (p) { return p.price <= +cap[1].replace(/,/g, ''); });
+      else out = out.filter(function (p) {
+        var hay = (p.title + ' ' + p.category + ' ' + p.fabric + ' ' + p.color + ' ' + p.type + ' ' + p.occasions.join(' ') + ' ' + p.sku).toLowerCase();
+        return terms.every(function (t) { return hay.indexOf(t) > -1; });
+      });
+    }
+
+    var by = {
+      plh:     function (a, b) { return a.price - b.price; },
+      phl:     function (a, b) { return b.price - a.price; },
+      az:      function (a, b) { return a.title.localeCompare(b.title); },
+      rating:  function (a, b) { return b.rating - a.rating; },
+      popular: function (a, b) { return b.reviews - a.reviews; },
+      new:     function (a, b) { return a.n - b.n; },
+      featured:function (a, b) { return (a.available === b.available) ? a.n - b.n : (a.available ? -1 : 1); }
+    };
+    return out.sort(by[S.sort] || by.featured);
+  }
+
+  /* ---------- Chips ---------- */
+  function paintChips() {
+    var c = [];
+    var push = function (label, clear) { c.push('<button class="chip chip-x" data-clear=\'' + JSON.stringify(clear) + '\'>' + esc(label) + ico('x') + '</button>'); };
+    ['cat', 'fabric', 'colour', 'size', 'occasion'].forEach(function (k) {
+      S[k].forEach(function (v) { push(v, { k: k, v: v }); });
+    });
+    if (S.avail) push('In stock', { k: 'avail' });
+    if (S.rts) push('Ready to ship', { k: 'rts' });
+    if (S.sale) push('On sale', { k: 'sale' });
+    if (S.max) push('Under ' + money(S.max), { k: 'max' });
+    if (S.q) push('"' + S.q + '"', { k: 'q' });
+    $('#chips').innerHTML = c.length ? c.join('') + '<button class="chip" id="chipClear" style="color:var(--wine)">Clear all</button>' : '';
+  }
+
+  /* ---------- Render ---------- */
+  function render() {
+    var list = results();
+    var view = list.slice(0, S.shown);
+
+    $('#count').textContent = list.length + (list.length === 1 ? ' piece' : ' pieces');
+    $('#grid').innerHTML = view.length
+      ? view.map(function (p) { return K.card(p); }).join('')
+      : '<div class="empty" style="grid-column:1/-1">' + ico('search') +
+        '<h4>No pieces match those filters</h4><p>Try removing a filter, or browse the full collection.</p>' +
+        '<button class="btn btn--ghost" id="emptyClear">Clear all filters</button></div>';
+
+    $('#more').innerHTML = list.length > S.shown
+      ? '<p class="small" style="margin-bottom:16px">Showing ' + view.length + ' of ' + list.length + '</p>' +
+        '<button class="btn btn--ghost" id="loadMore">Load more</button>'
+      : (list.length > PAGE ? '<p class="small">You\'ve seen all ' + list.length + ' pieces</p>' : '');
+
+    paintChips();
+    K.paintCounts();
+    syncUrl();
+  }
+
+  function syncUrl() {
+    var u = new URLSearchParams();
+    ['cat', 'fabric', 'colour', 'size', 'occasion'].forEach(function (k) {
+      S[k].forEach(function (v) { u.append(k === 'cat' ? 'c' : k, v); });
+    });
+    if (S.avail) u.set('avail', '1');
+    if (S.rts) u.set('rts', '1');
+    if (S.sale) u.set('sale', '1');
+    if (S.max) u.set('max', S.max);
+    if (S.q) u.set('q', S.q);
+    if (S.sort !== 'featured') u.set('sort', S.sort);
+    history.replaceState(null, '', u.toString() ? '?' + u : location.pathname);
+  }
+
+  function toggle(key, val) {
+    var i = S[key].indexOf(val);
+    if (i > -1) S[key].splice(i, 1); else S[key].push(val);
+    S.shown = PAGE; preset = null; render(); paintFilters();
+  }
+  function clearAll() {
+    S.cat = []; S.fabric = []; S.colour = []; S.size = []; S.occasion = [];
+    S.avail = S.rts = S.sale = false; S.max = 0; S.q = ''; S.shown = PAGE;
+    preset = null; render(); paintFilters();
+  }
+
+  /* ---------- Events ---------- */
+  document.addEventListener('change', function (e) {
+    var t = e.target;
+    if (t.matches('[data-f]')) { toggle(t.dataset.f, t.value); }
+    else if (t.matches('[data-t]')) { S[t.dataset.t] = t.checked; S.shown = PAGE; render(); paintFilters(); }
+    else if (t.id === 'sort') { S.sort = t.value; S.shown = PAGE; render(); }
+  });
+  document.addEventListener('input', function (e) {
+    if (e.target.matches('[data-price]')) {
+      var v = +e.target.value;
+      S.max = v >= MAXP ? 0 : v;
+      $$('[id$="PriceOut"]').forEach(function (o) { o.textContent = S.max ? 'Up to ' + money(S.max) : 'Any price'; });
+      clearTimeout(window._pt); window._pt = setTimeout(function () { S.shown = PAGE; render(); }, 220);
+    }
+  });
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    var sw = t.closest('[data-colour]'); if (sw) { toggle('colour', sw.dataset.colour); return; }
+    var sz = t.closest('.size-pill[data-size]'); if (sz) { toggle('size', sz.dataset.size); return; }
+    if (t.closest('#loadMore')) { S.shown += PAGE; render(); return; }
+    if (t.closest('#clearAll') || t.closest('#clearAll2') || t.closest('#chipClear') || t.closest('#emptyClear')) { clearAll(); return; }
+    if (t.closest('#openFilters')) { K.open('#filterDrawer'); return; }
+    var cl = t.closest('[data-clear]');
+    if (cl) {
+      var d = JSON.parse(cl.dataset.clear);
+      if (d.v) toggle(d.k, d.v);
+      else { S[d.k] = (d.k === 'max') ? 0 : (d.k === 'q' ? '' : false); S.shown = PAGE; render(); paintFilters(); }
+      return;
+    }
+    var gc = t.closest('[data-cols]');
+    if (gc) {
+      $$('[data-cols]').forEach(function (b) { b.classList.remove('on'); }); gc.classList.add('on');
+      var g = $('#grid'); g.className = 'pgrid' + (gc.dataset.cols === '4' ? '' : ' pgrid--' + gc.dataset.cols);
+      return;
+    }
+  });
+
+  $('#sort').value = S.sort;
+  paintFilters();
+  render();
+  window.KayReveal();
+});
+</script>
+</body>
+</html>

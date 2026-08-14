@@ -1,0 +1,16 @@
+# Test dependency only (jsdom) — reinstall with `npm install jsdom`
+node_modules/
+package-lock.json
+
+# OS / editor cruft
+Thumbs.db
+ehthumbs.db
+desktop.ini
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Scratch
+_t.js
+*.log
