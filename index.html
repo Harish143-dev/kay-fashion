@@ -9,9 +9,9 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Kay the Fashion Bay — Handloom Sarees, Bridal Lehengas & Festive Wear">
 <meta property="og:description" content="Chennai's ethnic wear house since 1994. Handloom sarees, bridal lehengas and festive pret, shipped worldwide.">
-<meta property="og:image" content="https://cdn.shopify.com/s/files/1/0809/2177/files/I99A9575_1.jpg?v=1683012750&width=1200">
+<meta property="og:image" content="assets/video/hero-bridal.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="theme-color" content="#1B1614">
+<meta name="theme-color" content="#14100E">
 
 <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,22 +29,31 @@
 <main id="main">
 
   <!-- ════════ HERO ════════ -->
-  <section class="hero" aria-label="Featured collections">
-    <div class="hero-slides" id="heroSlides">
-      <div class="hero-slide on">
-        <img src="https://cdn.shopify.com/s/files/1/0809/2177/files/I99A9575_1.jpg?v=1683012750&width=1800" alt="Model wearing a cream net bridal lehenga" fetchpriority="high" width="1800" height="2250">
-      </div>
-      <div class="hero-slide">
-        <img src="https://cdn.shopify.com/s/files/1/0809/2177/products/UntitledSession2115.jpg?v=1620043682&width=1800" alt="Peach organza embroidered saree" loading="lazy">
-      </div>
-      <div class="hero-slide">
-        <img src="https://cdn.shopify.com/s/files/1/0809/2177/files/KSY574810-RS.11370_2_1.jpg?v=1683012402&width=1800" alt="Firozi georgette anarkali" loading="lazy">
-      </div>
+  <section class="hero" aria-label="The Bridal Edit">
+    <!-- Muted, looping, playsinline — the three attributes mobile browsers
+         require before they will autoplay. Poster carries the first frame so
+         the hero paints instantly and still reads if the video never loads. -->
+    <div class="hero-media">
+      <video class="hero-video" id="heroVideo"
+             poster="assets/video/hero-bridal.jpg"
+             autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1">
+        <source src="assets/video/hero-bridal.mp4" type="video/mp4">
+      </video>
     </div>
 
-    <div class="hero-body"><div class="wrap"><div class="hero-copy" id="heroCopy"></div></div></div>
+    <!-- Headline is static markup, not JS-injected — it is the LCP element. -->
+    <div class="hero-body"><div class="wrap">
+      <div class="hero-copy">
+        <span class="eyebrow">The Bridal Edit · 2026</span>
+        <h1>Made for the<br>morning she says yes.</h1>
+        <p>Hand-finished lehengas from our Anna Nagar atelier, fitted over three appointments and shipped anywhere in the world.</p>
+        <div class="hero-cta">
+          <a class="btn btn--light" href="collection.html?c=Bridal">Shop bridal</a>
+          <a class="btn btn--outline-light" href="appointments.html?mode=store">Book a fitting</a>
+        </div>
+      </div>
+    </div></div>
 
-    <div class="hero-dots" id="heroDots" role="tablist" aria-label="Slides"></div>
     <span class="hero-scroll">Scroll</span>
 
     <!-- Role-based entry: in wedding wear, who you are in the wedding decides
@@ -222,36 +231,22 @@ document.addEventListener('DOMContentLoaded', function () {
   var $ = function (s) { return document.querySelector(s); };
   var pick = function (h) { return P.find(function (p) { return p.handle === h; }); };
 
-  /* ---- Hero ---- */
-  var SLIDES = [
-    { eyebrow: 'The Bridal Edit · 2026', h: 'Made for the<br>morning she says yes.', p: 'Hand-finished lehengas from our Anna Nagar atelier, fitted over three appointments and shipped worldwide.', cta: ['Shop bridal', 'collection.html?c=Lehengas'], cta2: ['Book a fitting', '#concierge'] },
-    { eyebrow: 'The Handloom Edit', h: 'Six yards,<br>one weaver, no mill.', p: 'Kanchipuram, Arani and Banaras sarees bought straight from the loom — cluster and zari purity printed on every tag.', cta: ['Shop sarees', 'collection.html?c=Sarees'], cta2: ['Our weavers', '#story'] },
-    { eyebrow: 'Festive Pret · Ready to Ship', h: 'Dressed by Friday.<br>Delivered by Sunday.', p: 'Over 200 festive pieces in stock and ready to ship — same-day dispatch on every order placed before 2 pm.', cta: ['Shop ready to ship', 'collection.html?rts=1'], cta2: ['View lookbook', '#lookbook'] }
-  ];
-  var hi = 0;
-  var dots = $('#heroDots');
-  dots.innerHTML = SLIDES.map(function (_, i) {
-    return '<button class="hero-dot' + (i ? '' : ' on') + '" role="tab" aria-label="Slide ' + (i + 1) + '"></button>';
-  }).join('');
-
-  function paintHero(i) {
-    var s = SLIDES[i];
-    $('#heroCopy').innerHTML =
-      '<span class="eyebrow">' + s.eyebrow + '</span>' +
-      '<h1 class="d1">' + s.h + '</h1>' +
-      '<p>' + s.p + '</p>' +
-      '<div class="hero-cta"><a class="btn btn--light" href="' + s.cta[1] + '">' + s.cta[0] + '</a>' +
-      '<a class="btn btn--outline-light" href="' + s.cta2[1] + '">' + s.cta2[0] + '</a></div>';
-    document.querySelectorAll('.hero-slide').forEach(function (el, n) { el.classList.toggle('on', n === i); });
-    document.querySelectorAll('.hero-dot').forEach(function (el, n) { el.classList.toggle('on', n === i); });
+  /* ---- Hero video ----
+     Honour prefers-reduced-motion: hold the poster frame instead of looping.
+     Also pause while the tab is hidden so we are not decoding video off-screen. */
+  var vid = $('#heroVideo');
+  if (vid) {
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var apply = function () {
+      if (still.matches) { vid.pause(); vid.removeAttribute('autoplay'); }
+      else { var t = vid.play(); if (t && t.catch) t.catch(function () {}); }
+    };
+    apply();
+    if (still.addEventListener) still.addEventListener('change', apply);
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) vid.pause(); else apply();
+    });
   }
-  paintHero(0);
-  dots.addEventListener('click', function (e) {
-    var b = e.target.closest('.hero-dot'); if (!b) return;
-    hi = [].indexOf.call(dots.children, b); paintHero(hi); clearInterval(timer); timer = start();
-  });
-  function start() { return setInterval(function () { hi = (hi + 1) % SLIDES.length; paintHero(hi); }, 6500); }
-  var timer = start();
 
   /* ---- Role-based entry ---- */
   var ROLES = [

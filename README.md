@@ -17,13 +17,17 @@ start index.html         # Windows
 ```
 
 Works straight off the filesystem — no server needed. Product imagery is loaded live from
-their real Shopify CDN, so you need to be online for pictures to appear.
+their real Shopify CDN, so you need to be online for pictures to appear. The hero video is
+local, so it plays offline.
+
+The raw 4K HEVC source clip is gitignored (23 MB, and HEVC does not play in Chrome or
+Firefox). `assets/video/hero-bridal.mp4` is the H.264 rendition actually used.
 
 ## Pages
 
 | File | What it demonstrates |
 |---|---|
-| `index.html` | Homepage — hero with role-based entry, trust strip, categories, new-in, bridal editorial, occasions, bestsellers, concierge, provenance, reviews, UGC, stores, newsletter |
+| `index.html` | Homepage — looping bridal video hero with role-based entry, trust strip, categories, new-in, bridal editorial, occasions, bestsellers, concierge, provenance, reviews, UGC, stores, newsletter |
 | `collection.html` | Listing page — faceted filters, sort, density toggle, chips, load-more, URL state |
 | `product.html` | Product page — two-column image grid + sticky buy panel, Product Highlights overlay, lightbox, variants, readiness, delivery check, trust band, editorial detail, reviews, cross-sell |
 | `appointments.html` | Booking — **Store Visit** and **Video Call** modes with different fields, slots and copy; validation and confirmation |
@@ -35,6 +39,7 @@ Deep links that work: `collection.html?c=Sarees`, `?c=Bridal`, `?sale=1`, `?rts=
 
 ## What actually works (not mocked)
 
+- **Hero video** — a 7-second bridal loop (muted / looping / `playsinline` so mobile autoplays it), with a poster frame for instant paint and a graceful fallback. Pauses on `prefers-reduced-motion` and while the tab is hidden
 - **Cart** — add / qty / remove, free-shipping progress to ₹20,000, totals, persists in `localStorage`
 - **Wishlist** — toggle from cards, quick view or PDP; persists across pages
 - **Faceted filtering** — category, occasion, fabric, colour, size, price, in-stock, ready-to-ship, on-sale; filters stack and intersect, and write to the URL so results are shareable
@@ -63,7 +68,7 @@ compare-at/MRP prices, and stock states. Stock was deliberately rebalanced — t
 
 ## Tests
 
-211 assertions driving the real pages in a headless DOM — rendering, cart maths, filter
+219 assertions driving the real pages in a headless DOM — rendering, cart maths, filter
 intersection, sort ordering, URL sync, gallery, pincode, sold-out state, persistence, plus
 computed-style guards that catch sized boxes collapsing to `display:inline` and icons
 falling back to opaque black at unbounded size.
@@ -79,9 +84,10 @@ node test/links.js     # network: verifies every image URL returns 200
 ```
 index.html  collection.html  product.html  appointments.html  closet.html
 assets/css/style.css      design tokens + all components
+assets/video/             hero-bridal.mp4 (H.264 1080p, 2.5 MB) + poster jpg
 assets/js/data.js         75-product catalogue
 assets/js/app.js          site chrome, cart, wishlist, search, quick view
-test/smoke.js             211 assertions (offline)
+test/smoke.js             219 assertions (offline)
 test/links.js             image URL checker (network)
 ```
 

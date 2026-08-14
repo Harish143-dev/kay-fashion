@@ -14,3 +14,8 @@ desktop.ini
 # Scratch
 _t.js
 *.log
+
+# Raw 4K HEVC hero footage — 23 MB and not playable in Chrome/Firefox.
+# The web renditions in assets/video/ are generated from it and ARE committed.
+assets/hf_*.mp4
+assets/**/*.hevc.mp4

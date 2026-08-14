@@ -37,6 +37,10 @@ function load(file, search = '') {
       w.HTMLElement.prototype.scrollTo = () => {};
       w.HTMLElement.prototype.scrollBy = () => {};
       w.IntersectionObserver = class { observe() {} unobserve() {} disconnect() {} };
+      // jsdom has no media pipeline; play()/pause() throw "Not implemented".
+      // Real browsers have them, so stub rather than weaken the page code.
+      w.HTMLMediaElement.prototype.play = function () { return Promise.resolve(); };
+      w.HTMLMediaElement.prototype.pause = function () {};
     }
   });
 
@@ -107,7 +111,27 @@ console.log('\n── index.html ──');
   ok('header rendered', !!d.querySelector('.header .logo'));
   ok('mega menus present (3)', d.querySelectorAll('.mega').length === 3, d.querySelectorAll('.mega').length);
   ok('announcement rotating', d.querySelector('#announce .announce-item') !== null);
-  ok('hero copy + dots', !!d.querySelector('#heroCopy h1') && d.querySelectorAll('.hero-dot').length === 3);
+  // Hero is now a single looping video, not an image slider.
+  ok('hero headline is static markup (it is the LCP element)',
+    !!d.querySelector('.hero-copy h1') && d.querySelector('.hero-copy h1').textContent.trim().length > 10);
+  ok('hero slider is gone', !d.querySelector('.hero-slide, .hero-dot, #heroDots, #heroSlides'));
+  ok('hero uses a <video>', !!d.querySelector('video.hero-video source[src$=".mp4"]'));
+  ok('hero video has the autoplay attribute trio', (() => {
+    const v = d.querySelector('.hero-video');
+    return v.hasAttribute('muted') && v.hasAttribute('playsinline') && v.hasAttribute('autoplay') && v.hasAttribute('loop');
+  })(), 'muted/playsinline/autoplay/loop');
+  ok('hero video has a poster fallback', /hero-bridal\.jpg$/.test(d.querySelector('.hero-video').getAttribute('poster')));
+  ok('hero video is hidden from assistive tech (decorative)',
+    d.querySelector('.hero-video').getAttribute('aria-hidden') === 'true');
+  ok('hero media files exist on disk',
+    ['assets/video/hero-bridal.mp4', 'assets/video/hero-bridal.jpg'].every(f => fs.existsSync(path.join(ROOT, f))));
+  ok('hero video is web-playable H.264, not the 4K HEVC source', (() => {
+    const b = fs.readFileSync(path.join(ROOT, 'assets/video/hero-bridal.mp4')).subarray(0, 4096).toString('latin1');
+    return b.includes('avc1') && !b.includes('hvc1') && !b.includes('hev1');
+  })());
+  ok('hero video is under 4 MB',
+    fs.statSync(path.join(ROOT, 'assets/video/hero-bridal.mp4')).size < 4 * 1024 * 1024,
+    Math.round(fs.statSync(path.join(ROOT, 'assets/video/hero-bridal.mp4')).size / 1024) + ' KB');
   ok('USP strip = 5 items', d.querySelectorAll('.usp-item').length === 5, d.querySelectorAll('.usp-item').length);
   ok('trust strip leads with Empowering Weavers', /empowering weavers/i.test(d.querySelector('.usp-item').textContent));
   ok('no static heritage chip in the utility bar', !/est\. 1994/i.test(d.querySelector('.announce').textContent),

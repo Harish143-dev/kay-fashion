@@ -276,27 +276,24 @@ h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; line-height: 1.1
 
 /* ---------- Hero ---------- */
 .hero { position: relative; background: var(--deep); overflow: hidden; }
-.hero-slides { position: relative; height: clamp(560px, 84vh, 880px); }
-.hero-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.4s var(--ease); }
-.hero-slide.on { opacity: 1; }
-.hero-slide img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; transform: scale(1.04); transition: transform 9s linear; }
-.hero-slide.on img { transform: scale(1); }
-.hero-slide::after {
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(100deg, rgba(16,12,10,.78) 0%, rgba(16,12,10,.44) 46%, rgba(16,12,10,.06) 100%);
+.hero-media { position: relative; height: clamp(560px, 84vh, 880px); }
+.hero-video {
+  width: 100%; height: 100%; object-fit: cover; object-position: center;
+  display: block; background: var(--deep);
+}
+/* Scrim: keeps the headline legible over a moving image, weighted to the left
+   where the copy sits and where this footage happens to be emptiest. */
+.hero-media::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(100deg, rgba(16,12,10,.82) 0%, rgba(16,12,10,.5) 44%, rgba(16,12,10,.1) 100%);
 }
 .hero-body { position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; pointer-events: none; }
 .hero-body .wrap { width: 100%; }
 .hero-copy { max-width: 680px; color: #fff; pointer-events: auto; }
 .hero-copy .eyebrow { color: var(--gold); }
-/* Sized so each authored <br> line fits on one visual line — the shared .d1
-   scale is too large here and would force a 2-line headline onto 3. */
 .hero-copy h1 { color: #fff; margin: 22px 0 22px; font-size: clamp(34px, 4.3vw, 60px); line-height: 1.08; letter-spacing: -.02em; }
 .hero-copy p { font-size: var(--fs-md); color: rgba(255,255,255,.82); max-width: 42ch; line-height: 1.85; font-weight: 300; }
 .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 38px; }
-.hero-dots { position: absolute; left: 0; right: 0; bottom: 112px; z-index: 3; display: flex; justify-content: center; gap: 10px; }
-.hero-dot { width: 38px; height: 1px; background: rgba(255,255,255,.3); transition: background .5s; }
-.hero-dot.on { background: var(--gold); }
 .hero-scroll {
   position: absolute; right: var(--gut); bottom: 110px; z-index: 3; color: rgba(255,255,255,.6);
   font-size: 9.5px; letter-spacing: .26em; text-transform: uppercase;
@@ -1115,9 +1112,8 @@ select.sel:hover { border-color: var(--ink); }
   .rev-grid > :nth-child(3) { display: block; }
   .ugc { grid-template-columns: repeat(3, 1fr); }
   .section-head { flex-direction: column; align-items: flex-start; gap: 18px; margin-bottom: 32px; }
-  .hero-slides { height: 78vh; min-height: 540px; }
+  .hero-media { height: 78vh; min-height: 540px; }
   .hero-scroll { display: none; }
-  .hero-dots { bottom: 168px; }
   .roles { grid-template-columns: 1fr; }
   .role { padding: 15px 18px; }
   .role:nth-child(3) { display: flex; }
@@ -1189,7 +1185,8 @@ select.sel:hover { border-color: var(--ink); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
   .rv { opacity: 1; transform: none; }
-  .hero-slide img { transform: none; }
+  /* JS pauses the hero video too; this is the CSS-only belt-and-braces. */
+  .hero-video { animation: none; }
 }
 @media print {
   .header, .announce, .footer, .fab, .mobnav, .drawer, .scrim, .sticky-atc { display: none !important; }
