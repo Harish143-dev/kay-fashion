@@ -96,7 +96,9 @@ ul, ol { list-style: none; }
 /* ---------- Typography ---------- */
 h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; line-height: 1.1; letter-spacing: -.012em; }
 .d1 { font-size: clamp(42px, 6.8vw, 88px); font-weight: 400; line-height: 1.02; letter-spacing: -.028em; }
-.d2 { font-size: clamp(31px, 4.3vw, 56px); font-weight: 400; line-height: 1.08; letter-spacing: -.018em; }
+/* Section headings sit below the hero headline (clamp max 46px) — the hero has
+   to stay the loudest voice on the page, so .d2 caps under it. */
+.d2 { font-size: clamp(25px, 2.9vw, 40px); font-weight: 400; line-height: 1.1; letter-spacing: -.016em; }
 .d3 { font-size: clamp(25px, 2.7vw, 37px); font-weight: 400; letter-spacing: -.012em; }
 .d4 { font-size: clamp(20px, 1.9vw, 25px); font-weight: 400; }
 

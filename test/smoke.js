@@ -179,6 +179,21 @@ console.log('\n── index.html ──');
   // Bodoni Moda has no weight below 400 — a 300 would silently snap up and look wrong.
   ok('no display rule asks for a weight Bodoni cannot supply',
     !/(\.d[1-4]|h1, h2, h3, h4)[^{]*\{[^}]*font-weight:\s*[123]00/.test(css));
+  // Display scale. Reading the clamp() ceilings statically because jsdom has no
+  // viewport to resolve them against. Two invariants: the steps stay ordered, and
+  // no section heading outshouts the hero headline (.d2 crept above it once the
+  // hero was reduced, which is what put the section heads out of scale).
+  const clampMax = sel => {
+    const m = new RegExp(sel.replace(/[.\-]/g, '\\$&') +
+      '\\s*\\{[^}]*font-size:\\s*clamp\\([^)]*?,\\s*([\\d.]+)px\\s*\\)').exec(css);
+    return m ? +m[1] : NaN;
+  };
+  const scale = ['.d1', '.d2', '.d3', '.d4'].map(clampMax);
+  ok('display scale steps down monotonically',
+    scale.every(n => n > 0) && scale.every((n, i) => i === 0 || n < scale[i - 1]), scale.join(' > '));
+  const heroMax = clampMax('.hero-copy h1');
+  ok('section headings stay under the hero headline',
+    heroMax > 0 && clampMax('.d2') < heroMax, `.d2 ${clampMax('.d2')}px vs hero ${heroMax}px`);
   ok('every page loads the Bodoni + Jost pair',
     ['index.html','collection.html','product.html','appointments.html','closet.html'].every(f => {
       const src = fs.readFileSync(path.join(ROOT, f), 'utf8');
