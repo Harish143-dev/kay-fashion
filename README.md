@@ -77,12 +77,20 @@ Two suites, because they catch different things.
 sort ordering, URL sync, gallery, pincode, sold-out state, persistence, plus computed-style
 guards for boxes collapsing to `display:inline` and icons falling back to opaque black.
 
-`test/layout.js` — 93 assertions in **real Chrome** at 390 / 768 / 1024 / 1440px. jsdom executes
+`test/layout.js` — 112 assertions in **real Chrome** at 390 / 768 / 1024 / 1440px. jsdom executes
 JavaScript but performs no layout, so it cannot see a header wrapping to a second row, a carousel
 blowing the document out to three times the viewport, or a buy button 4,000px down a phone
 screen. All three shipped before this suite existed. It measures actual boxes: horizontal
-overflow, header row integrity, logo centring, tap-target sizes and how far down the page the
-primary CTA sits.
+overflow, header row integrity, logo centring, tap-target sizes, swipe-rail gutters and how far
+down the page the primary CTA sits.
+
+Each page is loaded inside an iframe sized to the exact CSS width under test. `--window-size`
+cannot deliver one: headless Chrome on Windows clamps the window to roughly 500px and applies
+display scaling on top, so asking for 390 quietly produced a 504px viewport — the narrowest
+phone width, where most of the reported bugs have been, was never actually being tested. An
+iframe establishes its own viewport, so media queries and `vw` units resolve against the real
+number. The suite now asserts the viewport it got matches the one it asked for, so that class of
+silent drift cannot come back.
 
 ```
 npm install jsdom
@@ -103,7 +111,7 @@ assets/js/app.js          site chrome, cart, wishlist, search, quick view
 tools/build-images.py     originals -> renamed, resized WebP
 tools/add-new-arrivals.py puts the house shoot at the front of the catalogue
 test/smoke.js             256 assertions (offline)
-test/layout.js            93 assertions in real Chrome at four widths
+test/layout.js            112 assertions in real Chrome at four widths
 test/links.js             remote image URL checker (network)
 ```
 

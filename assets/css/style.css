@@ -415,23 +415,32 @@ h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; line-height: 1.1
 
 .card-wish {
   position: absolute; top: 12px; right: 12px; z-index: 3; width: 34px; height: 34px;
-  background: rgba(255,255,255,.9); display: grid; place-items: center;
+  background: transparent; display: grid; place-items: center;
   opacity: 0; transform: translateY(-5px); transition: all .5s var(--ease-out);
 }
+/* The white block is a pseudo-element, not the button itself, so the touch
+   target can grow to 44px without the paint growing with it and covering the
+   garment. */
+.card-wish::before, .card-closet::before {
+  content: ""; position: absolute; inset: 0; background: rgba(255,255,255,.9);
+  transition: background .35s;
+}
+.card-wish svg, .card-closet svg { position: relative; z-index: 1; }
 .card-frame:hover .card-wish, .card-wish.on { opacity: 1; transform: translateY(0); }
 .card-wish svg { width: 16px; height: 16px; transition: all .35s; }
 .card-wish.on svg { stroke: var(--wine); fill: var(--wine); }
-.card-wish:hover { background: #fff; }
+.card-wish:hover::before { background: #fff; }
 
 /* Save-to-Wedding-Closet, sits beside the wishlist heart */
 .card-closet {
   position: absolute; top: 12px; right: 52px; z-index: 3; width: 34px; height: 34px;
-  background: rgba(255,255,255,.9); display: grid; place-items: center;
+  background: transparent; display: grid; place-items: center;
   opacity: 0; transform: translateY(-5px); transition: all .5s var(--ease-out);
 }
 .card-frame:hover .card-closet { opacity: 1; transform: translateY(0); }
 .card-closet svg { width: 16px; height: 16px; }
-.card-closet:hover { background: #fff; color: var(--wine); }
+.card-closet:hover::before { background: #fff; }
+.card-closet:hover { color: var(--wine); }
 .card-closet.on { opacity: 1; color: var(--wine); }
 
 .card-quick {
@@ -454,12 +463,12 @@ h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; line-height: 1.1
 .price-off { font-size: 10px; font-weight: 400; color: var(--wine); letter-spacing: .12em; text-transform: uppercase; }
 
 /* Garment-readiness — a garment claim, distinct from the shipping claim */
-.card-status { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 7px; }
+.card-status { display: flex; align-items: center; flex-wrap: wrap; gap: 3px 12px; margin-top: 7px; }
 /* Shipping speed, moved off the photograph. Gold and right-aligned so it
    reads as a separate claim from the garment readiness beside it. */
-.card-rts { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); flex: none; }
+.card-rts { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); flex: none; white-space: nowrap; }
 .card-ready {
-  display: inline-flex; align-items: center; gap: 7px; min-width: 0;
+  display: inline-flex; align-items: center; gap: 7px; min-width: 0; white-space: nowrap;
   font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-2);
 }
 .card-ready::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex: none; }
@@ -1237,7 +1246,8 @@ select.sel:hover { border-color: var(--ink); }
      the utility bar is not a touch target. */
   .announce-social { display: none; }
   .card-wish, .card-closet { width: 44px; height: 44px; }
-  .card-closet { right: 62px; }
+  .card-wish::before, .card-closet::before { inset: 6px; }
+  .card-closet { right: 50px; }
   .iconbtn { width: 44px; height: 44px; }
   .pdp-band-grid { grid-template-columns: 1fr; }
   .pdp-band-item + .pdp-band-item { border-left: none; border-top: 1px solid var(--line-2); }
@@ -1330,7 +1340,9 @@ select.sel:hover { border-color: var(--ink); }
   .events, .closet-stats { grid-template-columns: 1fr; }
   .appt-form { grid-template-columns: 1fr; }
   .slot-grid { grid-template-columns: repeat(3, 1fr); }
-  .card-closet, .card-wish { opacity: 1; transform: none; }
+  /* No hover on touch, so these are always visible -- move them to the hem,
+     where they cover skirt rather than face. */
+  .card-closet, .card-wish { opacity: 1; transform: none; top: auto; bottom: 8px; }
 
   .mobnav {
     display: grid; grid-template-columns: repeat(5, 1fr);

@@ -107,28 +107,55 @@ document.addEventListener('DOMContentLoaded', function () { setTimeout(function 
       .filter(function (c) { return getComputedStyle(c).display !== 'none'; }).length;
   }
 
-  var s = document.createElement('script');
-  s.type = 'application/json'; s.id = 'probe-out';
-  s.textContent = JSON.stringify(out);
-  document.body.appendChild(s);
+  parent.postMessage(JSON.stringify(out), '*');
 }, 600); });
 </script>`;
 
-function measure(page, query, width) {
-  const tmp = path.join(ROOT, `_layout_probe_${process.pid}.html`);
+/* The page is loaded inside an iframe sized to the exact CSS width under test,
+ * because --window-size cannot deliver one. Headless Chrome on Windows clamps
+ * the window to roughly 500px and applies display scaling on top, so asking for
+ * 390 produced a 504px viewport — the narrowest phone width, which is where
+ * most of the real bugs have been, was never actually tested. An iframe
+ * establishes its own viewport, so media queries and vw units resolve against
+ * exactly the width we ask for. The probe posts its results up to the wrapper,
+ * since --dump-dom only serialises the top document.
+ */
+const FRAME = (src, w, h) => `<!doctype html><meta charset="utf-8">
+<style>html,body{margin:0;background:#fff}iframe{border:0;display:block;width:${w}px;height:${h}px}</style>
+<iframe src="${src}" scrolling="no"></iframe>
+<script>
+window.addEventListener('message', function (e) {
+  var s = document.createElement('script');
+  s.type = 'application/json'; s.id = 'probe-out';
+  s.textContent = e.data;
+  document.body.appendChild(s);
+});
+</script>`;
+
+function measure(page, query, width, height = 900) {
+  const probeFile = `_layout_probe_${process.pid}.html`;
+  const frameFile = `_layout_frame_${process.pid}.html`;
+  const probePath = path.join(ROOT, probeFile);
+  const framePath = path.join(ROOT, frameFile);
+
   const src = fs.readFileSync(path.join(ROOT, page), 'utf8');
-  fs.writeFileSync(tmp, src.replace('</body>', PROBE + '</body>'), 'utf8');
+  fs.writeFileSync(probePath, src.replace('</body>', PROBE + '</body>'), 'utf8');
+  fs.writeFileSync(framePath, FRAME(probeFile + (query || ''), width, height), 'utf8');
+
   try {
-    const url = 'file:///' + path.join(ROOT, path.basename(tmp)).replace(/\\/g, '/') + (query || '');
+    const url = 'file:///' + framePath.replace(/\\/g, '/');
     const dom = execFileSync(CHROME, [
       '--headless=new', '--disable-gpu', '--hide-scrollbars', '--no-sandbox',
-      '--virtual-time-budget=15000', `--window-size=${width},1000`, '--dump-dom', url,
+      '--allow-file-access-from-files', '--virtual-time-budget=20000',
+      // Window only has to be big enough to hold the frame; the frame is the
+      // viewport that matters.
+      `--window-size=${Math.max(width + 60, 640)},${height + 60}`, '--dump-dom', url,
     ], { encoding: 'utf8', maxBuffer: 64 * 1024 * 1024, stdio: ['ignore', 'pipe', 'ignore'] });
     const m = /<script type="application\/json" id="probe-out">([\s\S]*?)<\/script>/.exec(dom);
     if (!m) throw new Error('probe produced no output');
     return JSON.parse(m[1].replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>'));
   } finally {
-    fs.unlinkSync(tmp);
+    [probePath, framePath].forEach(f => { try { fs.unlinkSync(f); } catch (e) { /* already gone */ } });
   }
 }
 
@@ -160,6 +187,10 @@ for (const [page, query] of PAGES) {
     catch (e) { ok(`${page} @${width}`, false, e.message); continue; }
 
     const at = `${page} @${width}`;
+    // If the browser hands back a different width, every measurement below is
+    // about a viewport nobody asked for.
+    ok(`${at}: viewport is the width under test`,
+      Math.abs(r.viewport - width) <= 2, `asked ${width}, got ${r.viewport}`);
     ok(`${at}: no horizontal overflow`,
       r.docWidth <= r.viewport + 1, `doc ${r.docWidth} vs viewport ${r.viewport}` +
         (r.overflowing.length ? ' — ' + r.overflowing.join(', ') : ''));
