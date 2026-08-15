@@ -797,6 +797,19 @@ select.sel:hover { border-color: var(--ink); }
 .pdp-shot img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease-out); }
 .pdp-shot:hover img { transform: scale(1.03); }
 .pdp-shot.sold img { filter: grayscale(.5) opacity(.72); }
+/* Shoot film. Shares the shot's box so it slots into the grid and the mobile
+   carousel as one more panel; the source is 9:16, so it is cropped to match
+   rather than left letterboxed against the stills. */
+.pdp-film { position: relative; width: 100%; aspect-ratio: 3/4; overflow: hidden; background: var(--sand); }
+.pdp-film video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pdp-film-tag {
+  position: absolute; left: 16px; bottom: 16px; z-index: 3;
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 13px; background: rgba(255,255,255,.94); color: var(--ink);
+  font-size: 9.5px; letter-spacing: .2em; text-transform: uppercase;
+}
+.pdp-film-tag svg { width: 11px; height: 11px; fill: currentColor; stroke: none; }
+
 .pdp-shot-tags { position: absolute; top: 16px; left: 16px; z-index: 3; display: flex; flex-direction: column; gap: 7px; align-items: flex-start; }
 
 /* Floating wishlist / share / closet on the first frame */
@@ -1199,7 +1212,7 @@ select.sel:hover { border-color: var(--ink); }
   .pdp-grid::-webkit-scrollbar { display: none; }
   /* width, not min-width — the base rule is width:100%, and a min-width floor
      below that would never bind. */
-  .pdp-shot { width: min(64vw, 460px); flex: none; scroll-snap-align: start; }
+  .pdp-shot, .pdp-film { width: min(64vw, 460px); flex: none; scroll-snap-align: start; }
   .pdp-float button { width: 44px; height: 44px; }
   .pdp-dots { display: flex; justify-content: center; gap: 7px; margin-top: 14px; }
   .pdp-dots i { width: 22px; height: 1px; background: var(--line); transition: background .4s; }
@@ -1287,7 +1300,7 @@ select.sel:hover { border-color: var(--ink); }
   .toast { max-width: none; }
   /* The carousel starts at 1024; on phones it goes edge to edge. */
   .pdp-grid { gap: 0; margin-inline: calc(var(--gut) * -1); }
-  .pdp-shot { width: 100%; scroll-snap-align: center; }
+  .pdp-shot, .pdp-film { width: 100%; scroll-snap-align: center; }
   .pdp-highlights { padding: 26px 20px; }
   .pdp-highlights dl { grid-template-columns: repeat(2, 1fr); gap: 20px 22px; }
   .cta-row { grid-template-columns: 1fr; }

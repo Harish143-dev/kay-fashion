@@ -29,7 +29,7 @@ Firefox). `assets/video/hero-bridal.mp4` is the H.264 rendition actually used.
 |---|---|
 | `index.html` | Homepage — looping bridal video hero with role-based entry, **new arrivals**, trust strip, categories, more-new-in, bridal editorial, occasions, bestsellers, concierge, provenance, reviews, UGC, stores, newsletter |
 | `collection.html` | Listing page — faceted filters, sort, density toggle, chips, load-more, URL state |
-| `product.html` | Product page — two-column image grid + sticky buy panel, Product Highlights overlay, lightbox, variants, readiness, delivery check, trust band, editorial detail, reviews, cross-sell |
+| `product.html` | Product page — gallery (shoot film first where there is one) + sticky buy panel, Product Highlights below the images, lightbox, variants, readiness, delivery check, trust band, editorial detail, reviews, cross-sell |
 | `appointments.html` | Booking — **Store Visit** and **Video Call** modes with different fields, slots and copy; validation and confirmation |
 | `closet.html` | **Wedding Closet** — a trousseau planner with one column per wedding function, running totals and sharing |
 
@@ -46,7 +46,8 @@ Deep links that work: `collection.html?c=Sarees`, `?c=Bridal`, `?sale=1`, `?rts=
 - **Sort** — featured / newest / most-reviewed / top-rated / price / A–Z
 - **Search** — live overlay with instant results, `⌘K` / `Ctrl+K`, empty state, natural-language price ("under ₹5,000")
 - **Quick view** — modal with size selection and add-to-bag
-- **PDP image stack** — photographs run at full width down the page with a sticky buy panel beside them; click any shot for a lightbox with counter, arrows and keyboard nav. On mobile the stack becomes an edge-to-edge swipe carousel with dots
+- **PDP gallery** — photographs beside a sticky buy panel; click any shot for a lightbox with counter, arrows and keyboard nav. Below 1024px it becomes a swipe carousel with dots, so the buy panel stays within reach instead of sitting under a full stack of images
+- **Shoot film** — the Rust Bridal Lehenga leads its gallery with an 8-second film (muted, looping, `playsinline`, poster-backed). It is a gallery panel, not a lightbox target, so image indices are untouched. Pauses under `prefers-reduced-motion` and while the tab is hidden
 - **Pincode checker** — validates and returns an estimated delivery date
 - **Sold-out state** — "Notify me" replaces add-to-cart, greyed imagery, made-to-order copy
 - **Wedding Closet** — save any look against one of five wedding functions (engagement, mehendi & haldi, sangeet, muhurtham, reception); per-event and total spend, remove, share; persists in `localStorage`
@@ -95,7 +96,7 @@ node test/links.js     # network: verifies every remote image URL returns 200
 ```
 index.html  collection.html  product.html  appointments.html  closet.html
 assets/css/style.css      design tokens + all components
-assets/video/             hero-bridal.mp4 (H.264 1080p, 2.5 MB) + poster jpg
+assets/video/             hero-bridal.mp4 + the Rust Bridal Lehenga film, each with a poster
 assets/images/products/   the house shoot, WebP (see Images)
 assets/js/data.js         80-product catalogue
 assets/js/app.js          site chrome, cart, wishlist, search, quick view
@@ -125,7 +126,11 @@ python tools/build-images.py        # rebuild from the originals
 python tools/add-new-arrivals.py    # re-seed the catalogue entries
 ```
 
-Both are idempotent. The five pieces are ordinary products — cards, PDP, cart, wishlist and the
+The Rust Bridal Lehenga also has an 8-second shoot film. It arrived already H.264 720x1280,
+faststart and 1.8 MB, so it is served exactly as delivered — only renamed to the handle, with a
+poster frame pulled at 1.2s.
+
+Both scripts are idempotent. The five pieces are ordinary products — cards, PDP, cart, wishlist and the
 Wedding Closet all work on them — but they carry `newIn: true` and the lowest `n`, so they lead
 the homepage and every newest-first sort.
 

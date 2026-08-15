@@ -554,7 +554,45 @@ function runProduct() {
     ok('trust row sits in the panel, not a separate band',
       !!d.querySelector('.pdp-panel .pdp-trust') && !d.querySelector('.pdp-band'));
     ok('editorial detail = 3 crops', d.querySelectorAll('.detail-fig').length === 3);
-    ok('carousel dots match image count', d.querySelectorAll('#dots i').length === inStock.images.length);
+    // The shoot film is a carousel panel too, so it gets a dot.
+    const panels = inStock.images.length + (inStock.video ? 1 : 0);
+    ok('carousel dots match panel count', d.querySelectorAll('#dots i').length === panels,
+      d.querySelectorAll('#dots i').length + ' dots vs ' + panels + ' panels');
+    // Shoot film. It leads the gallery but must not disturb image indices —
+    // the lightbox assertions below are what prove that.
+    ok('shoot film renders for the product that has one',
+      !!inStock.video === !!d.querySelector('.pdp-film video'), inStock.video || 'no video');
+    if (inStock.video) {
+      ok('film leads the gallery', (() => {
+        const kids = [...d.querySelector('#media').children];
+        return kids.findIndex(e => e.classList.contains('pdp-film')) === 0;
+      })());
+      ok('film has the autoplay attribute trio', (() => {
+        const v = d.querySelector('.pdp-film video');
+        return v.hasAttribute('muted') && v.hasAttribute('playsinline') &&
+               v.hasAttribute('autoplay') && v.hasAttribute('loop');
+      })());
+      ok('film carries a poster so the tile paints before it buffers',
+        /\.jpg$/.test(d.querySelector('.pdp-film video').getAttribute('poster')));
+      ok('film is not a lightbox target', !d.querySelector('.pdp-film [data-shot], .pdp-film.pdp-shot'));
+      // Empty for this piece (no sale, made to order) but it must not be
+      // duplicated onto the first still now that the film leads.
+      ok('tag strip sits on the leading tile, not the first still',
+        !!d.querySelector('.pdp-film .pdp-shot-tags') && !d.querySelector('.pdp-shot .pdp-shot-tags'));
+      ok('film files exist on disk',
+        [inStock.video, inStock.videoPoster].every(f => fs.existsSync(path.join(ROOT, f))));
+      ok('film is web-playable H.264', (() => {
+        const b = fs.readFileSync(path.join(ROOT, inStock.video)).subarray(0, 4096).toString('latin1');
+        return b.includes('avc1') && !b.includes('hvc1') && !b.includes('hev1');
+      })());
+      ok('film streams before it finishes downloading (moov ahead of mdat)', (() => {
+        const b = fs.readFileSync(path.join(ROOT, inStock.video)).subarray(0, 200000).toString('latin1');
+        return b.indexOf('moov') > -1 && b.indexOf('moov') < b.indexOf('mdat');
+      })());
+      ok('film is under 3 MB',
+        fs.statSync(path.join(ROOT, inStock.video)).size < 3 * 1024 * 1024,
+        Math.round(fs.statSync(path.join(ROOT, inStock.video)).size / 1024) + ' KB');
+    }
     ok('every shot is clickable for the lightbox',
       [...d.querySelectorAll('.pdp-shot')].every(b => b.hasAttribute('data-shot')));
     ok('price rendered', /^₹[\d,]+$/.test(d.querySelector('.pdp-price .price').textContent));

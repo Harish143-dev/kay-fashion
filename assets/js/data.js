@@ -35,6 +35,8 @@ window.PRODUCTS = [
 "assets/images/products/bridal-lehenga-rust-zari-06.webp"
 ],
 "thumb": "assets/images/products/bridal-lehenga-rust-zari-01-sm.webp",
+"video": "assets/video/bridal-lehenga-rust-zari.mp4",
+"videoPoster": "assets/video/bridal-lehenga-rust-zari.jpg",
 "desc": "Rust raw silk lehenga with gold zari butis across the skirt and a kalira-worked border.\nBlouse: Elbow-sleeve blouse with matching zari.\nDupatta: Organza dupatta with a scalloped gold edge and latkans.\nCut and finished in our Anna Nagar atelier.",
 "available": true,
 "rating": 4.9,

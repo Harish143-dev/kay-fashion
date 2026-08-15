@@ -170,13 +170,32 @@ document.addEventListener('DOMContentLoaded', function () {
   else if (off) tags.push('<span class="tag tag--sale">' + off + '% Off</span>');
   if (p.available && p.readyToShip) tags.push('<span class="tag tag--rts">Ready to Ship</span>');
 
-  $('#media').innerHTML = p.images.map(function (src, i) {
+  /* The shoot film, where there is one, leads the gallery. It is a separate
+     element rather than a .pdp-shot so image indices — and therefore the
+     lightbox — stay untouched. */
+  var filmHTML = !p.video ? '' :
+    '<div class="pdp-film">' +
+      '<video id="pdpFilm" poster="' + p.videoPoster + '" autoplay muted loop playsinline ' +
+        'preload="metadata" aria-label="' + esc(p.title) + ' — shoot film">' +
+        '<source src="' + p.video + '" type="video/mp4">' +
+      '</video>' +
+      '<span class="pdp-film-tag">' + ico('play') + 'Film</span>' +
+    '</div>';
+
+  $('#media').innerHTML = filmHTML + p.images.map(function (src, i) {
+    var lead = i === 0 && !p.video;
     return '<button class="pdp-shot' + (p.available ? '' : ' sold') + '" data-shot="' + i + '" aria-label="Enlarge image ' + (i + 1) + '">' +
       '<img src="' + src + '" alt="' + esc(p.title) + ' — view ' + (i + 1) + '"' +
       (i === 0 ? ' fetchpriority="high"' : ' loading="lazy"') + ' width="900" height="1200">' +
-      (i === 0 ? '<span class="pdp-shot-tags">' + tags.join('') + '</span>' : '') +
+      (lead ? '<span class="pdp-shot-tags">' + tags.join('') + '</span>' : '') +
       '</button>';
   }).join('');
+
+  // Tags belong on whatever leads the gallery.
+  if (p.video) {
+    $('#media .pdp-film').insertAdjacentHTML('beforeend',
+      '<span class="pdp-shot-tags">' + tags.join('') + '</span>');
+  }
 
   /* Floating actions over the first frame */
   $('#float').innerHTML =
@@ -193,7 +212,9 @@ document.addEventListener('DOMContentLoaded', function () {
       .map(function (r) { return '<div><dt>' + r[0] + '</dt><dd>' + esc(r[1]) + '</dd></div>'; }).join('') +
     '</dl>';
 
-  $('#dots').innerHTML = p.images.map(function (_, i) {
+  // One dot per carousel panel — the film is a panel too.
+  var panels = p.images.length + (p.video ? 1 : 0);
+  $('#dots').innerHTML = Array.apply(null, { length: panels }).map(function (_, i) {
     return '<i class="' + (i ? '' : 'on') + '"></i>';
   }).join('');
 
@@ -454,6 +475,22 @@ document.addEventListener('DOMContentLoaded', function () {
     var nearFoot = document.body.scrollHeight - (window.scrollY + window.innerHeight) < 420;
     sticky.classList.toggle('on', g.bottom < 80 && !ctaOnScreen && !nearFoot);
   }, { passive: true });
+
+  /* Shoot film: hold the poster under prefers-reduced-motion, and stop decoding
+     while the tab is hidden. Same contract as the homepage hero. */
+  var film = $('#pdpFilm');
+  if (film) {
+    var still = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var applyFilm = function () {
+      if (still.matches) { film.pause(); film.removeAttribute('autoplay'); }
+      else { var t = film.play(); if (t && t.catch) t.catch(function () {}); }
+    };
+    applyFilm();
+    if (still.addEventListener) still.addEventListener('change', applyFilm);
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) film.pause(); else applyFilm();
+    });
+  }
 
   /* Recently viewed */
   try {

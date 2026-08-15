@@ -38,6 +38,10 @@ NEW = [
         "compareAt": 0,
         "sku": "KF26001",
         "frames": 6,
+        # The only piece with a shoot film. Already H.264 720x1280 and faststart,
+        # so it is served as delivered; the poster is frame 1.2s.
+        "video": "assets/video/bridal-lehenga-rust-zari.mp4",
+        "videoPoster": "assets/video/bridal-lehenga-rust-zari.jpg",
         "desc": "Rust raw silk lehenga with gold zari butis across the skirt and a "
                 "kalira-worked border.\nBlouse: Elbow-sleeve blouse with matching zari.\n"
                 "Dupatta: Organza dupatta with a scalloped gold edge and latkans.\n"
@@ -142,6 +146,9 @@ def build(rec, n):
     for f in range(1, frames + 1):
         if not (ROOT / IMG / f"{h}-{f:02d}.webp").is_file():
             sys.exit(f"missing image: {IMG}/{h}-{f:02d}.webp — run tools/build-images.py first")
+    for key in ("video", "videoPoster"):
+        if rec.get(key) and not (ROOT / rec[key]).is_file():
+            sys.exit(f"missing {key}: {rec[key]}")
     p["images"] = [f"{IMG}/{h}-{i:02d}.webp" for i in range(1, frames + 1)]
     p["thumb"] = f"{IMG}/{h}-01-sm.webp"
     p["badge"] = "New In"
@@ -150,9 +157,10 @@ def build(rec, n):
     # Match the key order the rest of the file uses.
     order = ["id", "handle", "title", "type", "category", "color", "hex", "fabric",
              "occasions", "sizes", "price", "compareAt", "sku", "images", "thumb",
+             "video", "videoPoster",
              "desc", "available", "rating", "reviews", "badge", "readyToShip",
              "newIn", "n", "readiness"]
-    return {k: p[k] for k in order}
+    return {k: p[k] for k in order if k in p}
 
 
 def main():
