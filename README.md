@@ -73,11 +73,11 @@ compare-at/MRP prices, and stock states. Stock was deliberately rebalanced — t
 
 Two suites, because they catch different things.
 
-`test/smoke.js` — 245 assertions in a headless DOM: rendering, cart maths, filter intersection,
+`test/smoke.js` — 256 assertions in a headless DOM: rendering, cart maths, filter intersection,
 sort ordering, URL sync, gallery, pincode, sold-out state, persistence, plus computed-style
 guards for boxes collapsing to `display:inline` and icons falling back to opaque black.
 
-`test/layout.js` — 88 assertions in **real Chrome** at 390 / 768 / 1024 / 1440px. jsdom executes
+`test/layout.js` — 93 assertions in **real Chrome** at 390 / 768 / 1024 / 1440px. jsdom executes
 JavaScript but performs no layout, so it cannot see a header wrapping to a second row, a carousel
 blowing the document out to three times the viewport, or a buy button 4,000px down a phone
 screen. All three shipped before this suite existed. It measures actual boxes: horizontal
@@ -87,7 +87,7 @@ primary CTA sits.
 ```
 npm install jsdom
 node test/smoke.js     # offline, ~2s
-node test/layout.js    # drives headless Chrome, ~90s (skips if none found)
+node test/layout.js    # drives headless Chrome, ~2min (skips if none found)
 node test/links.js     # network: verifies every remote image URL returns 200
 ```
 
@@ -102,8 +102,8 @@ assets/js/data.js         80-product catalogue
 assets/js/app.js          site chrome, cart, wishlist, search, quick view
 tools/build-images.py     originals -> renamed, resized WebP
 tools/add-new-arrivals.py puts the house shoot at the front of the catalogue
-test/smoke.js             245 assertions (offline)
-test/layout.js            88 assertions in real Chrome at four widths
+test/smoke.js             256 assertions (offline)
+test/layout.js            93 assertions in real Chrome at four widths
 test/links.js             remote image URL checker (network)
 ```
 

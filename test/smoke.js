@@ -480,8 +480,12 @@ function runCollection() {
   }
   {
     const { d } = load('collection.html', '?rts=1');
+    // The marker lives in the card body now, not as a pill over the image.
     ok('?rts=1 shows only ready-to-ship', d.querySelectorAll('#grid .card').length > 0 &&
-      [...d.querySelectorAll('#grid .card')].every(c => c.querySelector('.tag--rts')));
+      [...d.querySelectorAll('#grid .card')].every(c => c.querySelector('.card-rts')));
+    ok('cards never stack more than one tag over the photograph',
+      [...d.querySelectorAll('#grid .card-tags')].every(t => t.children.length <= 1),
+      Math.max(0, ...[...d.querySelectorAll('#grid .card-tags')].map(t => t.children.length)) + ' tags on one card');
   }
   {
     const { d } = load('collection.html', '?q=organza');

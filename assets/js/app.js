@@ -589,12 +589,15 @@
   /* ---------------- Product card ---------------- */
   function card(p, opts = {}) {
     const off = p.compareAt ? Math.round((1 - p.price / p.compareAt) * 100) : 0;
+    // One tag on the photograph, never a stack. Two pills plus the wishlist and
+    // closet buttons left almost no clean image, and a wide second pill ran
+    // underneath those buttons on a narrow card. Ready to Ship is a shipping
+    // claim, not a status, so it moved down into the card body.
     const tags = [];
     if (!p.available) tags.push('<span class="tag tag--sold">Sold Out</span>');
     else if (off) tags.push(`<span class="tag tag--sale">${off}% Off</span>`);
     else if (p.badge === 'New In') tags.push('<span class="tag tag--new">New In</span>');
     else if (p.badge === 'Bestseller') tags.push('<span class="tag">Bestseller</span>');
-    if (p.available && p.readyToShip) tags.push('<span class="tag tag--rts">Ready to Ship</span>');
 
     const img2 = p.images[1] || p.images[0];
     // Locally hosted shots ship a 520px rendition for grids; the Shopify CDN
@@ -620,7 +623,10 @@
           <span class="price tnum">${money(p.price)}</span>
           ${p.compareAt ? `<span class="price-was tnum">${money(p.compareAt)}</span><span class="price-off">${off}% off</span>` : ''}
         </div>
-        <span class="card-ready" data-r="${esc(p.readiness)}">${esc(p.readiness)}</span>
+        <div class="card-status">
+          <span class="card-ready" data-r="${esc(p.readiness)}">${esc(p.readiness)}</span>
+          ${p.available && p.readyToShip ? '<span class="card-rts">Ready to ship</span>' : ''}
+        </div>
         <div class="card-meta">${stars(p.rating)}<span>${p.rating} (${p.reviews})</span></div>
         ${opts.noSwatch ? '' : `<div class="card-swatches"><span class="sw on" style="background:${p.hex}" title="${esc(p.color)}"></span>
           ${relatedColors(p).map(c => `<span class="sw" style="background:${c}"></span>`).join('')}</div>`}

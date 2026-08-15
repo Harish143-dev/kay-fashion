@@ -401,10 +401,12 @@ h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; line-height: 1.1
 .card-frame:hover .card-media img { transform: scale(1.04); }
 .card-media.sold img { filter: grayscale(.5) opacity(.7); }
 
-.card-tags { position: absolute; top: 14px; left: 14px; z-index: 3; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+/* Capped so a tag can never run under the wishlist / closet buttons on a
+   narrow card, which is what the stacked pills used to do. */
+.card-tags { position: absolute; top: 14px; left: 14px; z-index: 3; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; max-width: calc(100% - 118px); pointer-events: none; }
 .tag {
-  padding: 5px 11px; font-size: 9px; font-weight: 400; letter-spacing: .18em; text-transform: uppercase;
-  background: var(--ink); color: #fff;
+  padding: 4px 9px; font-size: 8.5px; font-weight: 400; letter-spacing: .16em; text-transform: uppercase;
+  background: var(--ink); color: #fff; white-space: nowrap;
 }
 .tag--sale { background: var(--wine); }
 .tag--new  { background: var(--surface); color: var(--ink); }
@@ -452,8 +454,12 @@ h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; line-height: 1.1
 .price-off { font-size: 10px; font-weight: 400; color: var(--wine); letter-spacing: .12em; text-transform: uppercase; }
 
 /* Garment-readiness — a garment claim, distinct from the shipping claim */
+.card-status { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 7px; }
+/* Shipping speed, moved off the photograph. Gold and right-aligned so it
+   reads as a separate claim from the garment readiness beside it. */
+.card-rts { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); flex: none; }
 .card-ready {
-  display: inline-flex; align-items: center; gap: 7px; margin-top: 7px;
+  display: inline-flex; align-items: center; gap: 7px; min-width: 0;
   font-size: 9.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-2);
 }
 .card-ready::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: var(--gold); flex: none; }
@@ -1159,6 +1165,9 @@ select.sel:hover { border-color: var(--ink); }
     grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 30vw;
     overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
     margin-inline: calc(var(--gut) * -1); padding-inline: var(--gut); gap: 18px;
+    /* Without this the snapport starts at the border box and the first card
+       parks flush to the screen edge, eating padding-inline. */
+    scroll-padding-inline: var(--gut);
   }
   .newin::-webkit-scrollbar { display: none; }
   .newin > * { scroll-snap-align: start; }
@@ -1250,7 +1259,7 @@ select.sel:hover { border-color: var(--ink); }
 }
 
 @media (max-width: 760px) {
-  :root { --header-h: 62px; --gut: 16px; --section: 60px; --bar-h: 36px; }
+  :root { --header-h: 62px; --gut: 20px; --section: 60px; --bar-h: 36px; }
   body { padding-bottom: 62px; }
   /* Utility links and socials move into the menu drawer; the bar keeps
      only the rotating message so it reads at 36px tall. */
@@ -1269,6 +1278,7 @@ select.sel:hover { border-color: var(--ink); }
     grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 44vw;
     overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
     margin-inline: calc(var(--gut) * -1); padding-inline: var(--gut); gap: 12px;
+    scroll-padding-inline: var(--gut);
   }
   .cats::-webkit-scrollbar { display: none; }
   .ctile { scroll-snap-align: start; }

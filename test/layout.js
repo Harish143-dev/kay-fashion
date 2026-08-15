@@ -84,6 +84,19 @@ document.addEventListener('DOMContentLoaded', function () { setTimeout(function 
       return (e.className || e.tagName) + '=' + Math.round(r.width) + 'x' + Math.round(r.height); })
     .slice(0, 10);
 
+  // Swipe rails bleed to the screen edge and pad themselves back in. If the
+  // snapport is not inset to match, the first card parks flush to the edge and
+  // the padding is invisible. Measure where the first card actually lands.
+  out.rails = [];
+  ['.newin', '.cats'].forEach(function (sel) {
+    var r = document.querySelector(sel);
+    if (!r || getComputedStyle(r).overflowX !== 'auto') return;
+    var first = r.firstElementChild;
+    if (!first) return;
+    var gut = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--gut')) || 0;
+    out.rails.push({ sel: sel, left: Math.round(first.getBoundingClientRect().left), gut: Math.round(gut) });
+  });
+
   var cta = document.querySelector('#atc') || document.querySelector('[data-notify]');
   if (cta) out.ctaDepth = Math.round(cta.getBoundingClientRect().top + window.scrollY);
 
@@ -160,6 +173,10 @@ for (const [page, query] of PAGES) {
       ok(`${at}: add-to-cart within ${CTA_BUDGET}px of the top`,
         r.ctaDepth <= CTA_BUDGET, r.ctaDepth + 'px down');
     }
+    (r.rails || []).forEach(rail => {
+      ok(`${at}: ${rail.sel} rail keeps its edge gutter`,
+        Math.abs(rail.left - rail.gut) <= 1, `first card at ${rail.left}px, gutter is ${rail.gut}px`);
+    });
     if (r.newinCards !== undefined) {
       ok(`${at}: all 5 new arrivals are reachable`,
         r.newinCards === 5 && r.newinVisible === 5, `${r.newinVisible}/${r.newinCards} visible`);
