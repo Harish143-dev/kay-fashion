@@ -596,12 +596,15 @@
     if (p.available && p.readyToShip) tags.push('<span class="tag tag--rts">Ready to Ship</span>');
 
     const img2 = p.images[1] || p.images[0];
+    // Locally hosted shots ship a 520px rendition for grids; the Shopify CDN
+    // products have no thumb and fall back to the full image.
+    const img1 = p.thumb || p.images[0];
     // .card-frame is the positioning context for every overlay control, so they
     // resolve against the IMAGE box rather than the full card (body included).
     return `<article class="card">
       <div class="card-frame">
         <a class="card-media${p.available ? '' : ' sold'}" href="product.html?h=${p.handle}" aria-label="${esc(p.title)}">
-          <img class="img-a" src="${p.images[0]}" alt="${esc(p.title)}" loading="lazy" width="600" height="750">
+          <img class="img-a" src="${img1}" alt="${esc(p.title)}" loading="lazy" width="600" height="750">
           <img class="img-b" src="${img2}" alt="" loading="lazy" aria-hidden="true" width="600" height="750">
         </a>
         <div class="card-tags">${tags.join('')}</div>

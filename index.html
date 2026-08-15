@@ -61,6 +61,20 @@
     <div class="roles" id="roles"></div>
   </section>
 
+  <!-- ════════ NEW ARRIVALS ════════
+       First content section on the page. These are the house's own shots, and
+       they lead — everything below is catalogue. -->
+  <section class="section-tight newin-sec">
+    <div class="wrap">
+      <div class="section-head rv">
+        <div><span class="sec-no">01</span><span class="eyebrow">Just landed</span><h2 class="d2">New arrivals</h2>
+          <p>Five pieces off the atelier floor this week, photographed in house.</p></div>
+        <a class="link-u" href="collection.html?sort=new">See all new in</a>
+      </div>
+      <div class="newin rv" id="newin"></div>
+    </div>
+  </section>
+
   <!-- ════════ USP ════════ -->
   <section class="usp">
     <div class="wrap"><div class="usp-grid" id="uspGrid"></div></div>
@@ -70,7 +84,7 @@
   <section class="section">
     <div class="wrap">
       <div class="section-head rv">
-        <div><span class="sec-no">01</span><span class="eyebrow">Browse</span><h2 class="d2">Shop by category</h2></div>
+        <div><span class="sec-no">02</span><span class="eyebrow">Browse</span><h2 class="d2">Shop by category</h2></div>
         <a class="link-u" href="collection.html">View everything</a>
       </div>
       <div class="cats rv" id="cats"></div>
@@ -81,8 +95,8 @@
   <section class="section-tight">
     <div class="wrap">
       <div class="section-head rv">
-        <div><span class="sec-no">02</span><span class="eyebrow">Just arrived</span><h2 class="d2">New this season</h2>
-          <p>Fresh off the loom and out of the atelier — restocked every Friday.</p></div>
+        <div><span class="sec-no">03</span><span class="eyebrow">Keep looking</span><h2 class="d2">More new in</h2>
+          <p>The rest of this season, by category. Restocked every Friday.</p></div>
         <div class="rail-nav">
           <button class="rail-btn" data-rail="-1" aria-label="Previous"><svg viewBox="0 0 24 24"><path d="M14 5l-7 7 7 7"/></svg></button>
           <button class="rail-btn" data-rail="1" aria-label="Next"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
@@ -117,7 +131,7 @@
   <section class="section-tight">
     <div class="wrap">
       <div class="section-head rv">
-        <div><span class="sec-no">03</span><span class="eyebrow">Dress the calendar</span><h2 class="d2">Shop by occasion</h2>
+        <div><span class="sec-no">04</span><span class="eyebrow">Dress the calendar</span><h2 class="d2">Shop by occasion</h2>
           <p>From the mehendi to the muhurtham — edits built around the moment, not the SKU.</p></div>
       </div>
       <div class="cat-grid rv" id="occasions"></div>
@@ -128,7 +142,7 @@
   <section class="section-tight">
     <div class="wrap">
       <div class="section-head rv">
-        <div><span class="sec-no">04</span><span class="eyebrow">Loved most</span><h2 class="d2">Bestsellers</h2>
+        <div><span class="sec-no">05</span><span class="eyebrow">Loved most</span><h2 class="d2">Bestsellers</h2>
           <p>What Chennai keeps coming back for.</p></div>
         <a class="link-u" href="collection.html?sort=popular">Shop all bestsellers</a>
       </div>
@@ -140,7 +154,7 @@
   <section class="section" id="concierge" style="background:var(--sand)">
     <div class="wrap">
       <div class="section-head rv">
-        <div><span class="sec-no">05</span><span class="eyebrow">Kay Concierge</span><h2 class="d2">Shop the way you would in store</h2>
+        <div><span class="sec-no">06</span><span class="eyebrow">Kay Concierge</span><h2 class="d2">Shop the way you would in store</h2>
           <p>Ethnic wear is a fitting-room purchase. So we brought the fitting room to you.</p></div>
       </div>
       <div class="svc-grid rv" id="services"></div>
@@ -170,7 +184,7 @@
   <section class="section-tight">
     <div class="wrap">
       <div class="section-head rv">
-        <div><span class="sec-no">06</span><span class="eyebrow">4.8 average · 2,400+ reviews</span><h2 class="d2">What our customers say</h2></div>
+        <div><span class="sec-no">07</span><span class="eyebrow">4.8 average · 2,400+ reviews</span><h2 class="d2">What our customers say</h2></div>
         <a class="link-u" href="#reviews">Read all reviews</a>
       </div>
       <div class="rev-grid rv" id="reviews"></div>
@@ -181,7 +195,7 @@
   <section class="section-tight">
     <div class="wrap">
       <div class="section-head rv">
-        <div><span class="sec-no">07</span><span class="eyebrow">@kay_annanagar</span><h2 class="d2">Styled by you</h2>
+        <div><span class="sec-no">08</span><span class="eyebrow">@kay_annanagar</span><h2 class="d2">Styled by you</h2>
           <p>Tag us and you might land on this wall — and in a ₹5,000 voucher.</p></div>
         <a class="link-u" href="https://instagram.com/kay_annanagar">Follow on Instagram</a>
       </div>
@@ -193,7 +207,7 @@
   <section class="section" id="stores" style="background:var(--sand)">
     <div class="wrap">
       <div class="section-head rv">
-        <div><span class="sec-no">08</span><span class="eyebrow">Visit us</span><h2 class="d2">Three stores in Chennai</h2>
+        <div><span class="sec-no">09</span><span class="eyebrow">Visit us</span><h2 class="d2">Three stores in Chennai</h2>
           <p>Reserve online, try in store. Anything you buy online can be exchanged at any of our counters.</p></div>
       </div>
       <div class="store-grid rv" id="storeGrid"></div>
@@ -283,7 +297,17 @@ document.addEventListener('DOMContentLoaded', function () {
       '<span class="ctile-n">' + items.length + ' styles</span></a>';
   }).join('');
 
-  /* ---- New in tabs + rail ---- */
+  /* ---- New arrivals ----
+     The house's own shots. Rendered with the shared card so wishlist, closet,
+     quick view and add-to-bag behave exactly as they do everywhere else. */
+  var NEWIN = P.filter(function (p) { return p.newIn; })
+               .sort(function (a, b) { return a.n - b.n; });
+  $('#newin').innerHTML = NEWIN.map(function (p) { return K.card(p); }).join('');
+  // First card is above the fold — let it load eagerly rather than lazily.
+  var lead = $('#newin .card-media img');
+  if (lead) { lead.setAttribute('loading', 'eager'); lead.setAttribute('fetchpriority', 'high'); }
+
+  /* ---- More new in: tabs + rail ---- */
   var TABS = ['All', 'Sarees', 'Lehengas', 'Festive'];
   var tabEl = $('#newTabs'), railEl = $('#newRail');
   tabEl.innerHTML = TABS.map(function (t, i) {
@@ -291,7 +315,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }).join('');
 
   function fillRail(tab) {
-    var list = P.filter(function (p) { return p.available; });
+    // Skip the new arrivals — they already have the section above to themselves.
+    var list = P.filter(function (p) { return p.available && !p.newIn; });
     if (tab === 'Sarees') list = list.filter(function (p) { return p.category === 'Sarees'; });
     else if (tab === 'Lehengas') list = list.filter(function (p) { return p.category === 'Lehengas'; });
     else if (tab === 'Festive') list = list.filter(function (p) { return ['Gowns', 'Anarkalis', 'Palazzo Sets', 'Croptop Sets', 'Salwar Suits', 'Kurtis', 'Sharara Sets'].indexOf(p.category) > -1; });

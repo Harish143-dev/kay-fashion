@@ -27,9 +27,11 @@
         <div class="pdp-grid" id="media"></div>
         <div class="pdp-dots" id="dots" aria-hidden="true"></div>
         <div class="pdp-float" id="float"></div>
-        <aside class="pdp-highlights" id="highlights"></aside>
       </div>
       <div class="pdp-panel" id="panel"></div>
+      <!-- Sits under the gallery on desktop via grid placement; on narrow screens
+           it follows the buy panel so price and Add to cart stay reachable. -->
+      <aside class="pdp-highlights pdp-highlights-slot" id="highlights"></aside>
     </div>
   </section>
 
@@ -439,12 +441,18 @@ document.addEventListener('DOMContentLoaded', function () {
     $$('#dots i').forEach(function (d, n) { d.classList.toggle('on', n === i); });
   }, { passive: true });
 
-  /* Sticky bar appears once the buy panel has scrolled away */
-  var panel = $('#panel'), sticky = $('#stickyAtc');
+  /* Sticky bar covers any moment the real CTA is off screen. Watching the whole
+     panel left a dead zone on narrow screens: once the gallery scrolled past,
+     there was a screen or more of options before the buttons appeared, with no
+     way to buy. */
+  var gallery = $('.pdp-gallery'), sticky = $('#stickyAtc');
+  var cta = $('#atc') || $('[data-notify]');
   window.addEventListener('scroll', function () {
-    var past = panel.getBoundingClientRect().bottom < 0;
+    var g = gallery.getBoundingClientRect();
+    var c = cta.getBoundingClientRect();
+    var ctaOnScreen = c.bottom > 0 && c.top < window.innerHeight - 40;
     var nearFoot = document.body.scrollHeight - (window.scrollY + window.innerHeight) < 420;
-    sticky.classList.toggle('on', past && !nearFoot);
+    sticky.classList.toggle('on', g.bottom < 80 && !ctaOnScreen && !nearFoot);
   }, { passive: true });
 
   /* Recently viewed */

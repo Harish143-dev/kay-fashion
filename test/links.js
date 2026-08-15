@@ -23,7 +23,9 @@ function hardcoded() {
 function sampled() {
   const w = {};
   new Function('window', fs.readFileSync(path.join(ROOT, 'assets/js/data.js'), 'utf8'))(w);
-  const all = w.PRODUCTS.flatMap(p => p.images);
+  // Locally hosted shots are checked on disk by test/smoke.js; this file only
+  // has anything to say about remote URLs.
+  const all = w.PRODUCTS.flatMap(p => p.images).filter(u => /^https?:/.test(u));
   const out = [];
   // deterministic spread across the catalogue
   const step = Math.max(1, Math.floor(all.length / SAMPLE));

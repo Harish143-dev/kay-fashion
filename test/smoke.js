@@ -3,6 +3,7 @@ const fs = require('fs'), path = require('path');
 const ROOT = require('path').join(__dirname, '..');
 
 let pass = 0, fail = 0;
+let missingImgs = [];
 const ok = (name, cond, extra) => {
   if (cond) { pass++; console.log('  PASS  ' + name); }
   else { fail++; console.log('  FAIL  ' + name + (extra ? '  → ' + extra : '')); }
@@ -80,7 +81,7 @@ console.log('\n── data.js ──');
   const w0 = {};
   new Function('window', fs.readFileSync(path.join(ROOT, 'assets/js/data.js'), 'utf8'))(w0);
   const P0 = w0.PRODUCTS;
-  ok('catalogue loads', Array.isArray(P0) && P0.length === 75, P0 && P0.length);
+  ok('catalogue loads', Array.isArray(P0) && P0.length === 80, P0 && P0.length);
 
   // Mojibake guard. Their Shopify data stores &nbsp; already mis-decoded as
   // 'Â'+NBSP, and reading it with Windows' default cp1252 stacked a second layer
@@ -226,6 +227,34 @@ console.log('\n── index.html ──');
     ok(`${sel} is not display:inline`, disp !== 'inline', 'computed display = ' + disp);
   });
   checkIcons(w, d);
+
+  // New arrivals — the client's own shots, and the reason the section exists is
+  // that they lead. Guard the position, not just the presence.
+  ok('new arrivals render 5 cards', d.querySelectorAll('#newin .card').length === 5,
+    d.querySelectorAll('#newin .card').length);
+  ok('new arrivals are the first section on the page', (() => {
+    const secs = [...d.querySelectorAll('#main > section')];
+    return secs.findIndex(s => s.querySelector('#newin')) === 1; // hero is 0
+  })(), [...d.querySelectorAll('#main > section')].findIndex(s => s.querySelector('#newin')));
+  const NEWIN = w.PRODUCTS.filter(p => p.newIn);
+  ok('new arrivals take the lowest n, so every newest-first sort leads with them',
+    NEWIN.length === 5 && NEWIN.every(p => p.n < 5), NEWIN.map(p => p.n).join(','));
+  ok('new arrival cards use the small rendition in the grid',
+    [...d.querySelectorAll('#newin .card-media .img-a')].every(i => /-01-sm\.webp$/.test(i.getAttribute('src'))),
+    d.querySelector('#newin .card-media .img-a')?.getAttribute('src'));
+  ok('the lead card is eager, not lazy — it is above the fold',
+    d.querySelector('#newin .card-media img').getAttribute('loading') === 'eager');
+  ok('every new arrival image is a local webp that exists on disk', (() => {
+    const missing = [];
+    NEWIN.forEach(p => [...p.images, p.thumb].forEach(src => {
+      if (!/^assets\/images\/products\/.+\.webp$/.test(src)) missing.push('not a local webp: ' + src);
+      else if (!fs.existsSync(path.join(ROOT, src))) missing.push('missing: ' + src);
+    }));
+    return (missingImgs = missing).length === 0;
+  })(), missingImgs.slice(0, 3).join(', '));
+  ok('the tabbed rail does not repeat the new arrivals',
+    [...d.querySelectorAll('#newRail .card-title')]
+      .every(a => !/^(Rust|Champagne|Royal Blue|Navy Sequin)/.test(a.textContent)));
 
   ok('new-in rail has cards', d.querySelectorAll('#newRail .card').length === 10, d.querySelectorAll('#newRail .card').length);
   ok('occasion tiles = 6', d.querySelectorAll('#occasions .cat').length === 6);
@@ -380,7 +409,7 @@ function runCollection() {
     ok('no JS errors', errors.length === 0, errors[0]);
     ok('title + hero image set', d.querySelector('#chTitle').textContent === 'Shop All' && !!d.querySelector('#chImg').getAttribute('src'));
     ok('12 cards on first page', d.querySelectorAll('#grid .card').length === 12, d.querySelectorAll('#grid .card').length);
-    ok('count reads total', /75 pieces/.test(d.querySelector('#count').textContent), d.querySelector('#count').textContent);
+    ok('count reads total', /80 pieces/.test(d.querySelector('#count').textContent), d.querySelector('#count').textContent);
     ok('filter groups rendered', d.querySelectorAll('#filterBody .fgroup').length === 7, d.querySelectorAll('#filterBody .fgroup').length);
     ok('colour swatches rendered', d.querySelectorAll('#filterBody .swatch').length > 10);
     ok('mobile filter drawer mirrored', d.querySelectorAll('#filterBodyMobile .fgroup').length === 7);
@@ -411,7 +440,7 @@ function runCollection() {
 
     // clear all
     click(w, d.querySelector('#clearAll'));
-    ok('clear all restores 75', /75 pieces/.test(d.querySelector('#count').textContent), d.querySelector('#count').textContent);
+    ok('clear all restores 80', /80 pieces/.test(d.querySelector('#count').textContent), d.querySelector('#count').textContent);
     ok('chips cleared', d.querySelector('#chips').innerHTML === '');
 
     // sort price low→high
@@ -475,6 +504,7 @@ function runProduct() {
   const w0 = require('fs').readFileSync(path.join(ROOT, 'assets/js/data.js'), 'utf8');
   const sandbox = {}; new Function('window', w0)(sandbox);
   const soldOut = sandbox.PRODUCTS.find(p => !p.available);
+  const lbIs = (doc, src) => doc.querySelector('#lbImg').getAttribute('src') === src;
   const inStock = sandbox.PRODUCTS.find(p => p.available && p.images.length > 2 && p.sizes.length > 1)
                || sandbox.PRODUCTS.find(p => p.available && p.images.length > 2);
   console.log('  (fixture: ' + inStock.handle + ' — ' + inStock.sizes.length + ' sizes, ' + inStock.images.length + ' images)');
@@ -498,9 +528,14 @@ function runProduct() {
       w.getComputedStyle(d.querySelector('.pdp-highlights')).position !== 'absolute',
       w.getComputedStyle(d.querySelector('.pdp-highlights')).position);
     ok('Product Highlights renders after every image', (() => {
-      const gal = d.querySelector('.pdp-gallery');
-      const kids = [...gal.children];
-      return kids.indexOf(d.querySelector('.pdp-highlights')) > kids.indexOf(d.querySelector('.pdp-grid'));
+      const kids = [...d.querySelector('.pdp').children];
+      return kids.indexOf(d.querySelector('.pdp-highlights')) > kids.indexOf(d.querySelector('.pdp-gallery'));
+    })());
+    // On one column the DOM order is what the reader gets, and highlights
+    // between the gallery and the panel pushed the price a screen further down.
+    ok('buy panel comes before Product Highlights in DOM order', (() => {
+      const kids = [...d.querySelector('.pdp').children];
+      return kids.indexOf(d.querySelector('.pdp-panel')) < kids.indexOf(d.querySelector('.pdp-highlights'));
     })());
     ok('no absolutely-positioned element covers the image grid',
       [...d.querySelectorAll('.pdp-gallery > *')]
@@ -546,14 +581,15 @@ function runProduct() {
     ok('lightbox starts closed', !d.querySelector('#lightbox').classList.contains('on'));
     click(w, d.querySelectorAll('.pdp-shot')[2]);
     ok('clicking a shot opens the lightbox on that image',
-      d.querySelector('#lightbox').classList.contains('on') && d.querySelector('#lbImg').src === inStock.images[2]);
+      d.querySelector('#lightbox').classList.contains('on') && lbIs(d, inStock.images[2]),
+      d.querySelector('#lbImg').getAttribute('src'));
     ok('lightbox shows a position counter',
       d.querySelector('#lbCount').textContent === '3 / ' + inStock.images.length,
       d.querySelector('#lbCount').textContent);
     click(w, d.querySelector('[data-lb="1"]'));
-    ok('lightbox next advances', d.querySelector('#lbImg').src === inStock.images[3 % inStock.images.length]);
+    ok('lightbox next advances', lbIs(d, inStock.images[3 % inStock.images.length]));
     click(w, d.querySelector('[data-lb="-1"]'));
-    ok('lightbox prev goes back', d.querySelector('#lbImg').src === inStock.images[2]);
+    ok('lightbox prev goes back', lbIs(d, inStock.images[2]));
     click(w, d.querySelector('[data-lb-close]'));
     ok('lightbox closes', !d.querySelector('#lightbox').classList.contains('on') && !d.body.classList.contains('no-scroll'));
 

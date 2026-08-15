@@ -196,7 +196,8 @@ h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; line-height: 1.1
 .announce .wrap { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 24px; }
 .announce-links { display: flex; align-items: center; gap: 22px; }
 .announce-social { display: flex; align-items: center; justify-content: flex-end; gap: 14px; }
-.announce-social a { opacity: .7; transition: opacity .4s, color .4s; display: grid; place-items: center; }
+/* 14px glyphs, so the box needs a floor of its own to stay clickable. */
+.announce-social a { opacity: .7; transition: opacity .4s, color .4s; display: grid; place-items: center; min-width: 26px; min-height: 26px; }
 .announce-social a:hover { opacity: 1; color: var(--gold); }
 .announce-social svg { width: 14px; height: 14px; }
 .announce-social .announce-side { margin-right: 6px; pointer-events: none; }
@@ -375,6 +376,12 @@ h1, h2, h3, h4 { font-family: var(--display); font-weight: 400; line-height: 1.1
 .cat-arrow svg { width: 13px; height: 13px; stroke: #fff; }
 
 /* ---------- Product card ---------- */
+/* New arrivals — five across, so the house's own shots run the full width of
+   the page rather than sitting in a four-up grid with a hole in it. */
+.newin-sec { padding-top: clamp(58px, 6.5vw, 104px); }
+.newin { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 44px 18px; }
+.newin .card-media { aspect-ratio: 2 / 3; }
+
 .pgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 52px 24px; }
 .pgrid--3 { grid-template-columns: repeat(3, 1fr); }
 .pgrid--2 { grid-template-columns: repeat(2, 1fr); }
@@ -772,9 +779,19 @@ select.sel:hover { border-color: var(--ink); }
    Two-column image grid + sticky buy panel, with a Product Highlights card
    laid over the imagery.
    ========================================================================== */
-.pdp { display: grid; grid-template-columns: minmax(0, 1.28fr) minmax(0, .72fr); gap: 64px; align-items: start; }
+/* Explicit placement so Product Highlights can sit under the gallery on desktop
+   while following the buy panel in DOM order — on a phone the panel has to come
+   before the highlights, or the price and CTA land another screen further down. */
+.pdp { display: grid; grid-template-columns: minmax(0, 1.28fr) minmax(0, .72fr); gap: 64px 64px; align-items: start; }
+.pdp-gallery   { grid-column: 1; grid-row: 1; }
+.pdp-panel     { grid-column: 2; grid-row: 1 / span 2; }
+.pdp-highlights-slot { grid-column: 1; grid-row: 2; }
 
-.pdp-gallery { position: relative; }
+/* min-width:0 is load-bearing. A grid item's automatic minimum size is its
+   min-content width, and the mobile carousel's shots are 100vw each — without
+   this the gallery column widens to the sum of them and blows the whole
+   document out to 3× the viewport. */
+.pdp-gallery { position: relative; min-width: 0; }
 .pdp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .pdp-shot { position: relative; display: block; width: 100%; aspect-ratio: 3/4; overflow: hidden; background: var(--sand); cursor: zoom-in; padding: 0; border: 0; }
 .pdp-shot img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.4s var(--ease-out); }
@@ -1122,6 +1139,16 @@ select.sel:hover { border-color: var(--ink); }
    ========================================================================== */
 @media (max-width: 1280px) {
   .pgrid { grid-template-columns: repeat(3, 1fr); }
+  /* Below the 5-up, the row becomes a swipe rail. A 4-up or 3-up grid would
+     leave a ragged second row, and hiding the overflow would bury the very
+     pieces this section exists to lead with. */
+  .newin {
+    grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 30vw;
+    overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    margin-inline: calc(var(--gut) * -1); padding-inline: var(--gut); gap: 18px;
+  }
+  .newin::-webkit-scrollbar { display: none; }
+  .newin > * { scroll-snap-align: start; }
   .mega-inner { grid-template-columns: repeat(3, 1fr) 1.2fr; gap: 32px; }
   .pdp { gap: 48px; }
   .events { grid-template-columns: repeat(3, 1fr); }
@@ -1136,10 +1163,14 @@ select.sel:hover { border-color: var(--ink); }
   .usp-item:nth-child(n+4) { border-top: 1px solid var(--line-2); }
   .appt-layout { grid-template-columns: 1fr; gap: 44px; }
   .appt-aside { position: static; }
+  .newin { grid-auto-columns: 38vw; }
 }
 
 @media (max-width: 1024px) {
-  .nav, .header-actions .desk-only { display: none; }
+  /* Hide the <nav> wrapper, not just the <ul> inside it. Hiding only .nav left
+     an empty fourth grid item in a three-column header, which pushed
+     .header-actions onto a second row where it overlapped the breadcrumb. */
+  .header-inner > nav, .header-actions .desk-only { display: none; }
   .burger { display: grid; place-items: center; }
   /* Keep the symmetrical grid so the logo stays optically centred once
      the nav is swapped for a burger. */
@@ -1152,9 +1183,40 @@ select.sel:hover { border-color: var(--ink); }
     border: 1px solid var(--ink); font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; min-height: 44px;
   }
   .filter-fab svg { width: 14px; height: 14px; }
-  .pdp { grid-template-columns: 1fr; gap: 40px; }
+  .pdp { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  /* Single column — drop the desktop placement and fall back to DOM order:
+     gallery, buy panel, highlights. */
+  .pdp-gallery, .pdp-panel, .pdp-highlights-slot { grid-column: auto; grid-row: auto; }
   .pdp-panel { position: static; }
   .pdp-highlights dl { grid-template-columns: repeat(2, 1fr); }
+  /* Once the panel drops below the gallery, a stacked 2-up image grid pushes
+     the price and Add to cart past 4000px of scroll. Swipe instead, so the
+     gallery costs one image of height and the buy panel stays reachable. */
+  .pdp-grid {
+    display: flex; overflow-x: auto; scroll-snap-type: x mandatory;
+    scrollbar-width: none; gap: 10px;
+  }
+  .pdp-grid::-webkit-scrollbar { display: none; }
+  /* width, not min-width — the base rule is width:100%, and a min-width floor
+     below that would never bind. */
+  .pdp-shot { width: min(64vw, 460px); flex: none; scroll-snap-align: start; }
+  .pdp-float button { width: 44px; height: 44px; }
+  .pdp-dots { display: flex; justify-content: center; gap: 7px; margin-top: 14px; }
+  .pdp-dots i { width: 22px; height: 1px; background: var(--line); transition: background .4s; }
+  .pdp-dots i.on { background: var(--ink); }
+  /* Touch band — these are finger targets from here down. */
+  .color-dot { width: 44px; height: 44px; }
+  .size-chart-link { min-height: 44px; }
+  .close-x { width: 44px; height: 44px; }
+  .socials a { width: 44px; height: 44px; }
+  .buy-qty button { width: 44px; }
+  .gridtoggle button { width: 44px; height: 44px; }
+  /* The burger drawer carries the socials from here down, and a 14px glyph in
+     the utility bar is not a touch target. */
+  .announce-social { display: none; }
+  .card-wish, .card-closet { width: 44px; height: 44px; }
+  .card-closet { right: 62px; }
+  .iconbtn { width: 44px; height: 44px; }
   .pdp-band-grid { grid-template-columns: 1fr; }
   .pdp-band-item + .pdp-band-item { border-left: none; border-top: 1px solid var(--line-2); }
   .detail-grid { grid-template-columns: 1fr 1fr; }
@@ -1187,6 +1249,7 @@ select.sel:hover { border-color: var(--ink); }
   .header-actions #openSearch, .header-actions #openWish { display: none; }
   .logo img { width: 104px; }
   .pgrid, .pgrid--3 { grid-template-columns: repeat(2, 1fr); gap: 34px 12px; }
+  .newin { grid-auto-columns: 62vw; gap: 12px; }
   .cat-grid, .cat-grid--6 { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   /* categories become an edge-to-edge swipe rail — no ragged final row */
   .cats {
@@ -1222,25 +1285,19 @@ select.sel:hover { border-color: var(--ink); }
   .card-quick { display: none; }
   .toasts { left: 12px; right: 12px; bottom: 74px; }
   .toast { max-width: none; }
-  /* Image grid becomes an edge-to-edge swipe carousel */
-  .pdp-grid {
-    display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
-    gap: 0; margin-inline: calc(var(--gut) * -1);
-  }
-  .pdp-grid::-webkit-scrollbar { display: none; }
-  .pdp-shot { min-width: 100vw; flex: none; scroll-snap-align: center; }
+  /* The carousel starts at 1024; on phones it goes edge to edge. */
+  .pdp-grid { gap: 0; margin-inline: calc(var(--gut) * -1); }
+  .pdp-shot { width: 100%; scroll-snap-align: center; }
   .pdp-highlights { padding: 26px 20px; }
   .pdp-highlights dl { grid-template-columns: repeat(2, 1fr); gap: 20px 22px; }
-  .pdp-dots { display: flex; justify-content: center; gap: 7px; margin-top: 14px; }
-  .pdp-dots i { width: 22px; height: 1px; background: var(--line); transition: background .4s; }
-  .pdp-dots i.on { background: var(--ink); }
   .cta-row { grid-template-columns: 1fr; }
   .pdp-float { top: 12px; right: 12px; }
   .detail-grid { grid-template-columns: 1fr; }
   .detail-grid > :nth-child(3) { display: block; }
   .buy-row-2 { flex-wrap: wrap; }
   .lb-nav { padding-inline: 10px; }
-  .lb-nav button { width: 42px; height: 42px; }
+  .lb-nav button { width: 44px; height: 44px; }
+  .pdp-float button { width: 44px; height: 44px; }
   .acc-body dl { grid-template-columns: 1fr; gap: 2px 0; }
   .acc-body dt { margin-top: 12px; }
   .usp-grid { grid-template-columns: repeat(2, 1fr); }

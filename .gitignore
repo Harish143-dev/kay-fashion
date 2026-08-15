@@ -19,3 +19,7 @@ _t.js
 # The web renditions in assets/video/ are generated from it and ARE committed.
 assets/hf_*.mp4
 assets/**/*.hevc.mp4
+
+# Scratch probes from the layout test
+_layout_probe_*.html
+_probe.html

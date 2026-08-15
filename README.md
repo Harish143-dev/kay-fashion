@@ -27,7 +27,7 @@ Firefox). `assets/video/hero-bridal.mp4` is the H.264 rendition actually used.
 
 | File | What it demonstrates |
 |---|---|
-| `index.html` | Homepage — looping bridal video hero with role-based entry, trust strip, categories, new-in, bridal editorial, occasions, bestsellers, concierge, provenance, reviews, UGC, stores, newsletter |
+| `index.html` | Homepage — looping bridal video hero with role-based entry, **new arrivals**, trust strip, categories, more-new-in, bridal editorial, occasions, bestsellers, concierge, provenance, reviews, UGC, stores, newsletter |
 | `collection.html` | Listing page — faceted filters, sort, density toggle, chips, load-more, URL state |
 | `product.html` | Product page — two-column image grid + sticky buy panel, Product Highlights overlay, lightbox, variants, readiness, delivery check, trust band, editorial detail, reviews, cross-sell |
 | `appointments.html` | Booking — **Store Visit** and **Video Call** modes with different fields, slots and copy; validation and confirmation |
@@ -59,8 +59,10 @@ Deliberately out of scope: checkout, accounts, real payments, review submission.
 
 ## Data
 
-`assets/js/data.js` holds **75 real products** pulled from the live kayfashions.in Shopify
-storefront — real titles, prices, SKUs, fabrics, colours, sizes and CDN imagery.
+`assets/js/data.js` holds **80 products**. 75 are pulled from the live kayfashions.in Shopify
+storefront — real titles, prices, SKUs, fabrics, colours, sizes and CDN imagery. The other 5 are
+the house's own shoot (see below); their commerce values are prototype data like everything else
+marked demo here.
 
 Demo values (clearly synthetic, so don't read these as real numbers): ratings, review counts,
 compare-at/MRP prices, and stock states. Stock was deliberately rebalanced — the live store is
@@ -68,15 +70,24 @@ compare-at/MRP prices, and stock states. Stock was deliberately rebalanced — t
 
 ## Tests
 
-235 assertions driving the real pages in a headless DOM — rendering, cart maths, filter
-intersection, sort ordering, URL sync, gallery, pincode, sold-out state, persistence, plus
-computed-style guards that catch sized boxes collapsing to `display:inline` and icons
-falling back to opaque black at unbounded size.
+Two suites, because they catch different things.
+
+`test/smoke.js` — 245 assertions in a headless DOM: rendering, cart maths, filter intersection,
+sort ordering, URL sync, gallery, pincode, sold-out state, persistence, plus computed-style
+guards for boxes collapsing to `display:inline` and icons falling back to opaque black.
+
+`test/layout.js` — 88 assertions in **real Chrome** at 390 / 768 / 1024 / 1440px. jsdom executes
+JavaScript but performs no layout, so it cannot see a header wrapping to a second row, a carousel
+blowing the document out to three times the viewport, or a buy button 4,000px down a phone
+screen. All three shipped before this suite existed. It measures actual boxes: horizontal
+overflow, header row integrity, logo centring, tap-target sizes and how far down the page the
+primary CTA sits.
 
 ```
 npm install jsdom
 node test/smoke.js     # offline, ~2s
-node test/links.js     # network: verifies every image URL returns 200
+node test/layout.js    # drives headless Chrome, ~90s (skips if none found)
+node test/links.js     # network: verifies every remote image URL returns 200
 ```
 
 ## Structure
@@ -85,14 +96,38 @@ node test/links.js     # network: verifies every image URL returns 200
 index.html  collection.html  product.html  appointments.html  closet.html
 assets/css/style.css      design tokens + all components
 assets/video/             hero-bridal.mp4 (H.264 1080p, 2.5 MB) + poster jpg
-assets/js/data.js         75-product catalogue
+assets/images/products/   the house shoot, WebP (see Images)
+assets/js/data.js         80-product catalogue
 assets/js/app.js          site chrome, cart, wishlist, search, quick view
-test/smoke.js             235 assertions (offline)
-test/links.js             image URL checker (network)
+tools/build-images.py     originals -> renamed, resized WebP
+tools/add-new-arrivals.py puts the house shoot at the front of the catalogue
+test/smoke.js             245 assertions (offline)
+test/layout.js            88 assertions in real Chrome at four widths
+test/links.js             remote image URL checker (network)
 ```
 
 `app.js` renders the header, drawers, footer and mobile nav into `#site-header` /
 `#site-chrome` / `#site-footer` on every page, so the chrome is defined once.
+
+## Images
+
+The client's own shoot lives in `assets/images/Kay_Fashion/<Folder>/` as 2-3 MB PNGs with
+timestamp filenames. Those originals are left untouched; `tools/build-images.py` is the only
+thing that reads them.
+
+It renames each frame to its product handle, orders the frames so the full-length front view
+leads, and writes WebP at two sizes — 1000px for the product page and lightbox, 520px for the
+card grids, since a grid never needs more. **67.4 MB of PNG becomes 4.7 MB of WebP, 93% smaller**,
+with no visible loss at the sizes the site actually renders.
+
+```
+python tools/build-images.py        # rebuild from the originals
+python tools/add-new-arrivals.py    # re-seed the catalogue entries
+```
+
+Both are idempotent. The five pieces are ordinary products — cards, PDP, cart, wishlist and the
+Wedding Closet all work on them — but they carry `newIn: true` and the lowest `n`, so they lead
+the homepage and every newest-first sort.
 
 ## Design system
 
