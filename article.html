@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Journal | Kay the Fashion Bay</title>
+<meta name="description" content="A note from the Kay atelier in Anna Nagar, Chennai.">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#14100E">
+
+<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Jost:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div id="site-header"></div>
+
+<i class="read-bar" id="readBar" aria-hidden="true"></i>
+
+<main id="main">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb" id="crumbs"></nav>
+  </div>
+
+  <article>
+    <header class="art-head wrap-n wrap" id="artHead"></header>
+    <figure class="art-hero" id="artHero"></figure>
+    <div class="art-layout wrap">
+      <aside class="art-aside" id="artAside"></aside>
+      <div class="art-body" id="artBody"></div>
+    </div>
+  </article>
+
+  <section class="section-tight" id="shopSec" hidden>
+    <div class="wrap">
+      <div class="section-head rv">
+        <div><span class="eyebrow">In this story</span><h2 class="d2">Shop the pieces</h2></div>
+        <a class="link-u" href="collection.html">View everything</a>
+      </div>
+      <div class="pgrid pgrid--3 rv" id="shopGrid"></div>
+    </div>
+  </section>
+
+  <section class="section-tight" style="background:var(--sand)">
+    <div class="wrap">
+      <div class="section-head rv">
+        <div><span class="eyebrow">Keep reading</span><h2 class="d2">More from the Journal</h2></div>
+        <a class="link-u" href="blog.html">All stories</a>
+      </div>
+      <div class="jr-grid rv" id="more"></div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<div id="site-chrome"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/journal.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var J = window.JOURNAL, K = window.Kay, ico = window.KayIcon;
+  var $ = function (s) { return document.querySelector(s); };
+  var esc = K.esc;
+
+  var slug = new URLSearchParams(location.search).get('p');
+  var post = J.find(function (x) { return x.slug === slug; }) || J[0];
+
+  document.title = post.title + ' | The Journal — Kay the Fashion Bay';
+  var md = document.querySelector('meta[name="description"]');
+  if (md) md.setAttribute('content', post.dek);
+
+  function when(iso) {
+    return new Date(iso + 'T00:00:00').toLocaleDateString('en-IN',
+      { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  /* ---- Structured data ---- */
+  (function () {
+    var s = document.createElement('script');
+    s.type = 'application/ld+json';
+    s.textContent = JSON.stringify({
+      '@context': 'https://schema.org', '@type': 'Article',
+      headline: post.title, description: post.dek, image: post.hero,
+      datePublished: post.date,
+      author: { '@type': 'Organization', name: post.author },
+      publisher: { '@type': 'Organization', name: 'Kay the Fashion Bay' }
+    });
+    document.head.appendChild(s);
+  })();
+
+  var sep = '<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>';
+  $('#crumbs').innerHTML = '<a href="index.html">Home</a>' + sep +
+    '<a href="blog.html">Journal</a>' + sep +
+    '<a href="blog.html?topic=' + encodeURIComponent(post.category) + '">' + esc(post.category) + '</a>' + sep +
+    '<span aria-current="page">' + esc(post.title) + '</span>';
+
+  $('#artHead').innerHTML =
+    '<span class="eyebrow">' + esc(post.category) + '</span>' +
+    '<h1 class="d1">' + esc(post.title) + '</h1>' +
+    '<p class="lede">' + esc(post.dek) + '</p>' +
+    '<div class="art-byline">' +
+      '<span>' + esc(post.author) + '</span><i></i>' +
+      '<time datetime="' + post.date + '">' + when(post.date) + '</time><i></i>' +
+      '<span>' + post.read + ' min read</span></div>';
+
+  $('#artHero').innerHTML =
+    '<img src="' + post.hero + '" alt="' + esc(post.title) + '" width="1600" height="900" fetchpriority="high">';
+
+  $('#artBody').innerHTML = post.body.map(function (b) {
+    if (b[0] === 'h2')    return '<h2>' + esc(b[1]) + '</h2>';
+    if (b[0] === 'quote') return '<blockquote>' + esc(b[1]) + '</blockquote>';
+    return '<p>' + esc(b[1]) + '</p>';
+  }).join('');
+
+  /* ---- Aside: contents, tags, share ---- */
+  var heads = post.body.filter(function (b) { return b[0] === 'h2'; }).map(function (b) { return b[1]; });
+  $('#artBody').querySelectorAll('h2').forEach(function (h, i) { h.id = 'h-' + i; });
+
+  $('#artAside').innerHTML =
+    (heads.length ? '<nav class="art-toc" aria-label="On this page"><h4>On this page</h4><ol>' +
+      heads.map(function (h, i) { return '<li><a href="#h-' + i + '">' + esc(h) + '</a></li>'; }).join('') +
+      '</ol></nav>' : '') +
+    '<div class="art-tags">' + post.tags.map(function (t) {
+      return '<a class="chip" href="collection.html?q=' + encodeURIComponent(t) + '">' + esc(t) + '</a>';
+    }).join('') + '</div>' +
+    '<button class="btn btn--sm btn--ghost" id="artShare">' + ico('share') + 'Share</button>';
+
+  $('#artShare').addEventListener('click', function () {
+    var payload = { title: post.title, text: post.dek, url: location.href };
+    if (navigator.share) { navigator.share(payload).catch(function () {}); }
+    else if (navigator.clipboard) {
+      navigator.clipboard.writeText(location.href)
+        .then(function () { K.toast('Link copied to clipboard', 'check'); })
+        .catch(function () { K.toast('Sharing is not available in this browser', 'x'); });
+    } else { K.toast('Sharing is not available in this browser', 'x'); }
+  });
+
+  /* ---- Shop the story ---- */
+  var picks = (post.shop || []).map(K.byHandle).filter(Boolean);
+  if (picks.length) {
+    $('#shopGrid').innerHTML = picks.map(function (p) { return K.card(p); }).join('');
+    $('#shopSec').hidden = false;
+  }
+
+  /* ---- More from the Journal ---- */
+  var others = J.filter(function (x) { return x.slug !== post.slug; })
+                .sort(function (a, b) {
+                  var sa = a.category === post.category ? 0 : 1;
+                  var sb = b.category === post.category ? 0 : 1;
+                  return sa - sb || (a.date < b.date ? 1 : -1);
+                }).slice(0, 3);
+  $('#more').innerHTML = others.map(function (p) {
+    return '<article class="jr-card">' +
+      '<a class="jr-card-media" href="article.html?p=' + p.slug + '" tabindex="-1" aria-hidden="true">' +
+        '<img src="' + p.hero + '" alt="" loading="lazy" width="600" height="750"></a>' +
+      '<div class="jr-card-body"><span class="jr-meta">' + esc(p.category) + '<i></i>' + p.read + ' min read</span>' +
+        '<h3><a href="article.html?p=' + p.slug + '">' + esc(p.title) + '</a></h3>' +
+        '<p>' + esc(p.dek) + '</p></div></article>';
+  }).join('');
+
+  /* ---- Reading progress ---- */
+  var bar = $('#readBar'), body = $('#artBody');
+  window.addEventListener('scroll', function () {
+    var r = body.getBoundingClientRect();
+    var total = r.height - window.innerHeight;
+    var done = total <= 0 ? 1 : Math.min(1, Math.max(0, -r.top / total));
+    bar.style.transform = 'scaleX(' + done + ')';
+  }, { passive: true });
+
+  K.paintCounts();
+  window.KayReveal();
+});
+</script>
+</body>
+</html>

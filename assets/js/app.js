@@ -90,6 +90,27 @@
   };
   window.KayStars = stars;
 
+  /* ---------------- Shared store data ----------------
+     One source. This used to be pasted into index.html and appointments.html,
+     and contact.html would have been a third copy. */
+  const STORES = [
+    { name: 'Anna Nagar', kind: 'Flagship & Bridal Suite',
+      addr: 'W-104, 2nd Avenue, Anna Nagar<br>Chennai 600040',
+      hours: '10:30 am – 8:30 pm', phone: '+91 44 4215 5740',
+      tel: '+914442155740', img: 'lehenga-cream-net-ksy578632',
+      map: 'https://maps.google.com/?q=Anna+Nagar+2nd+Avenue+Chennai+600040' },
+    { name: 'Triplicane', kind: 'Sarees & Handloom',
+      addr: '112, Triplicane High Road<br>Chennai 600005',
+      hours: '10:30 am – 8:30 pm', phone: '+91 44 4215 5741',
+      tel: '+914442155741', img: 'saree-weave-pure-orange-soft-silk-ksy391356',
+      map: 'https://maps.google.com/?q=Triplicane+High+Road+Chennai+600005' },
+    { name: 'Purasawalkam', kind: 'Festive & Pret',
+      addr: '48, Purasawalkam High Road<br>Chennai 600007',
+      hours: '10:30 am – 8:30 pm', phone: '+91 44 4215 5742',
+      tel: '+914442155742', img: 'palazzo-set-pink-georgette-ksy574771',
+      map: 'https://maps.google.com/?q=Purasawalkam+High+Road+Chennai+600007' }
+  ];
+
   /* ---------------- Nav data ---------------- */
   const MEGA = {
     Sarees: {
@@ -140,7 +161,7 @@
                     ['fb', 'Facebook', 'https://facebook.com/kayfashions'],
                     ['yt', 'YouTube', '#youtube'], ['pin2', 'Pinterest', '#pinterest']];
     const util = [['Wedding Closet', 'closet.html'], ['Appointments', 'appointments.html'],
-                  ['Stores', 'index.html#stores'], ['Our Story', 'index.html#story']];
+                  ['Stores', 'index.html#stores'], ['Contact', 'contact.html']];
 
     return `
     <div class="announce">
@@ -163,6 +184,7 @@
           <li class="has-mega"><button aria-expanded="false">Festive Wear ${ico('down', 'nav-caret')}</button>${megaFor('Festive Wear')}</li>
           <li><a href="collection.html?c=Bridal">Bridal</a></li>
           <li><a href="collection.html?sale=1" class="hot">Sale</a></li>
+          <li><a href="blog.html">Journal</a></li>
         </ul></nav>
 
         <a class="logo" href="index.html" aria-label="Kay the Fashion Bay — home">
@@ -206,9 +228,10 @@
           ['Anarkalis', 'collection.html?c=Anarkalis'], ['Sale', 'collection.html?sale=1']])}
         ${col('Services', [['Book an Appointment', 'appointments.html'], ['Video Call Styling', 'appointments.html?mode=video'],
           ['Wedding Closet', 'closet.html'], ['Custom Tailoring', 'appointments.html?mode=store'],
-          ['Gift Cards', '#gift'], ['Store Locator', 'index.html#stores']])}
-        ${col('Help', [['Shipping & Delivery', '#shipping'], ['Returns & Exchange', '#returns'],
-          ['Size Guide', '#size'], ['Fabric Care', '#care'], ['Track Order', '#track'], ['FAQs', '#faq']])}
+          ['The Journal', 'blog.html'], ['Store Locator', 'index.html#stores']])}
+        ${col('Help', [['Contact Us', 'contact.html'], ['Shipping & Delivery', 'contact.html#shipping'],
+          ['Returns & Exchange', 'contact.html#returns'], ['Size Guide', 'contact.html#sizing'],
+          ['Track Order', 'contact.html#track'], ['FAQs', 'contact.html#faq']])}
         <div>
           <h5>Get in touch</h5>
           <ul class="contact-list stack" style="--s:12px">
@@ -265,7 +288,10 @@
             <a href="closet.html">My Wedding Closet</a>
             <a href="index.html#stores">Our stores</a>
             <a href="index.html#story">Our story</a>
-            <a href="#track">Track my order</a>
+            <a href="blog.html">The Journal</a>
+            <a href="index.html#stores">Our stores</a>
+            <a href="contact.html">Contact us</a>
+            <a href="contact.html#track">Track my order</a>
           </div>
 
           <div class="mnav-contact">
@@ -844,7 +870,7 @@
   // Published synchronously so page scripts can rely on it regardless of listener order.
   window.Kay = {
     addToCart, toggleWish, toast, card, money, P, byHandle, quickView, open, closeAll,
-    paintCounts, stars, esc, ico,
+    paintCounts, stars, esc, ico, STORES,
     EVENTS, closet: () => closet, closetAll, closetCount, closetTotal, closetRemove, openClosetPicker, inCloset
   };
 

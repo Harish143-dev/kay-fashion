@@ -97,6 +97,34 @@ document.addEventListener('DOMContentLoaded', function () { setTimeout(function 
     out.rails.push({ sel: sel, left: Math.round(first.getBoundingClientRect().left), gut: Math.round(gut) });
   });
 
+  // The announcement bar is three columns in one row; if the utility links grow,
+  // they run straight over the rotating message instead of wrapping.
+  var al = document.querySelector('.announce-links');
+  var at = document.querySelector('.announce-track');
+  var as = document.querySelector('.announce-social');
+  var vis = function (e) { return e && getComputedStyle(e).display !== 'none' && e.getBoundingClientRect().width > 0; };
+  out.announceOverlap = [];
+  // Measure the links themselves, not their container: a flex row overflows its
+  // grid column without the column's own box ever growing, so comparing the
+  // wrappers would report no collision while text sits on top of text.
+  var edge = function (el, side) {
+    if (!vis(el)) return null;
+    var kids = [].slice.call(el.children).filter(vis);
+    if (!kids.length) return el.getBoundingClientRect()[side];
+    var rects = kids.map(function (k) { return k.getBoundingClientRect()[side]; });
+    return side === 'right' ? Math.max.apply(null, rects) : Math.min.apply(null, rects);
+  };
+  var msg = at && at.querySelector('.announce-item');
+  var msgBox = vis(msg) ? msg.getBoundingClientRect() : (vis(at) ? at.getBoundingClientRect() : null);
+  var linksRight = edge(al, 'right');
+  var socialLeft = edge(as, 'left');
+  if (linksRight !== null && msgBox && linksRight > msgBox.left + 1) {
+    out.announceOverlap.push('links over message by ' + Math.round(linksRight - msgBox.left) + 'px');
+  }
+  if (socialLeft !== null && msgBox && msgBox.right > socialLeft + 1) {
+    out.announceOverlap.push('message over socials by ' + Math.round(msgBox.right - socialLeft) + 'px');
+  }
+
   var cta = document.querySelector('#atc') || document.querySelector('[data-notify]');
   if (cta) out.ctaDepth = Math.round(cta.getBoundingClientRect().top + window.scrollY);
 
@@ -175,6 +203,9 @@ const PAGES = [
   ['product.html', '?h=bridal-lehenga-rust-zari'],
   ['appointments.html', ''],
   ['closet.html', ''],
+  ['blog.html', ''],
+  ['article.html', '?p=how-to-read-a-kanchipuram'],
+  ['contact.html', ''],
 ];
 const WIDTHS = [390, 768, 1024, 1440];
 
@@ -204,6 +235,8 @@ for (const [page, query] of PAGES) {
       ok(`${at}: add-to-cart within ${CTA_BUDGET}px of the top`,
         r.ctaDepth <= CTA_BUDGET, r.ctaDepth + 'px down');
     }
+    ok(`${at}: announcement bar columns do not collide`,
+      !r.announceOverlap || r.announceOverlap.length === 0, (r.announceOverlap || []).join('; '));
     (r.rails || []).forEach(rail => {
       ok(`${at}: ${rail.sel} rail keeps its edge gutter`,
         Math.abs(rail.left - rail.gut) <= 1, `first card at ${rail.left}px, gutter is ${rail.gut}px`);

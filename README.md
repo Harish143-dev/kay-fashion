@@ -32,10 +32,14 @@ Firefox). `assets/video/hero-bridal.mp4` is the H.264 rendition actually used.
 | `product.html` | Product page — gallery (shoot film first where there is one) + sticky buy panel, Product Highlights below the images, lightbox, variants, readiness, delivery check, trust band, editorial detail, reviews, cross-sell |
 | `appointments.html` | Booking — **Store Visit** and **Video Call** modes with different fields, slots and copy; validation and confirmation |
 | `closet.html` | **Wedding Closet** — a trousseau planner with one column per wedding function, running totals and sharing |
+| `blog.html` | **The Journal** — lead story plus grid, topic filter that writes to the URL, newsletter signup |
+| `article.html` | Single post — sticky contents, pull quotes, reading-progress bar, shop-the-story grid, related posts |
+| `contact.html` | **Contact** — four routes in (WhatsApp / phone / email / video call), validated form, hours, order tracking, all three stores, FAQ |
 
 Deep links that work: `collection.html?c=Sarees`, `?c=Bridal`, `?sale=1`, `?rts=1`,
 `?occasion=Sangeet`, `?q=organza`, `?c=Sarees&fabric=Organza&sort=plh`,
-`product.html?h=<handle>`, `appointments.html?mode=video`, `appointments.html?mode=store`.
+`product.html?h=<handle>`, `appointments.html?mode=video`, `appointments.html?mode=store`,
+`blog.html?topic=Craft`, `article.html?p=<slug>`, `contact.html#track`, `contact.html#faq`.
 
 ## What actually works (not mocked)
 
@@ -58,6 +62,19 @@ Deep links that work: `collection.html?c=Sarees`, `?c=Bridal`, `?sale=1`, `?rts=
 Deliberately out of scope: checkout, accounts, real payments, review submission. These toast
 "out of scope for this prototype" rather than pretending.
 
+## The Journal
+
+The live Shopify blog has three posts, all dated 26 April 2020 and untouched since, plus a
+handful of empty test handles. `assets/js/journal.js` carries six posts written for this
+prototype — three of them reuse the real titles so the continuity is visible, the rest are new:
+craft explainers, a twelve-week trousseau plan and a silk care guide.
+
+Each post can name product handles in a `shop` array, which renders a "Shop the pieces" grid at
+the foot of the article. A test fails if any of those handles stops matching the catalogue.
+
+There is no contact page on the live site at all — its pages sitemap is empty — so
+`contact.html` is net new.
+
 ## Data
 
 `assets/js/data.js` holds **80 products**. 75 are pulled from the live kayfashions.in Shopify
@@ -73,11 +90,11 @@ compare-at/MRP prices, and stock states. Stock was deliberately rebalanced — t
 
 Two suites, because they catch different things.
 
-`test/smoke.js` — 256 assertions in a headless DOM: rendering, cart maths, filter intersection,
+`test/smoke.js` — 319 assertions in a headless DOM: rendering, cart maths, filter intersection,
 sort ordering, URL sync, gallery, pincode, sold-out state, persistence, plus computed-style
 guards for boxes collapsing to `display:inline` and icons falling back to opaque black.
 
-`test/layout.js` — 112 assertions in **real Chrome** at 390 / 768 / 1024 / 1440px. jsdom executes
+`test/layout.js` — 204 assertions in **real Chrome** at 390 / 768 / 1024 / 1440px. jsdom executes
 JavaScript but performs no layout, so it cannot see a header wrapping to a second row, a carousel
 blowing the document out to three times the viewport, or a buy button 4,000px down a phone
 screen. All three shipped before this suite existed. It measures actual boxes: horizontal
@@ -103,6 +120,7 @@ node test/links.js     # network: verifies every remote image URL returns 200
 
 ```
 index.html  collection.html  product.html  appointments.html  closet.html
+blog.html   article.html     contact.html
 assets/css/style.css      design tokens + all components
 assets/video/             hero-bridal.mp4 + the Rust Bridal Lehenga film, each with a poster
 assets/images/products/   the house shoot, WebP (see Images)
@@ -110,8 +128,9 @@ assets/js/data.js         80-product catalogue
 assets/js/app.js          site chrome, cart, wishlist, search, quick view
 tools/build-images.py     originals -> renamed, resized WebP
 tools/add-new-arrivals.py puts the house shoot at the front of the catalogue
-test/smoke.js             256 assertions (offline)
-test/layout.js            112 assertions in real Chrome at four widths
+assets/js/journal.js      six Journal posts
+test/smoke.js             319 assertions (offline)
+test/layout.js            204 assertions in real Chrome at eight pages x four widths
 test/links.js             remote image URL checker (network)
 ```
 

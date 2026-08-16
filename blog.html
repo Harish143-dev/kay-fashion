@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Journal — Bridal Lookbooks, Handloom Craft &amp; Care | Kay the Fashion Bay</title>
+<meta name="description" content="Notes from a Chennai ethnic wear house since 1994 — bridal lookbooks, how to read a Kanchipuram, trousseau planning and living with silk.">
+<link rel="canonical" href="https://kayfashions.in/blogs/news">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Journal | Kay the Fashion Bay">
+<meta property="og:description" content="Bridal lookbooks, handloom craft and trousseau planning from our Anna Nagar atelier.">
+<meta name="theme-color" content="#14100E">
+
+<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Jost:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div id="site-header"></div>
+
+<main id="main">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+      <span aria-current="page">Journal</span>
+    </nav>
+  </div>
+
+  <section class="section-tight" style="padding-top:0">
+    <div class="wrap">
+      <div class="jr-head rv">
+        <div>
+          <span class="eyebrow">Since 1994</span>
+          <h1 class="d1">The Journal</h1>
+        </div>
+        <p class="lede">What we have learned on the shop floor and at the loom — lookbooks, craft, and the practical business of buying a wedding wardrobe.</p>
+      </div>
+
+      <div class="jr-filters rv" id="jrFilters" role="tablist" aria-label="Filter by topic"></div>
+      <article class="jr-lead rv" id="jrLead"></article>
+      <div class="jr-grid rv" id="jrGrid"></div>
+      <p class="jr-empty" id="jrEmpty" hidden>Nothing under that topic yet. <button class="link-u" data-cat="All">Show everything</button></p>
+    </div>
+  </section>
+
+  <!-- ═══ Newsletter ═══ -->
+  <section class="news section-tight">
+    <div class="wrap news-inner">
+      <div class="rv">
+        <span class="eyebrow">Join the list</span>
+        <h2 class="d2">Two emails a month.</h2>
+        <p>New arrivals, private sale access and the occasional note on what's on the loom.</p>
+      </div>
+      <div class="rv">
+        <form class="news-form" id="jrNews" novalidate>
+          <input type="email" id="jrEmail" placeholder="Your email address" aria-label="Email address" required>
+          <button class="btn btn--light" type="submit">Subscribe</button>
+        </form>
+        <p class="small" id="jrNewsOut" style="margin-top:12px;color:rgba(242,237,230,.7)"></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<div id="site-chrome"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/journal.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var J = window.JOURNAL, K = window.Kay, ico = window.KayIcon;
+  var $ = function (s) { return document.querySelector(s); };
+  var esc = K.esc;
+
+  var posts = J.slice().sort(function (a, b) { return a.date < b.date ? 1 : -1; });
+  var cats = ['All'].concat(posts.map(function (p) { return p.category; })
+    .filter(function (c, i, a) { return a.indexOf(c) === i; }));
+
+  var url = new URLSearchParams(location.search);
+  var active = cats.indexOf(url.get('topic')) > -1 ? url.get('topic') : 'All';
+
+  function when(iso) {
+    return new Date(iso + 'T00:00:00').toLocaleDateString('en-IN',
+      { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+  function meta(p) {
+    return '<span class="jr-meta">' + esc(p.category) + '<i></i>' + when(p.date) +
+           '<i></i>' + p.read + ' min read</span>';
+  }
+
+  $('#jrFilters').innerHTML = cats.map(function (c) {
+    return '<button class="tab' + (c === active ? ' on' : '') + '" data-cat="' + esc(c) + '"' +
+      ' role="tab" aria-selected="' + (c === active) + '">' + esc(c) + '</button>';
+  }).join('');
+
+  function paint() {
+    var list = active === 'All' ? posts : posts.filter(function (p) { return p.category === active; });
+    var lead = list[0], rest = list.slice(1);
+
+    $('#jrLead').innerHTML = !lead ? '' :
+      '<a class="jr-lead-media" href="article.html?p=' + lead.slug + '" tabindex="-1" aria-hidden="true">' +
+        '<img src="' + lead.hero + '" alt="" width="900" height="600" fetchpriority="high"></a>' +
+      '<div class="jr-lead-body">' + meta(lead) +
+        '<h2 class="d2"><a href="article.html?p=' + lead.slug + '">' + esc(lead.title) + '</a></h2>' +
+        '<p>' + esc(lead.dek) + '</p>' +
+        '<span class="link-u">Read the story</span></div>';
+    $('#jrLead').hidden = !lead;
+
+    $('#jrGrid').innerHTML = rest.map(function (p) {
+      return '<article class="jr-card">' +
+        '<a class="jr-card-media" href="article.html?p=' + p.slug + '" tabindex="-1" aria-hidden="true">' +
+          '<img src="' + p.hero + '" alt="" loading="lazy" width="600" height="750"></a>' +
+        '<div class="jr-card-body">' + meta(p) +
+          '<h3><a href="article.html?p=' + p.slug + '">' + esc(p.title) + '</a></h3>' +
+          '<p>' + esc(p.dek) + '</p></div></article>';
+    }).join('');
+
+    $('#jrEmpty').hidden = list.length > 0;
+    window.KayReveal();
+  }
+
+  function setCat(c) {
+    active = c;
+    document.querySelectorAll('#jrFilters .tab').forEach(function (b) {
+      var on = b.dataset.cat === c;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-selected', on);
+    });
+    var u = new URL(location.href);
+    if (c === 'All') u.searchParams.delete('topic'); else u.searchParams.set('topic', c);
+    history.replaceState(null, '', u);
+    paint();
+  }
+
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-cat]');
+    if (b) { setCat(b.dataset.cat); }
+  });
+
+  $('#jrNews').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = ($('#jrEmail').value || '').trim();
+    var okMail = /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(v);
+    $('#jrNewsOut').textContent = okMail
+      ? 'Thank you — you are on the list.'
+      : 'Please enter a valid email address.';
+    if (okMail) $('#jrEmail').value = '';
+  });
+
+  paint();
+  K.paintCounts();
+});
+</script>
+</body>
+</html>

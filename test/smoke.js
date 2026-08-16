@@ -17,7 +17,7 @@ function load(file, search = '') {
 
   // Inline the local <script src> tags in place so execution order matches a real browser.
   let html = fs.readFileSync(path.join(ROOT, file), 'utf8');
-  ['assets/js/data.js', 'assets/js/app.js'].forEach(f => {
+  ['assets/js/data.js', 'assets/js/journal.js', 'assets/js/app.js'].forEach(f => {
     // replacer fn, not a string — otherwise $$ / $& in the source get mangled
     html = html.replace(`<script src="${f}"></script>`,
       () => '<script>' + fs.readFileSync(path.join(ROOT, f), 'utf8') + '</script>');
@@ -37,6 +37,9 @@ function load(file, search = '') {
       w.scrollTo = () => {}; w.scrollBy = () => {};
       w.HTMLElement.prototype.scrollTo = () => {};
       w.HTMLElement.prototype.scrollBy = () => {};
+      // jsdom has no layout, so scrollIntoView is absent entirely. Real browsers
+      // have it; stub rather than weaken the page code to avoid calling it.
+      w.Element.prototype.scrollIntoView = () => {};
       w.IntersectionObserver = class { observe() {} unobserve() {} disconnect() {} };
       // jsdom has no media pipeline; play()/pause() throw "Not implemented".
       // Real browsers have them, so stub rather than weaken the page code.
@@ -156,12 +159,18 @@ console.log('\n── index.html ──');
   ok('no static heritage chip in the utility bar', !/est\. 1994/i.test(d.querySelector('.announce').textContent),
     d.querySelector('.announce').textContent.trim().slice(0, 80));
   ok('role-based hero entry = 3', d.querySelectorAll('.roles .role').length === 3);
-  // Main nav is the 5 shopping destinations only; secondary links live in the utility bar.
-  ok('main nav is 5 items', d.querySelectorAll('.nav > li').length === 5, d.querySelectorAll('.nav > li').length);
+  // Main nav is the shopping destinations plus the Journal; booking and account
+  // style links live in the utility bar. The bar is width-constrained — every
+  // label added there eats into the rotating message, so keep it to four.
+  ok('main nav is 6 items', d.querySelectorAll('.nav > li').length === 6, d.querySelectorAll('.nav > li').length);
+  ok('Journal is in the main nav', !!d.querySelector('.nav a[href="blog.html"]'));
   ok('Appointments is NOT in the main nav', !d.querySelector('.nav a[href="appointments.html"]'));
   ok('Wedding Closet is NOT in the main nav', !d.querySelector('.nav a[href="closet.html"]'));
-  ['closet.html', 'appointments.html', 'index.html#stores', 'index.html#story'].forEach(href =>
+  ['closet.html', 'appointments.html', 'index.html#stores', 'contact.html'].forEach(href =>
     ok(`utility bar links ${href}`, !!d.querySelector(`.announce-links a[href="${href}"]`)));
+  ok('utility bar stays at four links, so it cannot overrun the message',
+    d.querySelectorAll('.announce-links a').length === 4,
+    d.querySelectorAll('.announce-links a').length);
   ok('utility bar carries 4 social links', d.querySelectorAll('.announce-social a').length === 4,
     d.querySelectorAll('.announce-social a').length);
   // Every in-page utility target must actually exist, or the link silently toasts.
@@ -811,6 +820,209 @@ function runProduct() {
     const raw = { cart: a.w.localStorage.getItem('kay.cart'), wish: a.w.localStorage.getItem('kay.wish') };
     ok('cart written to localStorage', !!raw.cart && JSON.parse(raw.cart).length === 1);
     ok('wishlist written to localStorage', !!raw.wish && JSON.parse(raw.wish).length === 1);
+  }
+
+
+  /* ═══════════════ JOURNAL ═══════════════ */
+  console.log('\n── blog.html ──');
+  {
+    const { w, d, errors } = load('blog.html');
+    ok('no JS errors', errors.length === 0, errors[0]);
+    const J = w.JOURNAL;
+    ok('journal has posts', Array.isArray(J) && J.length >= 5, J && J.length);
+    ok('every post carries the fields the pages read',
+      J.every(p => p.slug && p.title && p.dek && p.category && p.date && p.read && p.hero && Array.isArray(p.body)),
+      J.filter(p => !(p.slug && p.title && p.dek && p.category && p.date && p.read && p.hero && Array.isArray(p.body)))
+        .map(p => p.slug || '?').join(', '));
+    ok('slugs are unique', new Set(J.map(p => p.slug)).size === J.length);
+    ok('dates parse and none is in the future',
+      J.every(p => !isNaN(Date.parse(p.date)) && Date.parse(p.date) <= Date.now()),
+      J.filter(p => isNaN(Date.parse(p.date)) || Date.parse(p.date) > Date.now()).map(p => p.slug).join(', '));
+    // A "shop the story" handle that drifts from the catalogue renders an empty grid.
+    ok('every shop handle resolves to a real product', (() => {
+      const handles = new Set(w.PRODUCTS.map(p => p.handle));
+      const bad = J.flatMap(p => (p.shop || []).filter(h => !handles.has(h)));
+      return (missingImgs = bad).length === 0;
+    })(), missingImgs.slice(0, 3).join(', '));
+    ok('every hero image exists on disk',
+      J.every(p => /^https?:/.test(p.hero) || fs.existsSync(path.join(ROOT, p.hero))),
+      J.filter(p => !/^https?:/.test(p.hero) && !fs.existsSync(path.join(ROOT, p.hero))).map(p => p.hero).join(', '));
+
+    ok('lead story rendered', !!d.querySelector('#jrLead .jr-lead-body h2 a'));
+    ok('lead story is the newest post', (() => {
+      const newest = J.slice().sort((a, b) => a.date < b.date ? 1 : -1)[0];
+      return d.querySelector('#jrLead h2 a').getAttribute('href') === 'article.html?p=' + newest.slug;
+    })(), d.querySelector('#jrLead h2 a')?.getAttribute('href'));
+    ok('remaining posts fill the grid',
+      d.querySelectorAll('#jrGrid .jr-card').length === J.length - 1,
+      d.querySelectorAll('#jrGrid .jr-card').length);
+    ok('every card links to an article that exists', (() => {
+      const slugs = new Set(J.map(p => p.slug));
+      return [...d.querySelectorAll('#jrGrid a[href^="article.html"]')]
+        .every(a => slugs.has(a.getAttribute('href').split('p=')[1]));
+    })());
+    ok('topic filters built from the data',
+      d.querySelectorAll('#jrFilters .tab').length ===
+        new Set(J.map(p => p.category)).size + 1);
+
+    // Filter down to one topic and back.
+    const craft = [...d.querySelectorAll('#jrFilters .tab')].find(b => b.dataset.cat === 'Craft');
+    click(w, craft);
+    const shown = 1 + d.querySelectorAll('#jrGrid .jr-card').length;
+    ok('filtering narrows to the topic',
+      shown === J.filter(p => p.category === 'Craft').length, shown);
+    ok('filtering writes the topic to the URL', w.location.search.includes('topic=Craft'), w.location.search);
+    click(w, [...d.querySelectorAll('#jrFilters .tab')].find(b => b.dataset.cat === 'All'));
+    ok('clearing the filter restores every post',
+      1 + d.querySelectorAll('#jrGrid .jr-card').length === J.length);
+
+    // Newsletter validation
+    d.querySelector('#jrEmail').value = 'nope';
+    d.querySelector('#jrNews').dispatchEvent(new w.Event('submit', { bubbles: true, cancelable: true }));
+    ok('newsletter rejects a bad address', /valid email/i.test(d.querySelector('#jrNewsOut').textContent));
+    d.querySelector('#jrEmail').value = 'meena@example.in';
+    d.querySelector('#jrNews').dispatchEvent(new w.Event('submit', { bubbles: true, cancelable: true }));
+    ok('newsletter accepts a good one', /on the list/i.test(d.querySelector('#jrNewsOut').textContent));
+    checkIcons(w, d);
+  }
+
+  console.log('\n── article.html ──');
+  {
+    const { w, d, errors } = load('article.html', '?p=how-to-read-a-kanchipuram');
+    ok('no JS errors', errors.length === 0, errors[0]);
+    const post = w.JOURNAL.find(p => p.slug === 'how-to-read-a-kanchipuram');
+    ok('renders the requested post', d.querySelector('#artHead h1').textContent === post.title,
+      d.querySelector('#artHead h1').textContent);
+    ok('title tag follows the post', d.title.startsWith(post.title));
+    ok('byline carries author, date and read time',
+      d.querySelectorAll('.art-byline span, .art-byline time').length === 3);
+    ok('body renders every block',
+      d.querySelectorAll('.art-body > *').length === post.body.length,
+      d.querySelectorAll('.art-body > *').length + ' of ' + post.body.length);
+    ok('subheads get ids so the contents list can reach them',
+      [...d.querySelectorAll('.art-body h2')].every(h => h.id));
+    ok('contents list matches the subheads',
+      d.querySelectorAll('.art-toc a').length === d.querySelectorAll('.art-body h2').length);
+    ok('pull quote rendered as a blockquote',
+      d.querySelectorAll('.art-body blockquote').length ===
+        post.body.filter(b => b[0] === 'quote').length);
+    ok('Article structured data emitted', (() => {
+      const s = [...d.querySelectorAll('script[type="application/ld+json"]')]
+        .map(x => JSON.parse(x.textContent));
+      return s.some(x => x['@type'] === 'Article' && x.headline === post.title);
+    })());
+    ok('shop-the-story grid populated',
+      d.querySelectorAll('#shopGrid .card').length === post.shop.length,
+      d.querySelectorAll('#shopGrid .card').length);
+    ok('related posts exclude the current one',
+      [...d.querySelectorAll('#more a[href^="article.html"]')]
+        .every(a => !a.getAttribute('href').endsWith(post.slug)));
+    ok('unknown slug falls back rather than blowing up', (() => {
+      const alt = load('article.html', '?p=does-not-exist');
+      return alt.errors.length === 0 && !!alt.d.querySelector('#artHead h1').textContent.trim();
+    })());
+    checkIcons(w, d);
+  }
+
+  /* ═══════════════ CONTACT ═══════════════ */
+  console.log('\n── contact.html ──');
+  {
+    const { w, d, errors } = load('contact.html');
+    ok('no JS errors', errors.length === 0, errors[0]);
+    ok('quick contact routes = 4', d.querySelectorAll('#ctQuick .ct-card').length === 4);
+    ok('WhatsApp, phone and email are real links', (() => {
+      const hrefs = [...d.querySelectorAll('#ctQuick .ct-card')].map(a => a.getAttribute('href'));
+      return hrefs.some(h => h.startsWith('https://wa.me/')) &&
+             hrefs.some(h => h.startsWith('tel:')) &&
+             hrefs.some(h => h.startsWith('mailto:'));
+    })());
+    ok('all three stores listed', d.querySelectorAll('#storeGrid .store').length === 3);
+    ok('store data comes from the shared source, not a third copy',
+      w.Kay.STORES.length === 3 &&
+      d.querySelector('#storeGrid .store h3').textContent === w.Kay.STORES[0].name);
+    ok('every store has a tel link and directions', (() => {
+      const cards = [...d.querySelectorAll('#storeGrid .store')];
+      return cards.length === 3 && cards.every(c =>
+        c.querySelector('a[href^="tel:"]') && c.querySelector('a[href*="maps.google"]'));
+    })());
+    ok('opening hours listed', d.querySelectorAll('#ctHours div').length === 4);
+    ok('today is marked in the hours table', d.querySelectorAll('#ctHours .on').length === 1);
+    ok('FAQ accordion built', d.querySelectorAll('#faqAcc details').length === 6);
+    ok('the anchors the footer links to all exist',
+      ['#track', '#faq', '#stores'].every(h => !!d.querySelector(h)),
+      ['#track', '#faq', '#stores'].filter(h => !d.querySelector(h)).join(', '));
+
+    // Empty submit must not "succeed".
+    const form = d.querySelector('#ctForm');
+    form.dispatchEvent(new w.Event('submit', { bubbles: true, cancelable: true }));
+    ok('empty form is rejected', !form.hidden && d.querySelector('#ctDone').hidden);
+    ok('invalid fields are flagged', d.querySelectorAll('.fld.invalid').length === 3,
+      d.querySelectorAll('.fld.invalid').length);
+    ok('each flagged field explains itself',
+      [...d.querySelectorAll('.fld.invalid .err')].every(e => e.textContent.trim().length > 5));
+    ok('invalid fields are marked for assistive tech',
+      [...d.querySelectorAll('.fld.invalid input, .fld.invalid textarea')]
+        .every(e => e.getAttribute('aria-invalid') === 'true'));
+
+    // A malformed email alone should still block.
+    d.querySelector('#ctName').value = 'Meena';
+    d.querySelector('#ctEmail').value = 'meena@';
+    d.querySelector('#ctMsg').value = 'I need help choosing a saree for a muhurtham.';
+    form.dispatchEvent(new w.Event('submit', { bubbles: true, cancelable: true }));
+    ok('a bad email still blocks the send', d.querySelector('#ctDone').hidden);
+
+    d.querySelector('#ctEmail').value = 'meena@example.in';
+    form.dispatchEvent(new w.Event('submit', { bubbles: true, cancelable: true }));
+    ok('a complete form is accepted', form.hidden && !d.querySelector('#ctDone').hidden);
+    ok('confirmation names the sender and the reply address',
+      /Meena/.test(d.querySelector('#ctDoneMsg').textContent) &&
+      /meena@example\.in/.test(d.querySelector('#ctDoneMsg').textContent),
+      d.querySelector('#ctDoneMsg').textContent);
+    ok('the prototype says nothing was actually emailed',
+      /prototype/i.test(d.querySelector('.toasts')?.textContent || ''),
+      d.querySelector('.toasts')?.textContent);
+
+    click(w, d.querySelector('#ctAgain'));
+    ok('send another resets the form, with no field left flagged',
+      !form.hidden && d.querySelector('#ctDone').hidden &&
+      d.querySelectorAll('.fld.invalid').length === 0 && d.querySelector('#ctName').value === '',
+      [...d.querySelectorAll('.fld.invalid')].map(f => f.querySelector('input,textarea')?.id).join('/'));
+    // Tabbing past an empty field should not accuse the visitor of anything.
+    d.querySelector('#ctEmail').dispatchEvent(new w.Event('blur', { bubbles: false }));
+    ok('an untouched field is not flagged on blur',
+      d.querySelectorAll('.fld.invalid').length === 0);
+
+    // Order tracking
+    d.querySelector('#ctTrack').value = 'nonsense';
+    click(w, d.querySelector('#ctTrackGo'));
+    ok('tracking rejects a malformed order number',
+      d.querySelector('#ctTrackOut').classList.contains('no'));
+    d.querySelector('#ctTrack').value = 'KAY-10422';
+    click(w, d.querySelector('#ctTrackGo'));
+    ok('tracking accepts a well-formed one',
+      d.querySelector('#ctTrackOut').classList.contains('ok'));
+    checkIcons(w, d);
+  }
+
+  /* Journal and Contact have to be reachable, not just present. */
+  console.log('\n── reachability ──');
+  {
+    const { d } = load('index.html');
+    const nav = [...d.querySelectorAll('.announce-links a, .footer a, #menuDrawer a')]
+      .map(a => a.getAttribute('href'));
+    ok('Journal is linked from the site chrome', nav.some(h => h === 'blog.html'));
+    ok('Contact is linked from the site chrome', nav.some(h => h === 'contact.html'));
+    ok('the drawer carries both, so phones can reach them', (() => {
+      const drawer = [...d.querySelectorAll('#menuDrawer a')].map(a => a.getAttribute('href'));
+      return drawer.includes('blog.html') && drawer.includes('contact.html');
+    })());
+    // Footer placeholders used to be dead '#shipping' style anchors.
+    const dead = [...d.querySelectorAll('.footer a')]
+      .map(a => a.getAttribute('href'))
+      .filter(h => h && h.startsWith('#') && h.length > 1);
+    ok('no bare # placeholders left in the footer Help column',
+      !dead.includes('#shipping') && !dead.includes('#returns') && !dead.includes('#faq'),
+      dead.join(', '));
   }
 
   console.log('\n══════════════════════════════');

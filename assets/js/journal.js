@@ -1,0 +1,168 @@
+/* The Journal — editorial content.
+   Sample copy written for the prototype. The three oldest slugs mirror the posts
+   that exist on the live Shopify blog (all dated April 2020, untouched since);
+   the rest are new. `shop` handles must match products in data.js — test/smoke.js
+   fails the build if one drifts. */
+window.JOURNAL = [
+  {
+    slug: 'bridal-lookbook-2026',
+    title: 'Bridal Lookbook 2026',
+    dek: 'Five brides, five ways of standing in a room. Find the one that sounds like you.',
+    category: 'Lookbook',
+    date: '2026-08-02',
+    read: 6,
+    author: 'Kay Atelier',
+    hero: 'assets/images/products/bridal-lehenga-rust-zari-03.webp',
+    tags: ['Bridal', 'Lehengas', 'Muhurtham'],
+    shop: ['bridal-lehenga-rust-zari', 'bridal-lehenga-champagne-thread', 'lehenga-royal-blue-zari'],
+    body: [
+      ['p', 'Nobody arrives at a bridal appointment without a picture in their head. It is usually borrowed — a cousin\'s reception, a photograph saved eighteen months ago, a colour someone said suited them. The useful question is not which lehenga you like. It is which of these five you already are.'],
+      ['h2', 'The classic bride'],
+      ['p', 'Kanchipuram silk, temple border, gold that has weight to it. She is not trying to surprise anyone. She wants the photographs to look correct in forty years, and they will, because this silhouette has not moved in a century and is not about to.'],
+      ['p', 'Buy the weave, not the embellishment. A korvai border and half-fine zari will outlast every trend the season produces.'],
+      ['h2', 'The contemporary bride'],
+      ['p', 'She has opinions. The blouse is hers, the drape is hers, and at some point in the fitting she will ask whether the dupatta can be worn the other way round. It can. Most of what people think is fixed about bridal wear is convention rather than construction.'],
+      ['quote', 'Half of a good bridal fitting is telling the bride which rules are real.'],
+      ['h2', 'The fairytale bride'],
+      ['p', 'Champagne, blush, ivory. Thread on thread, so the surface reads as texture rather than pattern. This is the hardest one to get right, because pale fabric shows every construction decision — the lining, the hem weight, the way the flare is set.'],
+      ['h2', 'The glamorous bride'],
+      ['p', 'Chandeliers, marble, a reception that starts at ten. Sequins earn their place here in a way they do not in daylight. Look for a fishtail or a heavy flare, and check how the piece moves before you check how it photographs.'],
+      ['h2', 'The modern bride'],
+      ['p', 'The fastest-growing of the five. Less surface, better cloth, one strong colour. Royal blue, deep green, rust. She would rather spend on the weave than the work, and she is usually right.'],
+      ['p', 'None of these is a rule. Most brides are two of them across a week of functions, which is exactly what the Wedding Closet is for — plan the whole trousseau in one view rather than buying five outfits in five separate panics.']
+    ]
+  },
+  {
+    slug: 'how-to-read-a-kanchipuram',
+    title: 'How to Read a Kanchipuram',
+    dek: 'Korvai joins, zari counts and the pallu test — what to look at before you look at the price.',
+    category: 'Craft',
+    date: '2026-07-19',
+    read: 7,
+    author: 'Kay Atelier',
+    hero: 'assets/images/products/saree-kanchipuram-royal-blue-05.webp',
+    tags: ['Sarees', 'Handloom', 'Kanchipuram'],
+    shop: ['saree-kanchipuram-royal-blue'],
+    body: [
+      ['p', 'A pure Kanchipuram and a good imitation look identical folded on a shelf. They stop looking identical the moment you open them, if you know the three things to check.'],
+      ['h2', 'One: the korvai join'],
+      ['p', 'In a true korvai saree the body and the border are woven separately and interlocked by hand, by two or three weavers working the same loom. Turn the saree over and look at the join from the reverse. You want a clean interlock, not a printed line and not a stitched seam. Pull gently across it — a korvai join gives evenly and springs back.'],
+      ['p', 'This is why the border can be a completely different colour from the body without bleeding. It is not dyed differently. It is a different piece of cloth.'],
+      ['h2', 'Two: the zari'],
+      ['p', 'Half-fine zari is silver thread, gold-plated, wound on silk. Tested zari is the same with a certified silver content. Anything described only as "golden thread" is usually polyester, which will look brighter in the shop and duller in two years.'],
+      ['quote', 'Real zari tarnishes. That is not a defect — it is the proof.'],
+      ['p', 'Burn tests belong on the internet, not in a showroom. Instead, scratch a thread edge with a fingernail: plated silver shows white beneath, polyester shows colourless plastic.'],
+      ['h2', 'Three: the pallu test'],
+      ['p', 'Hold the pallu up and let it fall. Pure silk falls in wide, heavy folds and stays where it lands. Blended silk springs and floats. Neither is wrong, but only one of them holds a pleat through a muhurtham.'],
+      ['h2', 'What weight actually means'],
+      ['p', 'Sarees are often sold by gram weight, and heavier is usually read as better. It is not that simple. Weight comes from zari as much as silk, so a heavily bordered saree can weigh more while carrying less silk. Ask for the silk weight, not the total.'],
+      ['p', 'If you are buying your first one, buy in person. This is the single category where a photograph tells you least, and it is why we will drape one on camera for you if you cannot reach a store.']
+    ]
+  },
+  {
+    slug: 'the-twelve-week-trousseau',
+    title: 'The Twelve-Week Trousseau',
+    dek: 'A week-by-week plan for buying an entire wedding wardrobe without the last-month panic.',
+    category: 'Planning',
+    date: '2026-07-04',
+    read: 8,
+    author: 'Kay Atelier',
+    hero: 'assets/images/products/bridal-lehenga-champagne-thread-05.webp',
+    tags: ['Bridal', 'Appointments', 'Wedding Closet'],
+    shop: ['bridal-lehenga-champagne-thread', 'lehenga-royal-blue-zari', 'gown-navy-sequin-cape'],
+    body: [
+      ['p', 'A made-to-order bridal lehenga takes ten to twelve weeks in our atelier. Almost everything that goes wrong with a trousseau goes wrong because that number was discovered in week nine.'],
+      ['h2', 'Weeks 12 to 10 — decide the ceremony piece'],
+      ['p', 'Start with the muhurtham or the main ceremony, because it is the longest lead time and every other colour decision hangs off it. Bring photographs of the venue, not of other brides. Light matters more than you expect: the same gold reads warm under lamps and grey under a marquee.'],
+      ['h2', 'Weeks 10 to 8 — first fitting'],
+      ['p', 'The first fitting is a shape conversation, not a size one. Flare, blouse length, how high the waist sits. Wear the shoes you intend to wear, or shoes of the same height.'],
+      ['h2', 'Weeks 8 to 6 — the surrounding functions'],
+      ['p', 'Sangeet, mehendi, reception. These are ready-to-wear or semi-stitched decisions and they move fast, so do them in one sitting while the ceremony colour is fresh. This is the stage the Wedding Closet was built for — save every candidate against its function and look at the week as a whole.'],
+      ['quote', 'Buy the week, not the outfit. Five pieces chosen together always beat five chosen separately.'],
+      ['h2', 'Weeks 6 to 4 — second fitting, and the family'],
+      ['p', 'Second fitting is the detail pass. It is also the right moment to settle what the mother of the bride, the sisters and the bridesmaids are wearing, because those need to sit beside you in photographs rather than compete.'],
+      ['h2', 'Weeks 4 to 2 — final fitting'],
+      ['p', 'Final hem, final hooks, blouse taken in or let out. After this we do not cut. Anything discovered later is a pin job on the morning, which is survivable but not pleasant.'],
+      ['h2', 'The last two weeks'],
+      ['p', 'Nothing. Deliberately. Steam everything, hang it in muslin, photograph each set with its jewellery so nobody has to decide anything at six in the morning.']
+    ]
+  },
+  {
+    slug: 'one-for-the-bridesmaid',
+    title: 'One for the Bridesmaid',
+    dek: 'How to dress a wedding party that photographs as a group without looking like a uniform.',
+    category: 'Styling',
+    date: '2026-06-12',
+    read: 5,
+    author: 'Kay Atelier',
+    hero: 'assets/images/products/lehenga-royal-blue-zari-04.webp',
+    tags: ['Sangeet', 'Mehendi', 'Lehengas'],
+    shop: ['lehenga-royal-blue-zari', 'gown-navy-sequin-cape'],
+    body: [
+      ['p', 'The matching bridesmaid party is out, and good riddance — six people in identical fabric only ever suited one of them. What replaced it is harder to get right, because "coordinated" is a much finer target than "same".'],
+      ['h2', 'Fix one thing, vary the rest'],
+      ['p', 'Pick a single constraint and hold it across the group: one colour family, or one fabric, or one metal. Then let silhouette, shade and neckline vary by person. A royal blue georgette lehenga next to a navy sequinned gown reads as a decision. The same lehenga six times reads as a costume order.'],
+      ['h2', 'Let people dress their own bodies'],
+      ['p', 'The most common mistake is choosing a silhouette that flatters the bride and imposing it on five other shapes. Anyone should be able to swap a lehenga for a saree or a palazzo set inside the agreed colour family.'],
+      ['quote', 'A group looks expensive when everyone in it looks comfortable.'],
+      ['h2', 'Plan for what they will actually be doing'],
+      ['p', 'Bridesmaids carry things, chase children and dance first. Ready-to-wear over made-to-order, sleeves that allow arms up, and a hem that clears the floor by a clear inch.'],
+      ['h2', 'Stand next to the bride before you buy'],
+      ['p', 'Not in a photograph — in the same room, in the same light. Two golds that look identical on a screen can sit badly together, and you will only see it in person. Bring the group to one appointment and settle it in an afternoon.']
+    ]
+  },
+  {
+    slug: 'sarees-and-beyond',
+    title: 'Sarees & Beyond',
+    dek: 'Six ways to wear a silk saree that are not a wedding, and why the good ones earn their keep.',
+    category: 'Styling',
+    date: '2026-05-28',
+    read: 5,
+    author: 'Kay Atelier',
+    hero: 'assets/images/products/saree-kanchipuram-royal-blue-02.webp',
+    tags: ['Sarees', 'Festive', 'Everyday'],
+    shop: ['saree-kanchipuram-royal-blue'],
+    body: [
+      ['p', 'The argument against a good saree is always the same: it is a lot of money for something worn twice. That is true only if you keep it for weddings, which is a habit rather than a rule.'],
+      ['h2', 'With a shirt'],
+      ['p', 'A crisp cotton or linen shirt tucked in, sleeves rolled, saree pleated over it. Works with a plain body and a strong border, and turns a ceremony saree into something you can wear to dinner.'],
+      ['h2', 'Belted'],
+      ['p', 'A thin leather or metal belt at the waist holds the pleats and changes the line completely. It also solves the practical problem of a heavy silk pulling at the petticoat all evening.'],
+      ['h2', 'As separates'],
+      ['p', 'An unstitched blouse piece from an old saree makes a very good crop top for a lehenga. The zari matches, because it came from the same loom.'],
+      ['quote', 'The best thing about six yards is that none of it is stitched to a decision.'],
+      ['h2', 'Half-drape for daytime'],
+      ['p', 'Fewer pleats, pallu pinned short, no fan. Lighter, quicker, and far more wearable in Chennai heat than the full ceremonial drape.'],
+      ['h2', 'Over trousers'],
+      ['p', 'Straight-leg trousers instead of a petticoat. Sounds like a stunt, photographs beautifully, and is considerably easier to walk in.'],
+      ['h2', 'Passed on'],
+      ['p', 'The last one, and the reason the weave matters. A polyester saree is landfill in five years. A pure silk Kanchipuram with real zari is something a daughter argues over.']
+    ]
+  },
+  {
+    slug: 'living-with-silk',
+    title: 'Living With Silk',
+    dek: 'Storage, stains, steam and the folding mistake that cuts a saree in half at the crease.',
+    category: 'Care',
+    date: '2026-05-09',
+    read: 4,
+    author: 'Kay Atelier',
+    hero: 'assets/images/products/bridal-lehenga-rust-zari-05.webp',
+    tags: ['Care', 'Sarees', 'Handloom'],
+    shop: ['saree-kanchipuram-royal-blue', 'bridal-lehenga-rust-zari'],
+    body: [
+      ['p', 'Most silk that gets ruined is not ruined by wearing. It is ruined in a cupboard, slowly, by three avoidable things.'],
+      ['h2', 'Refold along a different line'],
+      ['p', 'The single most damaging habit. A saree folded on the same crease for years will eventually split along it, and zari cracks first. Refold every three or four months, moving the fold by a few inches each time.'],
+      ['h2', 'Muslin, never plastic'],
+      ['p', 'Plastic covers trap humidity, and Chennai supplies plenty. Silk needs to breathe. Wrap in unbleached cotton or muslin, and keep it out of direct light — sunlight fades dyed silk faster than any amount of wearing.'],
+      ['quote', 'Zari tarnishes in still, damp air. Give it room and it stays bright for decades.'],
+      ['h2', 'Dry clean, and say what it is'],
+      ['p', 'Dry clean only, and tell the cleaner it is pure silk with real zari. Ordinary solvent cycles are hard on metal thread. For a small fresh stain, blot — never rub — and get it seen within a day or two.'],
+      ['h2', 'Steam, do not press'],
+      ['p', 'A hot iron flattens the texture that makes a handloom worth buying, and can scorch zari outright. Steam from the reverse, or hang the piece in a bathroom with a hot shower running for ten minutes.'],
+      ['h2', 'Air it twice a year'],
+      ['p', 'Take everything out, shake it, leave it in shade for an hour, refold on a new line, put it back. Twenty minutes of work that adds decades.']
+    ]
+  }
+];

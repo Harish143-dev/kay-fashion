@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact Us — Three Chennai Stores, WhatsApp &amp; Support | Kay the Fashion Bay</title>
+<meta name="description" content="Call, WhatsApp or write to Kay the Fashion Bay. Three stores in Chennai — Anna Nagar, Triplicane and Purasawalkam. Open 10:30 am to 8:30 pm, seven days.">
+<link rel="canonical" href="https://kayfashions.in/pages/contact">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Contact Us | Kay the Fashion Bay">
+<meta property="og:description" content="Three stores in Chennai, open seven days. Call, WhatsApp or send us a note.">
+<meta name="theme-color" content="#14100E">
+
+<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Jost:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div id="site-header"></div>
+
+<main id="main">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href="index.html">Home</a>
+      <svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>
+      <span aria-current="page">Contact</span>
+    </nav>
+  </div>
+
+  <section class="section-tight" style="padding-top:0">
+    <div class="wrap">
+      <div class="jr-head rv">
+        <div>
+          <span class="eyebrow">We answer within a day</span>
+          <h1 class="d1">Talk to us.</h1>
+        </div>
+        <p class="lede">A real person in Anna Nagar reads every message. For anything urgent — a delivery date, a fitting, a size — WhatsApp is fastest.</p>
+      </div>
+
+      <div class="ct-quick rv" id="ctQuick"></div>
+    </div>
+  </section>
+
+  <!-- ═══ Form + hours ═══ -->
+  <section class="section-tight" style="padding-top:0">
+    <div class="wrap ct-layout">
+      <div class="ct-form-wrap rv">
+        <h2 class="d3">Send us a note</h2>
+        <form class="ct-form" id="ctForm" novalidate>
+          <div class="fld">
+            <label for="ctName">Your name</label>
+            <input id="ctName" name="name" autocomplete="name" required>
+            <span class="err" data-for="ctName"></span>
+          </div>
+          <div class="fld">
+            <label for="ctEmail">Email</label>
+            <input id="ctEmail" name="email" type="email" inputmode="email" autocomplete="email" required>
+            <span class="err" data-for="ctEmail"></span>
+          </div>
+          <div class="fld">
+            <label for="ctPhone">Phone <span class="opt">(optional)</span></label>
+            <input id="ctPhone" name="phone" inputmode="tel" autocomplete="tel" maxlength="14">
+            <span class="err" data-for="ctPhone"></span>
+          </div>
+          <div class="fld">
+            <label for="ctTopic">What is it about?</label>
+            <select id="ctTopic" name="topic">
+              <option>An order I have placed</option>
+              <option>Sizing or alterations</option>
+              <option>A bridal appointment</option>
+              <option>Shipping or delivery</option>
+              <option>Returns and exchange</option>
+              <option>Wholesale or press</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div class="fld fld--full">
+            <label for="ctOrder">Order number <span class="opt">(if you have one)</span></label>
+            <input id="ctOrder" name="order" placeholder="KAY-00000" maxlength="20">
+          </div>
+          <div class="fld fld--full">
+            <label for="ctMsg">Message</label>
+            <textarea id="ctMsg" name="message" rows="6" required></textarea>
+            <span class="err" data-for="ctMsg"></span>
+          </div>
+          <div class="fld fld--full ct-submit">
+            <button class="btn btn--wine" type="submit">Send message</button>
+            <p class="small">We reply within one working day. Mon–Sun, 10:30 am – 8:30 pm IST.</p>
+          </div>
+        </form>
+
+        <div class="ct-done" id="ctDone" hidden>
+          <span class="ct-tick" id="ctTick"></span>
+          <h3 class="d3">Message sent</h3>
+          <p id="ctDoneMsg"></p>
+          <div class="row" style="gap:12px;flex-wrap:wrap;margin-top:22px">
+            <a class="btn btn--sm btn--wine" href="https://wa.me/919884261611">WhatsApp us instead</a>
+            <button class="btn btn--sm btn--ghost" id="ctAgain">Send another</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="ct-aside rv">
+        <div class="ct-panel">
+          <h3>Opening hours</h3>
+          <dl class="ct-hours" id="ctHours"></dl>
+          <p class="small" style="margin-top:14px">All three stores, seven days a week. Closed on Deepavali and Pongal day.</p>
+        </div>
+        <div class="ct-panel" id="track">
+          <h3>Track an order</h3>
+          <p class="small">Enter the order number from your confirmation email.</p>
+          <div class="pin-row">
+            <input class="pin-input" id="ctTrack" placeholder="KAY-00000" maxlength="20" aria-label="Order number">
+            <button class="btn btn--sm" id="ctTrackGo">Track</button>
+          </div>
+          <p class="pin-out" id="ctTrackOut"></p>
+        </div>
+        <div class="ct-panel">
+          <h3>Press &amp; wholesale</h3>
+          <ul class="contact-list stack" style="--s:12px"></ul>
+          <p class="small">For press enquiries, lookbooks and stockist requests, write to
+            <a class="link-u" href="mailto:press@kayfashions.in">press@kayfashions.in</a>.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ═══ Stores ═══ -->
+  <section class="section-tight" id="stores" style="background:var(--sand)">
+    <div class="wrap">
+      <div class="section-head rv">
+        <div><span class="eyebrow">Visit us</span><h2 class="d2">Three stores in Chennai</h2>
+          <p>Reserve online, try in store. Anything bought online can be exchanged at any counter.</p></div>
+        <a class="link-u" href="appointments.html?mode=store">Book an appointment</a>
+      </div>
+      <div class="store-grid rv" id="storeGrid"></div>
+    </div>
+  </section>
+
+  <!-- ═══ FAQ ═══ -->
+  <section class="section-tight" id="faq">
+    <div class="wrap wrap-n">
+      <div class="section-head rv">
+        <div><span class="eyebrow">Before you write</span><h2 class="d2">Quick answers</h2></div>
+      </div>
+      <div class="acc rv" id="faqAcc"></div>
+    </div>
+  </section>
+</main>
+
+<div id="site-footer"></div>
+<div id="site-chrome"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var K = window.Kay, ico = window.KayIcon;
+  var $ = function (s) { return document.querySelector(s); };
+  var $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+  var esc = K.esc;
+
+  /* ---- Quick contact cards ---- */
+  var QUICK = [
+    ['wa', 'WhatsApp', 'Fastest — usually under an hour', '+91 98842 61611', 'https://wa.me/919884261611'],
+    ['phone', 'Call the flagship', 'Mon–Sun, 10:30 am – 8:30 pm', '+91 44 4215 5740', 'tel:+914442155740'],
+    ['mail', 'Email', 'We reply within one working day', 'info@kayfashions.in', 'mailto:info@kayfashions.in'],
+    ['video', 'Video styling call', 'Free, 30 minutes, with a stylist', 'Book a slot', 'appointments.html?mode=video']
+  ];
+  $('#ctQuick').innerHTML = QUICK.map(function (q) {
+    return '<a class="ct-card" href="' + q[4] + '">' +
+      '<span class="ct-ico">' + ico(q[0]) + '</span>' +
+      '<span class="ct-card-body"><b>' + q[1] + '</b><span>' + q[2] + '</span>' +
+      '<em>' + q[3] + '</em></span>' + ico('right', 'ct-arrow') + '</a>';
+  }).join('');
+
+  /* ---- Hours ---- */
+  var DAYS = [['Monday – Friday', '10:30 am – 8:30 pm'], ['Saturday', '10:00 am – 9:00 pm'],
+              ['Sunday', '10:30 am – 8:30 pm'], ['Public holidays', '11:00 am – 6:00 pm']];
+  var todayIdx = new Date().getDay();
+  var todayRow = todayIdx === 6 ? 1 : (todayIdx === 0 ? 2 : 0);
+  $('#ctHours').innerHTML = DAYS.map(function (d, i) {
+    return '<div' + (i === todayRow ? ' class="on"' : '') + '><dt>' + d[0] + '</dt><dd>' + d[1] + '</dd></div>';
+  }).join('');
+
+  /* ---- Press panel: replace the icon placeholder ---- */
+  $('.ct-panel .contact-list').innerHTML =
+    '<li>' + ico('phone') + '<a href="tel:+914442155740">+91 44 4215 5740</a></li>' +
+    '<li>' + ico('mail') + '<a href="mailto:press@kayfashions.in">press@kayfashions.in</a></li>';
+
+  /* ---- Stores (shared source in app.js) ---- */
+  $('#storeGrid').innerHTML = K.STORES.map(function (s) {
+    var p = K.byHandle(s.img) || K.P[0];
+    return '<article class="store">' +
+      '<div class="store-img"><img src="' + p.images[0] + '" alt="" loading="lazy" width="600" height="375"></div>' +
+      '<div class="store-body"><span class="eyebrow">' + esc(s.kind) + '</span><h3>' + esc(s.name) + '</h3>' +
+      '<address>' + s.addr + '</address>' +
+      '<div class="store-meta"><span>' + ico('clock') + s.hours + '</span>' +
+        '<span>' + ico('phone') + '<a href="tel:' + s.tel + '">' + s.phone + '</a></span></div>' +
+      '<div class="store-links"><a class="btn btn--sm btn--ghost" href="' + s.map + '" target="_blank" rel="noopener">Get directions</a></div>' +
+      '</div></article>';
+  }).join('');
+
+  /* ---- FAQ ---- */
+  var FAQ = [
+    ['How long does delivery take?', 'Free across India, 2–5 business days, dispatched the same day on orders placed before 2 pm. International is free above ' + K.money(20000) + ' and takes 5–9 business days via DHL.'],
+    ['Can I return or exchange?', '15 days from delivery, unworn and with tags, with free pickup anywhere in India. Exchanges can be done at any of our three Chennai counters. Made-to-order and custom-tailored pieces are final sale.'],
+    ['How do I know my size?', 'Every product page carries a size chart in inches, and our pieces include a free 2" let-out. If you are between sizes, book a free video call and a stylist will measure with you on camera.'],
+    ['Do you ship internationally?', 'Yes, worldwide via DHL. Free above ' + K.money(20000) + '. Duties and local taxes are payable by the recipient.'],
+    ['What is the difference between Ready to Wear and Ready to Ship?', 'Ready to Wear describes the garment — fully stitched, no tailor needed. Ready to Ship describes the stock — it is in our warehouse and leaves today. A piece can be one without the other.'],
+    ['Do you take custom orders?', 'Yes. Bridal and made-to-order pieces are cut in our Anna Nagar atelier over 10–12 weeks with three fittings. Start with a store appointment.']
+  ];
+  $('#faqAcc').innerHTML = FAQ.map(function (f, i) {
+    return '<details' + (i === 0 ? ' open' : '') + '><summary>' + esc(f[0]) +
+      '<svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></summary>' +
+      '<div class="acc-body">' + f[1] + '</div></details>';
+  }).join('');
+
+  /* ---- Form validation ---- */
+  var form = $('#ctForm');
+  var RULES = {
+    ctName:  function (v) { return v.trim().length >= 2 || 'Please tell us your name.'; },
+    ctEmail: function (v) { return /^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(v.trim()) || 'That email address does not look right.'; },
+    ctPhone: function (v) { return !v.trim() || /^[+\d][\d\s-]{7,}$/.test(v.trim()) || 'Use digits only, with or without +91.'; },
+    ctMsg:   function (v) { return v.trim().length >= 10 || 'A little more detail helps us answer properly.'; }
+  };
+  // Matches the appointment form's convention: .invalid on the field wrapper
+  // drives both the red rule and the message, so there is one styling path.
+  function check(id) {
+    var el = $('#' + id), fld = el.closest('.fld');
+    var out = fld.querySelector('.err[data-for="' + id + '"]');
+    var res = RULES[id](el.value);
+    var bad = res !== true;
+    fld.classList.toggle('invalid', bad);
+    el.setAttribute('aria-invalid', bad ? 'true' : 'false');
+    if (out) out.textContent = bad ? res : '';
+    return !bad;
+  }
+  Object.keys(RULES).forEach(function (id) {
+    // Only validate on blur once there is something to judge, or if the field
+    // is already flagged. Otherwise tabbing through, or resetting the form,
+    // turns untouched fields red before the visitor has typed anything.
+    $('#' + id).addEventListener('blur', function () {
+      var el = $('#' + id);
+      if (el.value.trim() || el.closest('.fld').classList.contains('invalid')) check(id);
+    });
+    $('#' + id).addEventListener('input', function () {
+      if ($('#' + id).closest('.fld').classList.contains('invalid')) check(id);
+    });
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var okAll = Object.keys(RULES).map(check).every(Boolean);
+    if (!okAll) {
+      var first = form.querySelector('.fld.invalid input, .fld.invalid textarea');
+      if (first) { first.focus(); first.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+      return;
+    }
+    $('#ctDoneMsg').textContent =
+      'Thanks ' + $('#ctName').value.trim().split(/\s+/)[0] + ' — we have your note about "' +
+      $('#ctTopic').value.toLowerCase() + '" and will reply to ' + $('#ctEmail').value.trim() +
+      ' within one working day.';
+    form.hidden = true;
+    $('#ctDone').hidden = false;
+    $('#ctDone').scrollIntoView({ block: 'center', behavior: 'smooth' });
+    K.toast('Message sent — this is a prototype, nothing was emailed', 'check');
+  });
+
+  $('#ctAgain').addEventListener('click', function () {
+    form.reset();
+    $$('.err').forEach(function (e) { e.textContent = ''; });
+    $$('.fld.invalid').forEach(function (e) { e.classList.remove('invalid'); });
+    $('#ctDone').hidden = true;
+    form.hidden = false;
+    $('#ctName').focus();
+  });
+
+  /* ---- Order tracking ---- */
+  $('#ctTrackGo').addEventListener('click', function () {
+    var v = ($('#ctTrack').value || '').trim().toUpperCase();
+    var out = $('#ctTrackOut');
+    var valid = /^KAY-?\d{4,6}$/.test(v);
+    out.className = 'pin-out on ' + (valid ? 'ok' : 'no');
+    out.textContent = valid
+      ? 'Order ' + v + ' — dispatched, out for delivery. Live tracking is out of scope for this prototype.'
+      : 'Order numbers look like KAY-00000.';
+  });
+
+  K.paintCounts();
+  window.KayReveal();
+});
+</script>
+</body>
+</html>
